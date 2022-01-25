@@ -1,5 +1,5 @@
 import { storage } from "../utils/storage";
-import { rollMenu, rollPageSelector } from "./rollMenu";
+import { rollMenu, rollPageSelector, rollSectionSelector } from "./rollMenu";
 import { router } from "./router";
 
 export const listener = ():void => {
@@ -31,11 +31,17 @@ export const listener = ():void => {
       storage.bookPage < storage.totalPages ? storage.bookPage += 1 : storage.bookPage;
       router('book');
     }
-    if (id.split('-')[0] === 'listOption') {
+    if (id.split('-')[0] === 'pageListOption') {
       storage.bookPage = +id.split('-')[1];
       router('book');
     }
 
+    if (id === 'section') rollSectionSelector('open');
+    if (id !== 'section') rollSectionSelector('close');
+    if (id.split('-')[0] === 'sectionListOption') {
+      storage.bookGroup = +id.split('-')[1];
+      router('book');
+    }
 
   });
 }

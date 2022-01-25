@@ -245,6 +245,10 @@ h1 {
   margin: 0 auto;
 }
 
+.pageControls span {
+  pointer-events: none;
+}
+
 #page,
 #section,
 #settings {
@@ -268,10 +272,6 @@ h1 {
   margin-right: 15px;
   justify-content: space-between;
   cursor: pointer;
-}
-
-#page span {
-  pointer-events: none;
 }
 
 #settings {
@@ -352,13 +352,12 @@ h1 {
   100% { transform: rotate(360deg); }
 }
 
+.sectionList,
 .pageList {
   position: absolute;
   top: 10vh;
-  left: 50%;
   height: 250px;
   width: fit-content;
-  overflow-y: scroll;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
@@ -366,6 +365,16 @@ h1 {
   border-radius: 5px;
 }
 
+.pageList {
+  left: 45%;
+  overflow-y: scroll;
+}
+
+.sectionList {
+  left: 30%;
+}
+
+.sectionListOption,
 .pageListOption {
   width: 150px;
   height: 40px;
@@ -375,6 +384,7 @@ h1 {
   padding: 10px;
 }
 
+.sectionListOption:hover,
 .pageListOption:hover {
   background-color: var(--hover);
 }

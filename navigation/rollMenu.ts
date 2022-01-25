@@ -29,15 +29,37 @@ export function rollPageSelector(action: string) {
     for (let i=0; i < storage.totalPages; i++) {
       const option = document.createElement('div');
       option.classList.add('pageListOption')
-      option.id = `listOption-${i}`;
+      option.id = `pageListOption-${i}`;
       option.innerText = `Страница ${i+1}`
       list.appendChild(option);
     }
     root?.appendChild(list);
-    storage.isPageListOpen = !storage.isPageListOpen;
+    storage.isPageListOpen = true;
   } else if (storage.isPageListOpen) {
     const list = document.querySelector('.pageList') as HTMLElement;
     root?.removeChild(list);
-    storage.isPageListOpen = !storage.isPageListOpen;
+    storage.isPageListOpen = false;
+  }
+}
+
+export function rollSectionSelector(action: string) {
+  const root = document.querySelector('.wrapper');
+  if (!storage.isGroupListOpen && action === 'open') {
+    const list = document.createElement('div');
+    list.classList.add('sectionList');
+    for (let i=0; i < storage.totalGroups; i++) {
+      const option = document.createElement('div');
+      option.classList.add('sectionListOption')
+      option.id = `sectionListOption-${i}`;
+      option.innerText = `Раздел ${i+1}`;
+      list.appendChild(option);
+    }
+    storage.isGroupListOpen = true;
+    root?.appendChild(list);
+  } else if (storage.isGroupListOpen) {
+    const list = document.querySelector('.sectionList') as HTMLElement;
+    console.log(list)
+    root?.removeChild(list);
+    storage.isGroupListOpen = false;
   }
 }
