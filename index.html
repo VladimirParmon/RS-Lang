@@ -9,33 +9,35 @@
   <title>RS Lang</title>
 </head>
 <body>
+  <header>
+    <div id="openMenu">
+      <div class="decoration"></div>
+      <div class="decoration"></div>
+      <div class="decoration"></div>
+    </div>
 
-  <div id="openMenu">
-    <div class="decoration"></div>
-    <div class="decoration"></div>
-    <div class="decoration"></div>
-  </div>
-  
-  <div id="navigationMenu">
-    <nav>
-      <div id="closeMenu"></div>
-      <div option><img icon src="assets/svg/home.svg" alt="home"><span>Главная</span></div>
-      <div option><img icon src="assets/svg/book.svg" alt="home"><span>Учебник</span></div>
-      <div option><img icon src="assets/svg/history.svg" alt="home"><span>История</span></div>
-      <div option><img icon src="assets/svg/gamepad.svg" alt="home"><span>Игры</span></div>
-      <div option><img icon src="assets/svg/chart.svg" alt="home"><span>Статистика</span></div>
-      <div option><img icon src="assets/svg/dev.svg" alt="home"><span>О разработчике</span></div>
-      <div option><img icon src="assets/svg/comment.svg" alt="home"><span>Отзывы</span></div>
-    </nav>
-  </div>
-
-  <div id="wrapper">
     <div id="upperBar">
       <span>RS Lang</span>
       <div id="auth"></div>
     </div>
+    
+    <div id="navigationMenu">
+      <nav>
+        <div id="closeMenu"></div>
+        <div option id="goHome"><img icon src="assets/svg/home.svg" alt="home"><span>Главная</span></div>
+        <div option id="goBook"><img icon src="assets/svg/book.svg" alt="book"><span>Учебник</span></div>
+        <div option id="goHistory"><img icon src="assets/svg/history.svg" alt="history"><span>История</span></div>
+        <div option id="goGames"><img icon src="assets/svg/gamepad.svg" alt="gamepad"><span>Игры</span></div>
+        <div option id="goStats"><img icon src="assets/svg/chart.svg" alt="chart"><span>Статистика</span></div>
+        <div option id="goDev"><img icon src="assets/svg/dev.svg" alt="dev"><span>О разработчике</span></div>
+        <div option id="goComments"><img icon src="assets/svg/comment.svg" alt="comment"><span>Отзывы</span></div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
     <div id="content"></div>
-  </div>
+  </main>
 
   <script src="main.js"></script>
 </body>

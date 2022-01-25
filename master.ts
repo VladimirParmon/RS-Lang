@@ -1,1 +1,3 @@
-console.log('working');
+import { listener } from "./navigation/listener";
+
+listener()
