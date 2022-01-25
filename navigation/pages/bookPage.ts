@@ -32,7 +32,7 @@ export const bookPage: Page = {
         <div class="card">
           <img class="cardImg" src="${filesUrl}/${info[i].image}" alt="${info[i].word}">
           <div class="cardInfo">
-            <h2>${capitalize(info[i].word)} - ${info[i].transcription}</h2>
+            <h2>${capitalize(info[i].word)} - ${info[i].transcription}<img class="soundIcon" id="playSound-${info[i].audio}" src="assets/svg/sound.svg" alt="sound"></h2>
             <h3>${capitalize(info[i].wordTranslate)}</h3>
             <span style="margin-top: 20px">${info[i].textMeaning}</span><br>
             <span>${info[i].textMeaningTranslate}</span><br>
@@ -53,7 +53,7 @@ export const bookPage: Page = {
           <div id="previousPage">
             <img src="assets/svg/arrow.svg" alt="prev">
           </div>
-          <span>Страница <span id="pageCounter">${storage.bookPage + 1}/${storage.totalPages + 1}</span></span>
+          <span>Страница <span id="pageCounter">${storage.bookPage + 1}/${storage.totalPages}</span></span>
           <div id="nextPage">
             <img src="assets/svg/arrow.svg" alt="next">
           </div>

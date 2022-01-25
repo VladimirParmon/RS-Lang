@@ -1,6 +1,7 @@
 import { storage } from "../utils/storage";
 import { rollMenu, rollPageSelector, rollSectionSelector } from "./rollMenu";
 import { router } from "./router";
+import { playSound } from "../utils/playSound";
 
 export const listener = ():void => {
   window.addEventListener('click', (e) => {
@@ -42,6 +43,8 @@ export const listener = ():void => {
       storage.bookGroup = +id.split('-')[1];
       router('book');
     }
+
+    if (id.split('-')[0] === 'playSound') playSound(id.split('-')[1]);
 
   });
 }

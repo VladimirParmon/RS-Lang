@@ -11,7 +11,7 @@ interface StorageObject {
 export let storage: StorageObject = {
   bookGroup: 0,
   bookPage: 0,
-  totalPages: 29,
+  totalPages: 30,
   totalGroups: 6,
   isPageListOpen: false,
   isGroupListOpen: false,
