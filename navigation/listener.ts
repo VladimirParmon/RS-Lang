@@ -1,3 +1,4 @@
+import { rollMenu } from "./rollMenu";
 import { router } from "./router";
 
 export const listener = ():void => {
@@ -12,6 +13,9 @@ export const listener = ():void => {
     if (id === 'goStats') router('stats');
     if (id === 'goDev') router('dev');
     if (id === 'goComments') router('comments');
+
+    if (id === 'openMenuButton') rollMenu('open');
+    if (id === 'closeMenuButton') rollMenu('close');
 
   });
 }
