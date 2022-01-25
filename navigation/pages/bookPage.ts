@@ -53,7 +53,7 @@ export const bookPage: Page = {
           <div id="previousPage">
             <img src="assets/svg/arrow.svg" alt="prev">
           </div>
-          <span>Страница <span id="pageCounter">${storage.bookPage + 1}/${storage.totalPages + 1} </span></span>
+          <span>Страница <span id="pageCounter">${storage.bookPage + 1}/${storage.totalPages + 1}</span></span>
           <div id="nextPage">
             <img src="assets/svg/arrow.svg" alt="next">
           </div>

@@ -21,13 +21,18 @@ export const listener = ():void => {
     if (id === 'closeMenuButton') rollMenu('close');
     if (id !== 'openMenuButton') rollMenu('close');
 
-    if (id === 'page') rollPageSelector();
+    if (id === 'page') rollPageSelector('open');
+    if (id !== 'page') rollPageSelector('close');
     if (id === 'previousPage') {
       storage.bookPage > 0 ? storage.bookPage -= 1 : storage.bookPage;
       router('book');
     }
     if (id === 'nextPage') {
       storage.bookPage < storage.totalPages ? storage.bookPage += 1 : storage.bookPage;
+      router('book');
+    }
+    if (id.split('-')[0] === 'listOption') {
+      storage.bookPage = +id.split('-')[1];
       router('book');
     }
 

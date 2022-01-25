@@ -2,14 +2,18 @@ interface StorageObject {
   bookGroup: number,
   bookPage: number,
   totalPages: number,
-  totalGroups: number
+  totalGroups: number,
+  isPageListOpen: boolean,
+  isMenuOpen: boolean
 }
 
 export let storage: StorageObject = {
   bookGroup: 0,
   bookPage: 0,
   totalPages: 29,
-  totalGroups: 5
+  totalGroups: 5,
+  isPageListOpen: false,
+  isMenuOpen: false
 }
 
 export interface WordInfo {
