@@ -18,3 +18,7 @@ export function rollMenu(action: string): void {
     logoMain.style.transform = 'translateX(0%)';
   }
 }
+
+export function rollPageSelector() {
+  
+}

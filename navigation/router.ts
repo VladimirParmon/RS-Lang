@@ -41,7 +41,7 @@ export const router = async (pageName: keyof routerLib) => {
     if (page && root) {
         root.innerHTML = await page.render();
         if (page.afterRender) {
-          root.innerHTML += page.afterRender();
+          page.afterRender();
         }
     }
 };
