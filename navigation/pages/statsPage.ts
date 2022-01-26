@@ -5,6 +5,6 @@ export const statsPage: Page = {
     <h1>Hello Stats blyad</h1>
   `),
   afterRender: () => {
-
+    
   }
 }

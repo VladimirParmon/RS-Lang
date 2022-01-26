@@ -5,6 +5,6 @@ export const historyPage: Page = {
     <h1>Hello History blyad</h1>
   `),
   afterRender: () => {
-
+    
   }
 }

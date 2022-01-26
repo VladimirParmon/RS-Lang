@@ -11,13 +11,13 @@ export function rollMenu(action: string): void {
     upperBar.style.width = 'calc(100vw - 260px)';
     navigationMenu.style.width = '260px';
     logoMain.style.transform = 'translateX(-120%)';
-    storage.isMenuOpen = !storage.isMenuOpen
+    storage.isMenuOpen = true;
   } else {
     openMenuButton.style.transform = 'translateX(0%)';
     upperBar.style.width = 'calc(100vw - 70px)';
     navigationMenu.style.width = '70px';
     logoMain.style.transform = 'translateX(0%)';
-    storage.isMenuOpen = !storage.isMenuOpen
+    storage.isMenuOpen = false;
   }
 }
 

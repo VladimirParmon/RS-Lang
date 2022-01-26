@@ -2,6 +2,8 @@ import { storage } from "../utils/storage";
 import { rollMenu, rollPageSelector, rollSectionSelector } from "./rollMenu";
 import { router } from "./router";
 import { playSound } from "../utils/playSound";
+import { checkChoice } from '../games/audioChallenge'
+import { filesUrl } from "../utils/api";
 
 export const listener = ():void => {
   window.addEventListener('click', (e) => {
@@ -13,7 +15,7 @@ export const listener = ():void => {
     if (id === 'goHome') router('home');
     if (id === 'goBook') router('book');
     if (id === 'goHistory') router('history');
-    if (id === 'goGames') router('games');
+    //if (id === 'goGames') router('games');
     if (id === 'goStats') router('stats');
     if (id === 'goDev') router('dev');
     if (id === 'goComments') router('comments');
@@ -46,5 +48,13 @@ export const listener = ():void => {
 
     if (id.split('-')[0] === 'playSound') playSound(id.split('-')[1]);
 
+    if (id.split('-')[0] === 'audioGameOption') checkChoice(eventTarget.textContent);
+    if (id === 'repeatAudio') {
+      const audioBite = new Audio;
+      audioBite.src = `${filesUrl}/${storage.rightAnswer.audio}`;
+      audioBite.play();
+    }
+
+    if (id === 'goGames') router('audio');
   });
 }

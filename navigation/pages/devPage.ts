@@ -5,6 +5,6 @@ export const devPage: Page = {
     <h1>Hello Dev blyad</h1>
   `),
   afterRender: () => {
-
+    
   }
 }

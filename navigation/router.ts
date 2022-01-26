@@ -5,12 +5,14 @@ import { gamesPage } from './pages/gamesPage';
 import { statsPage } from './pages/statsPage';
 import { devPage } from './pages/devPage';
 import { commentsPage } from './pages/commentsPage';
+import { audioChallengePage } from './pages/audioChallengePage';
 
 const root = document.querySelector('#content');
 
+
 export type Page = {
   render(): Promise<string> | string,
-  afterRender(): string | void
+  afterRender(): string | void;
 }
 
 type routerLib = {
@@ -20,7 +22,8 @@ type routerLib = {
   games: Page,
   stats: Page,
   dev: Page,
-  comments: Page
+  comments: Page,
+  audio: Page
 }
 
 const pages: routerLib = {
@@ -30,7 +33,8 @@ const pages: routerLib = {
   games: gamesPage,
   stats: statsPage,
   dev: devPage,
-  comments: commentsPage
+  comments: commentsPage,
+  audio: audioChallengePage
 };
 
 const getPageFromName = (pageName: keyof routerLib) => pages[pageName] || null;
@@ -41,7 +45,10 @@ export const router = async (pageName: keyof routerLib) => {
     if (page && root) {
         root.innerHTML = await page.render();
         if (page.afterRender) {
-          page.afterRender();
+          page.afterRender()
         }
     }
 };
+
+function additionalEvent() {
+}

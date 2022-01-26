@@ -5,6 +5,6 @@ export const gamesPage: Page = {
     <h1>Hello Games blyad</h1>
   `),
   afterRender: () => {
-
+    
   }
 }

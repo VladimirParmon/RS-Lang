@@ -5,6 +5,6 @@ export const commentsPage: Page = {
     <h1>Hello Comments blyad</h1>
   `),
   afterRender: () => {
-
+    
   }
 }

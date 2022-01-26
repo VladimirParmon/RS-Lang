@@ -5,6 +5,6 @@ export const homePage: Page = {
     <h1>Hello Home blyad</h1>
   `),
   afterRender: () => {
-
+    
   }
 }
