@@ -10,6 +10,8 @@ interface StorageObject {
   difficultyLevels: DifficultyLevels,
   currentGameQueue: ReducedWordInfo[],
   currentDifficulty: number,
+  currentOptions: string[],
+  workingArray: ReducedWordInfo[],
   rightAnswer: ReducedWordInfo,
 }
 
@@ -25,12 +27,15 @@ export let storage: StorageObject = {
   difficultyLevels: {},
   currentGameQueue: [],
   currentDifficulty: 0,
+  currentOptions: [],
+  workingArray: [],
   rightAnswer: {
     id: '',
     word: '',
     translate: '',
     image: '',
-    audio: ''
+    audio: '',
+    transcription: ''
   }
 }
 
@@ -60,5 +65,6 @@ export interface ReducedWordInfo {
   word: string,
   translate: string,
   image: string,
-  audio: string
+  audio: string,
+  transcription: string
 }

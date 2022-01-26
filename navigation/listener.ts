@@ -2,8 +2,9 @@ import { storage } from "../utils/storage";
 import { rollMenu, rollPageSelector, rollSectionSelector } from "./rollMenu";
 import { router } from "./router";
 import { playSound } from "../utils/playSound";
-import { checkChoice } from '../games/audioChallenge'
+import { checkKeys } from "../utils/checks";
 import { filesUrl } from "../utils/api";
+import { runAudioGame } from "../games/audioChallenge";
 
 export const listener = ():void => {
   window.addEventListener('click', (e) => {
@@ -43,12 +44,12 @@ export const listener = ():void => {
     if (id !== 'section') rollSectionSelector('close');
     if (id.split('-')[0] === 'sectionListOption') {
       storage.bookGroup = +id.split('-')[1];
+      storage.bookPage = 0;
       router('book');
     }
 
     if (id.split('-')[0] === 'playSound') playSound(id.split('-')[1]);
 
-    if (id.split('-')[0] === 'audioGameOption') checkChoice(eventTarget.textContent);
     if (id === 'repeatAudio') {
       const audioBite = new Audio;
       audioBite.src = `${filesUrl}/${storage.rightAnswer.audio}`;
@@ -57,4 +58,8 @@ export const listener = ():void => {
 
     if (id === 'goGames') router('audio');
   });
+
+  window.addEventListener('keydown', (el) => {
+    checkKeys(el.code);
+  })
 }

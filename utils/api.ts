@@ -21,7 +21,8 @@ export const getAllWords = async (group: number) => {
         word: el.word,
         translate: el.wordTranslate,
         audio: el.audio,
-        image: el.image
+        image: el.image,
+        transcription: el.transcription
       }
     })
     result.push(...page)
