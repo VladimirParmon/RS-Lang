@@ -59,7 +59,9 @@ export const listener = ():void => {
     if (id === 'goGames') router('audio');
   });
 
-  window.addEventListener('keydown', (el) => {
-    checkKeys(el.code);
-  })
+  // window.addEventListener('keyup', (el) => {
+  //   checkKeys(el.code);
+  // });
+
+
 }

@@ -1,10 +1,12 @@
 import { storage } from "./storage";
-import { runAudioAnimation } from "../games/audioChallenge";
+import { runAudioAnimation, runAudioGame } from "../games/audioChallenge";
+import { checkFor } from "../utils/misc";
 
 export function checkKeys (code: string) {
   const wrapperGames = document.querySelector('.wrapperGames');
   const index = +code.slice(-1) - 1;
   if (wrapperGames && index < 5) {
+    window.removeEventListener('keyup', checkFor);
     checkChoice(storage.currentOptions[index])
   }
 }

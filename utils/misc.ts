@@ -1,4 +1,5 @@
 import { ReducedWordInfo } from "./storage";
+import { checkKeys } from "./checks";
 
 export function getRandomInt(min: number, max: number) {
   min = Math.ceil(min);
@@ -18,4 +19,8 @@ export function shuffle (array: ReducedWordInfo[]) {
   }
 
   return array;
+}
+
+export function checkFor(el: KeyboardEvent) {
+  checkKeys(el.code);
 }
