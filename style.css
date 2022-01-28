@@ -74,10 +74,11 @@ footer img:hover {
   left: 0;
   background-color: var(--primary-color);
   width: 70px;
-  padding-top: 60px;
+  padding-top: 55px;
   padding-bottom: 40px;
   overflow: hidden;
   z-index: 1;
+  border-right: 1px solid rgba(169, 169, 169, 0.6)
 }
 
 #navigationMenu span { 
@@ -244,7 +245,7 @@ h1 {
   background-color: var(--hover);
   width: calc(100% - 69px);
   height: 100%;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
@@ -252,13 +253,13 @@ h1 {
 
 .wrapper h1 {
   text-align: center;
-  font-size: 60px;
+  font-size: 50px;
 }
 
 .card {
   width: 70vw;
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   /* flex-direction: column; */
   margin: 0 auto;
   background-color: var(--primary-color);
@@ -282,6 +283,8 @@ h1 {
 
 .cardImg {
   border-radius: 5px;
+  max-width: 100%;
+  height: auto;
 }
 
 .cardInfo {
@@ -327,7 +330,7 @@ h1 {
 }
 
 #page {
-  width: 290px;
+  width: 270px;
   height: 50px;
   background-color: var(--trio2);
   border-radius: 5px;
@@ -475,6 +478,7 @@ h1 {
 
 #audioGameOptions {
   position: relative;
+  top: -10px;
   display: flex;
   flex-wrap: wrap;
   max-width: 1400px;
@@ -484,14 +488,14 @@ h1 {
 
 #audioGameOptions div {
   font-family: var(--font3);
-  font-size: 30px;
+  font-size: 24px;
   color: var(--primary-color);
   width: fit-content;
   min-width: 220px;
   padding: 0 15px 0 15px;
-  height: 60px;
+  height: 50px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   margin: 5px 5px 5px 5px;
   border-radius: 5px;
@@ -505,29 +509,46 @@ h1 {
   right: 0;
   width: calc(100% - 69px);
   height: 100%;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 #repeatAudio {
-  position: absolute;
-  top: 17%;
-  width: 150px;
-  height: 150px;
+  position: relative;
+  width: 140px;
+  height: 140px;
+  min-width: 140px;
+  min-height: 140px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   background-color: rgba(250, 250, 250, 0.5);
   cursor: pointer;
-  background-image: url(assets/svg/sound.svg);
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
+  margin-bottom: 10px;
+}
+
+#repeatAudioIcon {
+  width: 100px;
+  height: 100px;
+  pointer-events: none;
 }
 
 #repeatAudio:hover {
   transform: scale(1.1);
+}
+
+#wrapperAudioGame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
 }
 

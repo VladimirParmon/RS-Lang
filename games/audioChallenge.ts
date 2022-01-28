@@ -5,10 +5,6 @@ import { checkChoice } from "../utils/checks";
 import { prepareData } from "./getData";
 import { checkFor } from "../utils/misc";
 
-  // window.addEventListener('keydown', (el) => {
-  //   checkKeys(el.code);
-  // });
-
 export function runAudioGame() {
   window.addEventListener('keyup', checkFor)
 
@@ -19,8 +15,14 @@ export function runAudioGame() {
     intermediateArray.push(el.id);
     const optionsContainer = document.querySelector(`#audioGameOptions`);
     const option = document.createElement('div');
+    const keyIcon = document.createElement('img');
+    keyIcon.style.width = '30px';
+    keyIcon.style.height = '30px';
+    keyIcon.style.marginRight = '10px';
+    keyIcon.src = `assets/svg/white/${i + 1}w.svg`;
+    option.appendChild(keyIcon);
     option.id = `audioGameOption-${el.id}`;
-    option!.innerHTML = capitalize(el.translate);
+    option!.innerHTML += capitalize(el.translate);
     option?.addEventListener('click', () => {
       checkChoice(el.id);
     })
@@ -37,22 +39,24 @@ export function runAudioAnimation(id: string) {
   const buttonsDiv = document.querySelector('#audioGameOptions') as HTMLElement;
   const buttonPressed = document.querySelector(`#audioGameOption-${id}`) as HTMLElement;
   const roundButton = document.querySelector('#repeatAudio') as HTMLElement;
+  const roundButtonIcon = document.querySelector('#repeatAudioIcon') as HTMLElement;
 
   buttonsDiv.style.pointerEvents = 'none';
   buttonPressed.style.transform = 'scale(1.07)';
 
-  setTimeout(() => { // initial animation delay
+  const nextQuestionButton = document.createElement('div');
+  nextQuestionButton.id = 'nextAudioQuestion';
+  nextQuestionButton.innerHTML = '→';
+
+  setTimeout(() => {
     buttonsDiv.style.opacity = '0';
-    roundButton.style.width = '500px'
-    roundButton.style.height = '300px';
-    roundButton.style.borderRadius = '0';
-    roundButton.style.backgroundImage = `url(${filesUrl}/${storage.rightAnswer.image})`;
-
-    const nextQuestionButton = document.createElement('div');
-    nextQuestionButton.id = 'nextAudioQuestion';
-    nextQuestionButton.innerHTML = '→';
-
-    setTimeout(() => { //description reveal delay
+    roundButtonIcon.style.opacity = '0';
+    
+    setTimeout(() => {
+      roundButton.style.backgroundImage = `url(${filesUrl}/${storage.rightAnswer.image})`;
+      roundButton.style.width = '500px'
+      roundButton.style.height = '300px';
+      roundButton.style.borderRadius = '0';
       buttonsDiv.innerHTML = `
         <div>${storage.rightAnswer.word}</div>
         <div>${storage.rightAnswer.transcription}</div>
@@ -66,29 +70,35 @@ export function runAudioAnimation(id: string) {
       buttonsDiv.style.opacity = '1';
       buttonsDiv.style.pointerEvents = 'all';
     }, 500)
-
-    function clicked() {
-      nextQuestionButton.removeEventListener('click', clicked);
-      goNext();
-    };
-
-    function pressed(e: KeyboardEvent) {
-      if (e.code === 'Space') {
-        window.removeEventListener('keyup', pressed)
-        goNext()
-      }
-    };
-
-    function goNext() { //to the next question delay
-      roundButton.style.width = '150px'
-      roundButton.style.height = '150px';
-      roundButton.style.borderRadius = '50%';
-      setTimeout(() => {
-        roundButton.style.backgroundImage = `url(assets/svg/sound.svg)`;
-        buttonsDiv.innerHTML = ``;
-        runAudioGame();
-      }, 200);
-      }
   }, 600)
+
+//=============================================================//
+  function clicked() {
+    nextQuestionButton.removeEventListener('click', clicked);
+    window.removeEventListener('keyup', pressed)
+    goNext();
+  };
+
+  function pressed(e: KeyboardEvent) {
+    if (e.code === 'Space') {
+      window.removeEventListener('keyup', pressed)
+      goNext()
+    }
+  };
+
+  function goNext() {
+    buttonsDiv.style.opacity = '0';
+    roundButton.style.width = '140px'
+    roundButton.style.height = '140px';
+    roundButton.style.borderRadius = '50%';
+    roundButton.style.backgroundImage = 'none';
+    roundButtonIcon.style.opacity = '1';
+    setTimeout(() => {
+      buttonsDiv.style.opacity = '1';
+      buttonsDiv.innerHTML = ``;
+      runAudioGame();
+    }, 600);
+    }
+//=============================================================//
 } 
 

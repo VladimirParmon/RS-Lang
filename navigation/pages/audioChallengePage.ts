@@ -14,8 +14,12 @@ export const audioChallengePage: Page = {
 
     return `
     <div class="wrapperGames">
-      <div id="repeatAudio"></div>
-      <div id="audioGameOptions"></div>
+      <div id="wrapperAudioGame">
+        <div id="repeatAudio">
+          <img id="repeatAudioIcon" src="assets/svg/sound.svg" alt="icon">
+        </div>
+        <div id="audioGameOptions"></div>
+      </div>
     </div>
     `
   },
