@@ -58,8 +58,40 @@ export function rollSectionSelector(action: string) {
     root?.appendChild(list);
   } else if (storage.isGroupListOpen) {
     const list = document.querySelector('.sectionList') as HTMLElement;
-    console.log(list)
     root?.removeChild(list);
     storage.isGroupListOpen = false;
+  }
+}
+
+export function rollGamesSelector(action: string) {
+  const root = document.querySelector('.wrapper');
+  if (!storage.isGamesListOpen && action === 'open') {
+    const list = document.createElement('div');
+    list.classList.add('gamesList');
+    enum GamesRU {
+      'Аудио',
+      'Спринт',
+      'Игра на время',
+      'Пазл',
+    }
+    enum Games {
+      audio,
+      sprint,
+      time,
+      puzzle
+    }
+    for (let i=0; i < storage.totalGames; i++) {
+      const option = document.createElement('div');
+      option.classList.add('gamesListOption');
+      option.id = `gamesListOption-${Games[i]}`;
+      option.innerText = `${GamesRU[i]}`;
+      list.appendChild(option);
+    }    
+    storage.isGamesListOpen = true;
+    root?.appendChild(list);
+  } else if (storage.isGamesListOpen) {
+    const list = document.querySelector('.gamesList') as HTMLElement;
+    root?.removeChild(list);
+    storage.isGamesListOpen = false;
   }
 }

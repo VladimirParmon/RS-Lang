@@ -2,4 +2,4 @@ import { listener } from "./navigation/listener";
 import { router } from "./navigation/router";
 
 listener();
-router('games')
+router('home')

@@ -66,6 +66,10 @@ export const bookPage: Page = {
           <img src="assets/svg/settings.svg" alt="settingsIcon">
           <span>Настройки</span>
         </div>
+        <div id="games">
+          <img src="assets/svg/gamepad.svg" alt="gamesIcon">
+          <span>Игры</span>
+        </div>
       </div>
       ${pageLayout}
     </div>

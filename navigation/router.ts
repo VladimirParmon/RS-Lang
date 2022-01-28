@@ -6,13 +6,14 @@ import { statsPage } from './pages/statsPage';
 import { devPage } from './pages/devPage';
 import { commentsPage } from './pages/commentsPage';
 import { audioChallengePage } from './pages/audioChallengePage';
+import { storage } from '../utils/storage';
 
 const root = document.querySelector('#content');
 
 
 export type Page = {
-  render(): Promise<string> | string,
-  afterRender(): string | void;
+  render(instruction?: string): Promise<string> | string,
+  afterRender(instruction?: string): string | void;
 }
 
 type routerLib = {
@@ -39,13 +40,14 @@ const pages: routerLib = {
 
 const getPageFromName = (pageName: keyof routerLib) => pages[pageName] || null;
 
-export const router = async (pageName: keyof routerLib) => {
+export const router = async (pageName: keyof routerLib, instruction?: string) => {
     let page = getPageFromName(pageName);
+    instruction ? storage.onlyOnePage = true : storage.onlyOnePage = false;
 
     if (page && root) {
         root.innerHTML = await page.render();
         if (page.afterRender) {
-          page.afterRender()
+          page.afterRender();
         }
     }
 };

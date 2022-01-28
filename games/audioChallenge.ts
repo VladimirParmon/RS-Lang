@@ -5,7 +5,7 @@ import { checkChoice } from "../utils/checks";
 import { prepareData } from "./getData";
 import { checkFor } from "../utils/misc";
 
-export function runAudioGame() {
+export function runAudioGame(instruction?: string) {
   window.addEventListener('keyup', checkFor)
 
   prepareData();
@@ -96,7 +96,7 @@ export function runAudioAnimation(id: string) {
     setTimeout(() => {
       buttonsDiv.style.opacity = '1';
       buttonsDiv.innerHTML = ``;
-      runAudioGame();
+      storage.currentGameQueue.length === 0 ? console.log('pishov nahui') : runAudioGame();
     }, 600);
     }
 //=============================================================//

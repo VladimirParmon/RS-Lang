@@ -309,43 +309,48 @@ h1 {
 
 #page,
 #section,
-#settings {
+#settings,
+#games {
   margin-top: 10px;
+}
+
+#section,
+#page,
+#settings,
+#games {
+  height: 50px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 #section {
   width: 150px;
-  height: 50px;
   background-color: var(--trio1);
-  border-radius: 5px;
   margin-right: 15px;
-  cursor: pointer;
   justify-content: space-evenly;
 }
 
 #settings img,
-#section img {
+#section img,
+#games img,
+#previousPage img,
+#nextPage img {
   width: 20px;
   height: 20px;
 }
 
 #page {
   width: 270px;
-  height: 50px;
   background-color: var(--trio2);
-  border-radius: 5px;
   margin-right: 15px;
   justify-content: space-between;
-  cursor: pointer;
 }
 
 #settings {
   width: 150px;
-  height: 50px;
   background-color: var(--trio3);
-  border-radius: 5px;
-  cursor: pointer;
   justify-content: space-evenly;
+  margin-right: 15px;
 }
 
 #previousPage {
@@ -357,14 +362,10 @@ h1 {
 
 #previousPage img {
   transform: rotate(-90deg);
-  width: 20px;
-  height: 20px;
 }
 
 #nextPage img {
   transform: rotate(90deg);
-  width: 20px;
-  height: 20px;
 }
 
 #nextPage {
@@ -375,7 +376,8 @@ h1 {
 }
 
 #previousPage img,
-#nextPage img {
+#nextPage img,
+#pageCounter {
   pointer-events: none;
 }
 
@@ -397,8 +399,11 @@ h1 {
   font-size: 20px;
 }
 
-#pageCounter {
-  pointer-events: none;
+#games {
+  background-color: rgba(250, 250, 250, 0.9);
+  width: 150px;
+  justify-content: space-evenly;
+  border: 1px solid var(--header);
 }
 
 .loader {
@@ -420,7 +425,8 @@ h1 {
 }
 
 .sectionList,
-.pageList {
+.pageList,
+.gamesList {
   position: absolute;
   top: 10vh;
   height: 250px;
@@ -441,8 +447,18 @@ h1 {
   left: 30%;
 }
 
+.gamesList {
+  right: 30%;
+  height: 170px;
+} 
+
+.gamesList div {
+  white-space: nowrap;
+}
+
 .sectionListOption,
-.pageListOption {
+.pageListOption,
+.gamesListOption {
   width: 150px;
   height: 40px;
   font-family: var(--font2);
@@ -452,7 +468,8 @@ h1 {
 }
 
 .sectionListOption:hover,
-.pageListOption:hover {
+.pageListOption:hover,
+.gamesListOption:hover {
   background-color: var(--hover);
 }
 

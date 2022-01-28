@@ -1,17 +1,13 @@
 import { storage } from "../utils/storage";
-import { rollMenu, rollPageSelector, rollSectionSelector } from "./rollMenu";
+import { rollMenu, rollPageSelector, rollSectionSelector, rollGamesSelector } from "./rollMenu";
 import { router } from "./router";
 import { playSound } from "../utils/playSound";
-import { checkKeys } from "../utils/checks";
 import { filesUrl } from "../utils/api";
-import { runAudioGame } from "../games/audioChallenge";
 
 export const listener = ():void => {
   window.addEventListener('click', (e) => {
     let eventTarget = e.target as HTMLElement;
     let id = eventTarget.id;
-
-    console.log(id)
 
     if (id === 'goHome') router('home');
     if (id === 'goBook') router('book');
@@ -46,6 +42,23 @@ export const listener = ():void => {
       storage.bookGroup = +id.split('-')[1];
       storage.bookPage = 0;
       router('book');
+    }
+
+    
+    if (id === 'games') rollGamesSelector('open');
+    if (id !== 'games') rollGamesSelector('close');
+    if (id.split('-')[0] === 'gamesListOption') {
+      const gameToTravelTo = id.split('-')[1];
+      switch (gameToTravelTo) {
+        case 'audio': router('audio', 'onlyOnePageRequired');
+        break;
+        // case 'puzzle': router('puzzle', 'onlyOnePageRequired');
+        // break;
+        // case 'time': router('time', 'onlyOnePageRequired');
+        // break;
+        // case 'sprint': router('sprint', 'onlyOnePageRequired');
+        // break;
+      }
     }
 
     if (id.split('-')[0] === 'playSound') playSound(id.split('-')[1]);

@@ -1,11 +1,15 @@
+
+
 interface StorageObject {
   bookGroup: number,
   bookPage: number,
   totalPages: number,
   totalGroups: number,
-  pagesPerGroup: number,
+  totalGames: number,
+  itemsPerGroup: number,
   isPageListOpen: boolean,
   isGroupListOpen: boolean,
+  isGamesListOpen: boolean,
   isMenuOpen: boolean
   difficultyLevels: DifficultyLevels,
   currentGameQueue: ReducedWordInfo[],
@@ -13,22 +17,28 @@ interface StorageObject {
   currentOptions: string[],
   workingArray: ReducedWordInfo[],
   rightAnswer: ReducedWordInfo,
+  onlyOnePage: boolean,
+  onlyOnePageTemplate: ReducedWordInfo[]
 }
 
 export let storage: StorageObject = {
   bookGroup: 0,
   bookPage: 0,
-  totalPages: 30,
   totalGroups: 6,
-  pagesPerGroup: 20,
+  totalGames: 4,
+  totalPages: 30,
+  itemsPerGroup: 20,
   isPageListOpen: false,
   isGroupListOpen: false,
+  isGamesListOpen: false,
   isMenuOpen: false,
   difficultyLevels: {},
   currentGameQueue: [],
   currentDifficulty: 0,
   currentOptions: [],
   workingArray: [],
+  onlyOnePage: false,
+  onlyOnePageTemplate: [],
   rightAnswer: {
     id: '',
     word: '',
@@ -38,6 +48,8 @@ export let storage: StorageObject = {
     transcription: ''
   }
 }
+
+
 
 export interface WordInfo {
   id: string,
