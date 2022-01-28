@@ -46,7 +46,7 @@ export function runAudioAnimation(id: string) {
 
   const nextQuestionButton = document.createElement('div');
   nextQuestionButton.id = 'nextAudioQuestion';
-  nextQuestionButton.innerHTML = '→';
+  nextQuestionButton.innerHTML = '[space] →';
 
   setTimeout(() => {
     buttonsDiv.style.opacity = '0';
