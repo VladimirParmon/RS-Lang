@@ -7,9 +7,9 @@ import { devPage } from './pages/devPage';
 import { commentsPage } from './pages/commentsPage';
 import { audioChallengePage } from './pages/audioChallengePage';
 import { storage } from '../utils/storage';
+import { sprintPage } from './pages/sprintPage';
 
 const root = document.querySelector('#content');
-
 
 export type Page = {
   render(instruction?: string): Promise<string> | string,
@@ -24,7 +24,8 @@ type routerLib = {
   stats: Page,
   dev: Page,
   comments: Page,
-  audio: Page
+  audio: Page,
+  sprint: Page
 }
 
 const pages: routerLib = {
@@ -35,7 +36,8 @@ const pages: routerLib = {
   stats: statsPage,
   dev: devPage,
   comments: commentsPage,
-  audio: audioChallengePage
+  audio: audioChallengePage,
+  sprint: sprintPage
 };
 
 const getPageFromName = (pageName: keyof routerLib) => pages[pageName] || null;

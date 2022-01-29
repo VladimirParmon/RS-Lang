@@ -7,6 +7,7 @@ interface StorageObject {
   totalGroups: number,
   totalGames: number,
   itemsPerGroup: number,
+  timeLimit: number,
   isPageListOpen: boolean,
   isGroupListOpen: boolean,
   isGamesListOpen: boolean,
@@ -16,9 +17,12 @@ interface StorageObject {
   currentDifficulty: number,
   currentOptions: string[],
   workingArray: ReducedWordInfo[],
+  singleVariant: ReducedWordInfo,
   rightAnswer: ReducedWordInfo,
   onlyOnePage: boolean,
-  onlyOnePageTemplate: ReducedWordInfo[]
+  onlyOnePageTemplate: ReducedWordInfo[],
+  secondsInterval?: NodeJS.Timeout
+  msInterval?: NodeJS.Timeout
 }
 
 export let storage: StorageObject = {
@@ -28,6 +32,7 @@ export let storage: StorageObject = {
   totalGames: 4,
   totalPages: 30,
   itemsPerGroup: 20,
+  timeLimit: 5,
   isPageListOpen: false,
   isGroupListOpen: false,
   isGamesListOpen: false,
@@ -39,6 +44,14 @@ export let storage: StorageObject = {
   workingArray: [],
   onlyOnePage: false,
   onlyOnePageTemplate: [],
+  singleVariant: {
+    id: '',
+    word: '',
+    translate: '',
+    image: '',
+    audio: '',
+    transcription: ''
+  },
   rightAnswer: {
     id: '',
     word: '',
@@ -46,7 +59,7 @@ export let storage: StorageObject = {
     image: '',
     audio: '',
     transcription: ''
-  }
+  },
 }
 
 

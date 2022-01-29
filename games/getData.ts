@@ -40,15 +40,11 @@ export const prepareData = () => {
       }
     }
   }
-    //const randomNumber = storage.onlyOnePage ? getRandomInt(0, storage.itemsPerGroup) : getRandomInt(0, storage.totalPages * storage.itemsPerGroup);
-    
-    //const variants = storage.onlyOnePage ? storage.onlyOnePageTemplate.slice(randomNumber, randomNumber + howManyVariants) : storage.difficultyLevels[difficulty].slice(randomNumber, randomNumber + howManyVariants);
-  
-    if (theWord) {
-      storage.rightAnswer = theWord;
-      storage.workingArray = shuffle([theWord, ...variants]);
-    }
-  // }
+  if (theWord) {
+    storage.rightAnswer = theWord;
+    storage.singleVariant = variants[0];
+    storage.workingArray = shuffle([theWord, ...variants]);
+  }
 }
 
 export const getSinglePageData = async () => {

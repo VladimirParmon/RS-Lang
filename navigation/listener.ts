@@ -17,6 +17,9 @@ export const listener = ():void => {
     if (id === 'goDev') router('dev');
     if (id === 'goComments') router('comments');
 
+    if (id === 'goAudio') router('audio');
+    if (id === 'goSprint') router('sprint');
+
     if (id === 'openMenuButton') rollMenu('open');
     if (id === 'closeMenuButton') rollMenu('close');
     if (id !== 'openMenuButton') rollMenu('close');
@@ -69,6 +72,6 @@ export const listener = ():void => {
       audioBite.play();
     }
 
-    if (id === 'goAudio') router('audio');
+    
   });
 }
