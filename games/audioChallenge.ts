@@ -4,8 +4,9 @@ import { capitalize } from "../utils/misc";
 import { checkChoice } from "../utils/checks";
 import { prepareData } from "./getData";
 import { checkFor } from "../utils/misc";
+import { endGame } from "../utils/endGame";
 
-export function runAudioGame(instruction?: string) {
+export function runAudioGame() {
   window.addEventListener('keyup', checkFor)
 
   prepareData();
@@ -96,7 +97,7 @@ export function runAudioAnimation(id: string) {
     setTimeout(() => {
       buttonsDiv.style.opacity = '1';
       buttonsDiv.innerHTML = ``;
-      storage.currentGameQueue.length === 0 ? console.log('pishov nahui') : runAudioGame();
+      storage.currentGameQueue.length === 0 ? endGame() : runAudioGame();
     }, 600);
     }
 //=============================================================//

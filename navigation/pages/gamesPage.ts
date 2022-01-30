@@ -12,8 +12,8 @@ export const gamesPage: Page = {
       <div id="goSprint"></div>
     </div>
     <div class="gameModeSelector">
-      <span>Time game</span>
-      <div id="goTime"></div>
+      <span>Sniper</span>
+      <div id="goSniper"></div>
     </div>
     <div class="gameModeSelector">
       <span>Puzzle game</span>

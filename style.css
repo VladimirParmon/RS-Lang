@@ -8,7 +8,7 @@
 
 :root {
   --primary-color: #FFFFFF;
-  --icons: #A9A9A9;
+  --icons: #A9A9A9; /*rgba(169, 169, 169, 1);*/
   --header: #474554;
   --action: #005C68;
   --hover: #F5F5F5;
@@ -532,7 +532,7 @@ h1 {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  overflow-y: scroll;
+  overflow: hidden;
 }
 
 #repeatAudio {
@@ -629,8 +629,8 @@ h1 {
   background-position: top;
 }
 
-#goTime {
-  background-image: url(assets/img/time.jpg);
+#goSniper {
+  background-image: url(assets/img/sniper.jpg);
 }
 
 #goPuzzle {
@@ -673,8 +673,16 @@ h1 {
 
 #wrapperSprint span {
   font-family: var(--font3);
-  font-size: 70px;
   color: var(--header);
+}
+
+#sprintWordSpan {
+  font-size: 70px;
+}
+
+#sprintVariantSpan {
+  font-size: 50px;
+  white-space: nowrap;
 }
 
 #sprintButtons {
@@ -709,14 +717,25 @@ h1 {
   background-color: var(--trio2);
 }
 
-#resultsSprint {
+#resultsWrapper {
   position: absolute;
   top: 0;
   max-width: 700px;
-  max-height: 900px;
+  max-height: 800px;
+  padding-bottom: 50px;
   width: 100%;
   height: 100%;
-  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#results {
+  position: relative;
+  max-width: 700px;
+  max-height: 800px;
+  width: 100%;
+  height: 100%;
   border: 1px solid var(--header);
   padding: 15px 10px;
   display: flex;
@@ -728,26 +747,144 @@ h1 {
   border-radius: 5px;
 }
 
-#resultsSprint h2 {
+#results h2 {
   font-family: var(--font3);
   font-size: 25px;
   margin: 10px;
 }
 
-#resultsSprint span {
+#results span {
   font-family: var(--font3);
   font-size: 20px;
   white-space: nowrap;
 }
 
-#resultsSprint img {
+#results img {
   margin-right: 10px;
   cursor: pointer;
 }
 
-.sprintOption {
+.resultsOption {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 10px;
+}
+
+#resultsPlayAgain {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  min-height: 40px;
+  cursor: pointer;
+  font-family: var(--font3);
+  z-index: 2;
+}
+
+/*=========================================================*/
+
+#wrapperHome {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  position: absolute;
+  right: 0;
+  width: calc(100% - 69px);
+  height: 100%;
+  padding: 10px 10px 30px 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+#logo {
+  font-family: var(--font1);
+  font-size: 200px;
+  pointer-events: none;
+  white-space: nowrap;
+  font-weight: normal;
+  animation: 3s reveal;
+  animation-fill-mode: forwards; 
+  opacity: 0;
+  text-shadow: -1px -1px 2px rgba(169, 169, 169, 1);
+}
+
+#logo span:nth-of-type(1) {
+  color: var(--trio1);
+}
+#logo span:nth-of-type(2) {
+  color: var(--trio2);
+}
+#logo span:nth-of-type(3) {
+  color: var(--trio3);
+}
+
+#logoWrapper {
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+}
+
+#logoWrapper::after {
+  content: 'It\'s never been easier';
+  font-family: var(--font4);
+  font-size: 30px;
+  position: absolute;
+  bottom: 35px;
+  right: 135px;
+  color: var(--icons);
+  animation: 3s reveal;
+  animation-delay: 1500ms;
+  animation-fill-mode: forwards; 
+  opacity: 0;
+}
+
+@keyframes reveal {
+  0% {
+    opacity: 0;
+    filter: brightness(130%);
+  }
+  100% {
+    opacity: 1;
+    filter: brightness(100%) contrast(95%);
+    transform: translateX(180px);
+  }
+}
+
+#homeNextPage {
+  position: absolute;
+  bottom: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  animation: 1s reveal2;
+  animation-delay: 2000ms;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: transform 1s;
+}
+
+@keyframes reveal2 {
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+#homeNextPage:hover span {
+  transform: scale(1.03);
+}
+
+#homeNextPage span {
+  font-family: var(--font2);
+  font-size: 15px;
+  color: var(--header);
+}
+
+#homeNextPage img {
+  width: 30px;
+  height: 20px;
+  transform: rotate(180deg);
 }

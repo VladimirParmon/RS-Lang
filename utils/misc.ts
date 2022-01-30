@@ -24,3 +24,9 @@ export function shuffle (array: ReducedWordInfo[]) {
 export function checkFor(el: KeyboardEvent) {
   checkKeys(el.code);
 }
+
+export function removeFooter() {
+  const root = document.querySelector('body');
+  const footer = document.querySelector('footer');
+  if (root && footer) root.removeChild(footer);
+}

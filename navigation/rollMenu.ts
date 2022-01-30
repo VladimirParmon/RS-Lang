@@ -71,13 +71,13 @@ export function rollGamesSelector(action: string) {
     enum GamesRU {
       'Аудио',
       'Спринт',
-      'Игра на время',
+      'Снайпер',
       'Пазл',
     }
     enum Games {
       audio,
       sprint,
-      time,
+      sniper,
       puzzle
     }
     for (let i=0; i < storage.totalGames; i++) {

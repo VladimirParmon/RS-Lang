@@ -1,4 +1,4 @@
-import { endSprint } from "../games/sprint";
+import { endGame } from "../utils/endGame";
 import { storage } from "./storage";
 
 export function timer() {
@@ -26,7 +26,7 @@ export function timer() {
       digits.innerHTML = secondsLeft.toString();
     } else {
       if(storage.secondsInterval) clearInterval(storage.secondsInterval);
-      endSprint();
+      endGame();
     }
   }, 1000)
 

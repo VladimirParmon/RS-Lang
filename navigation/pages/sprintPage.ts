@@ -4,6 +4,7 @@ import { getData, getSinglePageData } from "../../games/getData";
 import { storage } from "../../utils/storage";
 import { showLoader } from "../../utils/loader";
 import { timer } from "../../utils/timer";
+import { removeFooter } from "../../utils/misc";
 
 export const sprintPage: Page = {
   render: async () => {
@@ -27,6 +28,12 @@ export const sprintPage: Page = {
   </div>
   `},
   afterRender: () => {
+    if(storage.secondsInterval) clearInterval(storage.secondsInterval);
+    if(storage.msInterval) clearInterval(storage.msInterval);
+    storage.currentGameMode = 'Sprint';
+    storage.endGameResults.right = [];
+    storage.endGameResults.wrong = [];
+    removeFooter();
     timer();
     runSprint();
   }

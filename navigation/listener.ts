@@ -57,10 +57,10 @@ export const listener = ():void => {
         break;
         // case 'puzzle': router('puzzle', 'onlyOnePageRequired');
         // break;
-        // case 'time': router('time', 'onlyOnePageRequired');
+        // case 'sniper': router('sniper', 'onlyOnePageRequired');
         // break;
-        // case 'sprint': router('sprint', 'onlyOnePageRequired');
-        // break;
+        case 'sprint': router('sprint', 'onlyOnePageRequired');
+        break;
       }
     }
 

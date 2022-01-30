@@ -1,7 +1,6 @@
-import { getAllWords, getWords } from "../utils/api"
+import { getAllWords } from "../utils/api"
 import { getRandomInt, shuffle } from "../utils/misc";
 import { ReducedWordInfo, storage } from "../utils/storage";
-import { runAudioGame } from "./audioChallenge";
 
 export const getData = async () => {
   const difficulty = storage.currentDifficulty;
@@ -13,7 +12,7 @@ export const getData = async () => {
       if (info) storage.difficultyLevels[difficulty] = shuffle(info);
     }
   } 
-  if (storage.currentGameQueue.length === 0) {
+  if (storage.currentGameQueue.length <= storage.itemsPerGroup) {
     storage.currentGameQueue = [...shuffle(storage.difficultyLevels[difficulty])];
   }
   return true
@@ -23,17 +22,19 @@ export const prepareData = () => {
   const howManyVariants = 4;
   const difficulty = storage.currentDifficulty;
   const theWord = storage.currentGameQueue.pop();
-  let variants = []
+  let variants: ReducedWordInfo[] = [];
   for (let i = 0; i < howManyVariants; i++) {
     const num = getRandomInt(0, storage.itemsPerGroup - 1);
     if (storage.onlyOnePage) {
-      if (storage.onlyOnePageTemplate[num] !== theWord) {
+      if (storage.onlyOnePageTemplate[num] !== theWord && 
+        !variants.includes(storage.onlyOnePageTemplate[num])) {
         variants.push(storage.onlyOnePageTemplate[num])
       } else {
         i--;
       }
     } else {
-      if (storage.difficultyLevels[difficulty][num] !== theWord) {
+      if (storage.difficultyLevels[difficulty][num] !== theWord && 
+        !variants.includes(storage.difficultyLevels[difficulty][num])) {
         variants.push(storage.difficultyLevels[difficulty][num])
       } else {
         i--;
@@ -58,5 +59,6 @@ export const getSinglePageData = async () => {
         storage.currentGameQueue = [...shuffle(info)];
       }
     }
+
   return true
 }

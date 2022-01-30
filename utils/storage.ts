@@ -21,8 +21,13 @@ interface StorageObject {
   rightAnswer: ReducedWordInfo,
   onlyOnePage: boolean,
   onlyOnePageTemplate: ReducedWordInfo[],
-  secondsInterval?: NodeJS.Timeout
-  msInterval?: NodeJS.Timeout
+  secondsInterval?: NodeJS.Timeout,
+  msInterval?: NodeJS.Timeout,
+  endGameResults: {
+    right: ReducedWordInfo[],
+    wrong: ReducedWordInfo[]
+  },
+  currentGameMode: string,
 }
 
 export let storage: StorageObject = {
@@ -32,7 +37,7 @@ export let storage: StorageObject = {
   totalGames: 4,
   totalPages: 30,
   itemsPerGroup: 20,
-  timeLimit: 5,
+  timeLimit: 30,
   isPageListOpen: false,
   isGroupListOpen: false,
   isGamesListOpen: false,
@@ -60,6 +65,11 @@ export let storage: StorageObject = {
     audio: '',
     transcription: ''
   },
+  endGameResults: {
+    right: [],
+    wrong: []
+  },
+  currentGameMode: ''
 }
 
 

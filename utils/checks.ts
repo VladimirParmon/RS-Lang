@@ -15,9 +15,11 @@ export function checkChoice(id: string | null) {
   const buttonPressed = document.querySelector(`#audioGameOption-${id}`) as HTMLElement;
   const audioBite = new Audio;
   if (id === storage.rightAnswer.id) {
+    storage.endGameResults.right.push(storage.rightAnswer);
     audioBite.src = './assets/sounds/rightAnswer.mp3';
     buttonPressed.style.backgroundColor = 'var(--trio3)';
   } else {
+    storage.endGameResults.wrong.push(storage.rightAnswer);
     audioBite.src = './assets/sounds/wrongAnswer.mp3'
     buttonPressed.style.backgroundColor = 'var(--wrong)';
   }
