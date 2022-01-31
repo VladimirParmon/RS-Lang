@@ -5,6 +5,9 @@ import { runSprint } from "../games/sprint";
 import { runAudioGame } from "../games/audioChallenge";
 
 export function endGame() {
+  const soundBite = new Audio;
+  soundBite.src = 'assets/sounds/roundEnded.mp3';
+  soundBite.play();
   const root = document.querySelector('.wrapperGames');
   if (root) {
     if (storage.onlyOnePage) {
