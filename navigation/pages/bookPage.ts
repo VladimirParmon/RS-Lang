@@ -2,6 +2,7 @@ import { Page } from "../router";
 import { storage, WordInfo } from "../../utils/storage";
 import { getWords, filesUrl } from "../../utils/api";
 import { showLoader, hideLoader } from "../../utils/loader";
+import { addFooter } from "../../utils/misc";
 
 export const bookPage: Page = {
   render: async () => {
@@ -77,6 +78,6 @@ export const bookPage: Page = {
     `
   },
   afterRender: () => {
-    
+    addFooter();
   }
 }

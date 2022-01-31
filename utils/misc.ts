@@ -25,6 +25,17 @@ export function checkFor(el: KeyboardEvent) {
   checkKeys(el.code);
 }
 
+export function addFooter() {
+  const root = document.querySelector('body');
+  const footer = document.createElement('footer');
+  footer.innerHTML = `
+  <span onclick="window.open('https://ru.wikipedia.org/wiki/2022_%D0%B3%D0%BE%D0%B4','mywindow')">2022</span> 
+  <span onclick="window.open('https://github.com/VladimirParmon','mywindow')">Vladimir Parmon</span>
+  <img onclick="window.open('https://rs.school/js/','mywindow')" src="assets/svg/rs_school_js.svg" alt="rsSchool">
+  `
+  if(!footer && root) root.appendChild(footer);
+}
+
 export function removeFooter() {
   const root = document.querySelector('body');
   const footer = document.querySelector('footer');

@@ -28,6 +28,7 @@ interface StorageObject {
     wrong: ReducedWordInfo[]
   },
   currentGameMode: string,
+  abortController?: AbortController
 }
 
 export let storage: StorageObject = {

@@ -16,10 +16,6 @@ export function runSprint() {
   sprintButtons!.innerHTML = '';
   prepareData();
 
-  if (storage.currentGameQueue.length === 0) {
-    endGame();
-  };
-  
   const coin = getRandomInt(0, 1);
   if (wordSpan && variantSpan) {
     wordSpan.innerHTML = capitalize(storage.rightAnswer.word);
@@ -37,16 +33,20 @@ export function runSprint() {
   sprintButtons?.appendChild(buttonWrong);
   sprintButtons?.appendChild(buttonRight);
 
+  storage.abortController = new AbortController();
+
   buttonRight.addEventListener('click', ()=> {
     coin === 1 ? goNext(true) : goNext(false);
   }, {
-    once: true
+    once: true,
+    signal: storage.abortController.signal
   })
 
   buttonWrong.addEventListener('click', ()=> {
     coin === 0 ? goNext(true) : goNext(false);
   }, {
-    once: true
+    once: true,
+    signal: storage.abortController.signal
   })
 
   window.addEventListener('keyup', (e)=> {
@@ -56,8 +56,13 @@ export function runSprint() {
       coin === 0 ? goNext(true) : goNext(false);
     }
   }, {
-    once: true
+    once: true,
+    signal: storage.abortController.signal
   })
+
+  if (storage.currentGameQueue.length === 0) {
+    endGame();
+  };
 }
 
 function goNext(command: boolean) {
@@ -70,5 +75,6 @@ function goNext(command: boolean) {
     storage.endGameResults.wrong.push(storage.singleVariant);
   }
   audioBite.play();
+  storage.abortController?.abort();
   runSprint();
 }

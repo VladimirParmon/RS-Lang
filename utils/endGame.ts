@@ -1,5 +1,5 @@
 import { storage } from "./storage";
-import { getSinglePageData } from "../games/getData";
+import { getData, getSinglePageData } from "../games/getData";
 import { timer } from "./timer";
 import { runSprint } from "../games/sprint";
 import { runAudioGame } from "../games/audioChallenge";
@@ -15,6 +15,8 @@ export function endGame() {
     
     const resultsWrapper = document.createElement('div');
     resultsWrapper.id = 'resultsWrapper';
+
+    storage.abortController?.abort();
   
     const theId = `#wrapper${storage.currentGameMode}`;
 
@@ -68,13 +70,18 @@ export function endGame() {
     playAgain.textContent = 'Играть снова';
     playAgain.addEventListener('click', () => {
       root?.removeChild(resultsWrapper);
+      wrapper.style.opacity = '1';
+      wrapper.style.pointerEvents = 'all';
       storage.endGameResults.right = [];
       storage.endGameResults.wrong = [];
-      timer();
+      storage.onlyOnePage ? getSinglePageData() : getData();
       switch (storage.currentGameMode) {
         case 'AudioGame': runAudioGame()
         break;
-        case 'Sprint': runSprint();
+        case 'Sprint': {
+          timer();
+          runSprint();
+        } 
         break;
         // case 'Puzzle': runPuzzle();
         // break;

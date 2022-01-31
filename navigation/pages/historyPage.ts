@@ -1,3 +1,4 @@
+import { addFooter } from "../../utils/misc";
 import { Page } from "../router";
 
 export const historyPage: Page = {
@@ -5,6 +6,6 @@ export const historyPage: Page = {
     <h1>Hello History blyad</h1>
   `),
   afterRender: () => {
-    
+    addFooter();
   }
 }

@@ -1,3 +1,4 @@
+import { addFooter } from "../../utils/misc";
 import { Page } from "../router";
 
 export const homePage: Page = {
@@ -14,5 +15,6 @@ export const homePage: Page = {
   </div>
   `),
   afterRender: () => {
+    addFooter();
   }
 }

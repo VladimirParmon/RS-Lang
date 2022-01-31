@@ -1,4 +1,5 @@
 import { Page } from "../router";
+import { addFooter } from "../../utils/misc";
 
 export const gamesPage: Page = {
   render: () => (`
@@ -22,6 +23,6 @@ export const gamesPage: Page = {
   </div>
   `),
   afterRender: () => {
-    
+    addFooter();
   }
 }
