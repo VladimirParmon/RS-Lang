@@ -28,7 +28,11 @@ interface StorageObject {
     wrong: ReducedWordInfo[]
   },
   currentGameMode: string,
-  abortController?: AbortController
+  abortController?: AbortController,
+  isAuthorized: boolean,
+  isAuthMenuOpen: boolean,
+  userId?: string,
+  token?: string,
 }
 
 export let storage: StorageObject = {
@@ -70,10 +74,10 @@ export let storage: StorageObject = {
     right: [],
     wrong: []
   },
-  currentGameMode: ''
+  currentGameMode: '',
+  isAuthorized: false,
+  isAuthMenuOpen: false,
 }
-
-
 
 export interface WordInfo {
   id: string,
@@ -103,4 +107,18 @@ export interface ReducedWordInfo {
   image: string,
   audio: string,
   transcription: string
+}
+
+export interface LoginResponse {
+  message: string,
+  token: string,
+  refreshToken: string,
+  userId: string,
+  name: string
+}
+
+export interface UserInfo {
+  name?: string,
+  email: string,
+  password: string
 }

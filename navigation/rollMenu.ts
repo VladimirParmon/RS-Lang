@@ -1,3 +1,4 @@
+import { authorize, register } from "../utils/api";
 import { storage } from "../utils/storage";
 
 export function rollMenu(action: string): void {
@@ -93,5 +94,69 @@ export function rollGamesSelector(action: string) {
     const list = document.querySelector('.gamesList') as HTMLElement;
     root?.removeChild(list);
     storage.isGamesListOpen = false;
+  }
+}
+
+export function rollAuthMenu(action: string) {
+  const root = document.querySelector('#content');
+  if (!storage.isAuthMenuOpen && action === 'open') {
+    const menu = document.createElement('div');
+    menu.id = 'authMenu';
+
+    const mailInput = document.createElement('input');
+    const passwordInput = document.createElement('input');
+    const nameInput = document.createElement('input');
+    const logInButton = document.createElement('button');
+    const registerButton = document.createElement('button');
+    const sendButton = document.createElement('button');
+    const backButton = document.createElement('button');
+
+    mailInput.placeholder = 'enter e-mail';
+    passwordInput.placeholder = 'enter password';
+    nameInput.placeholder = 'enter name';
+    logInButton.textContent = 'Log in';
+    registerButton.textContent = 'Register';
+    sendButton.textContent = 'Send';
+    backButton.innerHTML = 'Back';
+    //const mail = mailInput.value;
+    //const password = passwordInput.value;
+    const name = nameInput.value;
+    const mail = 'hello@user.com';
+    const password = 'Gfhjkm_123';
+
+    logInButton.addEventListener('click', () => {
+      authorize(mail, password);
+    });
+
+    registerButton.addEventListener('click', () => {
+      menu.prepend(nameInput);
+      menu.append(sendButton);
+      menu.append(backButton);
+      logInButton.style.display = 'none';
+      registerButton.style.display = 'none';
+    })
+
+    sendButton.addEventListener('click', () => {
+      register(name, mail, password);
+    })
+
+    backButton.addEventListener('click', () => {
+      menu.removeChild(nameInput);
+      menu.removeChild(backButton);
+      menu.removeChild(sendButton);
+      logInButton.style.display = 'inline';
+      registerButton.style.display = 'inline';
+    })
+
+    menu.appendChild(mailInput);
+    menu.appendChild(passwordInput);
+    menu.appendChild(logInButton);
+    menu.appendChild(registerButton);
+    root?.appendChild(menu)
+    storage.isAuthMenuOpen = true;
+  } else if (storage.isAuthMenuOpen && action === 'close') {
+    const menu = document.querySelector('#authMenu');
+    if (root && menu) root.removeChild(menu);
+    storage.isAuthMenuOpen = false;
   }
 }
