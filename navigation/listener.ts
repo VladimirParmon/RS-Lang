@@ -1,8 +1,8 @@
 import { storage } from "../utils/storage";
-import { rollMenu, rollPageSelector, rollSectionSelector, rollGamesSelector, rollAuthMenu } from "./rollMenu";
+import { rollMenu, rollPageSelector, rollSectionSelector, rollGamesSelector } from "./rollMenu";
 import { router } from "./router";
 import { playSound } from "../utils/playSound";
-import { filesUrl, authorize } from "../utils/api";
+import { filesUrl, handleLogin } from "../utils/api";
 
 export const listener = ():void => {
   window.addEventListener('click', (e) => {
@@ -72,7 +72,7 @@ export const listener = ():void => {
       audioBite.play();
     }
 
-    if (id === 'auth') rollAuthMenu('open');
-    //if (id !== 'authMenu' && id !== 'auth') rollAuthMenu('close')
+    if (id === 'login') handleLogin('login');
+    if (id === 'send') handleLogin('send');
   });
 }

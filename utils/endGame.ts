@@ -5,11 +5,11 @@ import { runSprint } from "../games/sprint";
 import { runAudioGame } from "../games/audioChallenge";
 
 export function endGame() {
-  const soundBite = new Audio;
-  soundBite.src = 'assets/sounds/roundEnded.mp3';
-  soundBite.play();
   const root = document.querySelector('.wrapperGames');
   if (root) {
+    const soundBite = new Audio;
+    soundBite.src = 'assets/sounds/roundEnded.mp3';
+    soundBite.play();
     if (storage.onlyOnePage) {
       getSinglePageData();
       if(storage.secondsInterval) clearInterval(storage.secondsInterval);

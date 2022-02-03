@@ -2,7 +2,7 @@ import { Page } from "../router";
 import { runSprint } from "../../games/sprint";
 import { getData, getSinglePageData } from "../../games/getData";
 import { storage } from "../../utils/storage";
-import { showLoader } from "../../utils/loader";
+import { hideLoader, showLoader } from "../../utils/loader";
 import { timer } from "../../utils/timer";
 import { removeFooter } from "../../utils/misc";
 
@@ -13,6 +13,8 @@ export const sprintPage: Page = {
       storage.onlyOnePage ? await getSinglePageData() : await getData();
     } catch {
       console.log('Network error')
+    } finally {
+      hideLoader();
     }
   return `
   <div class="wrapperGames">

@@ -1,3 +1,4 @@
+import { slider } from "./slider";
 import { storage, WordInfo, ReducedWordInfo, LoginResponse, UserInfo } from "./storage";
 
 const baseURL = 'https://rs-lang-redblooded.herokuapp.com';
@@ -86,8 +87,10 @@ export async function authorize (mail: string, password: string) {
     console.log(error);
   } finally {
     if (info) {
+      storage.isAuthorized = true;
       storage.userId = info.userId;
       storage.token = info.token;
+      slider('command');
     }
   }
 }
@@ -108,6 +111,7 @@ export async function register(name: string, email: string, password: string) {
     console.log(error)
   } finally {
     console.log('successfully registered');
+    authorize(email, password);
   }
 
 };
@@ -136,3 +140,21 @@ const deleteUser = async () => {
     },
   });
 };
+
+export function handleLogin(action: string) {
+  const nameInput = document.querySelector('#name') as HTMLInputElement;
+  const mailInput = document.querySelector('#mail') as HTMLInputElement;
+  const passwordInput = document.querySelector('#password') as HTMLInputElement;
+
+  const name = nameInput.value;
+  // const mail = mailInput.value;
+  // const password = passwordInput.value;
+  const mail = 'hello@user.com';
+  const password = 'Gfhjkm_123';
+
+  if(action === 'login') {
+    authorize(mail, password);
+  } else {
+    register(name, mail, password);
+  }
+}

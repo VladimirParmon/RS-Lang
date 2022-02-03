@@ -1,5 +1,5 @@
 import { Page } from "../router";
-import { showLoader } from "../../utils/loader";
+import { hideLoader, showLoader } from "../../utils/loader";
 import { runAudioGame } from "../../games/audioChallenge";
 import { getData, getSinglePageData } from "../../games/getData"
 import { storage } from "../../utils/storage";
@@ -12,6 +12,8 @@ export const audioChallengePage: Page = {
       storage.onlyOnePage ? await getSinglePageData() : await getData();
     } catch {
       console.log('Network error')
+    } finally {
+      hideLoader();
     }
 
     return `
