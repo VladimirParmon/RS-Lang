@@ -33,6 +33,7 @@ interface StorageObject {
   isAuthMenuOpen: boolean,
   userId?: string,
   token?: string,
+  currentMainSlide: number,
 }
 
 export let storage: StorageObject = {
@@ -77,6 +78,7 @@ export let storage: StorageObject = {
   currentGameMode: '',
   isAuthorized: false,
   isAuthMenuOpen: false,
+  currentMainSlide: 1
 }
 
 export interface WordInfo {

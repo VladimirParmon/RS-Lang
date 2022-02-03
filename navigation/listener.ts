@@ -14,7 +14,7 @@ export const listener = ():void => {
     if (id === 'goHistory') router('history');
     if (id === 'goGames') router('games');
     if (id === 'goStats') router('stats');
-    if (id === 'goDev') router('dev');
+    if (id === 'goDev') window.open('https://rolling-scopes-school.github.io/vladimirparmon-JSFE2021Q3/CV/index.html','mywindow');
     if (id === 'goComments') router('comments');
 
     if (id === 'goAudio') router('audio');

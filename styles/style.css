@@ -1,0 +1,108 @@
+/*====================================================================*/
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  border: 6px solid var(--hover);
+  border-top: 6px solid var(--header);
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+  z-index: 5;
+  /* transform: translate(-50% -50%); */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/*====================================================================*/
+
+.wrapperGames {
+  position: absolute;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  padding: 10px 10px 30px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  overflow: hidden;
+  background-image: url(../assets/poly.jpg);
+  background-size: cover;
+  opacity: 0;
+  animation: 1.5s reveal2 forwards 0.2s;
+}
+
+/*====================================================================*/
+
+#logo {
+  position: relative;
+  top: -30px;
+  font-family: var(--font1);
+  font-size: 11vw;
+  pointer-events: none;
+  white-space: nowrap;
+  font-weight: normal;
+  animation: 1s reveal;
+  animation-fill-mode: forwards; 
+  opacity: 0;
+  transform: translateX(10vw);
+}
+
+#logo span:nth-of-type(1) {
+  color: var(--trio1);
+}
+#logo span:nth-of-type(2) {
+  color: var(--trio2);
+}
+#logo span:nth-of-type(3) {
+  color: var(--trio3);
+}
+
+#logoWrapper {
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+}
+
+#logo::after {
+  content: 'It\'s never been easier';
+  font-family: var(--font4);
+  font-size: 2vw;
+  position: absolute;
+  bottom: 1vw;
+  right: 7vw;
+  color: var(--primary-color);
+  animation: 1.5s reveal;
+  animation-delay: 500ms;
+  animation-fill-mode: forwards; 
+  opacity: 0;
+  letter-spacing: 1px;
+}
+
+@keyframes reveal {
+  0% {
+    opacity: 0;
+    filter: brightness(130%);
+    transform: translateX(-10vw);
+  }
+  100% {
+    opacity: 1;
+    filter: brightness(100%) contrast(95%);
+  }
+}
+
+
+
+/*===========================================*/
+
+@media screen and (max-width: 1600px) {
+  #additionalInfo {
+    max-width: 1000px;
+  }
+}
