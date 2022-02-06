@@ -1,5 +1,6 @@
+import { router } from "../navigation/router";
 import { slider } from "./slider";
-import { storage, WordInfo, ReducedWordInfo, LoginResponse, UserInfo } from "./storage";
+import { storage, WordInfo, ReducedWordInfo, LoginResponse, RegistrationResponse, UserInfo } from "./storage";
 
 const baseURL = 'https://rs-lang-redblooded.herokuapp.com';
 export const filesUrl = 'https://raw.githubusercontent.com/vladimirparmon/react-rslang-be/master'
@@ -64,17 +65,16 @@ const loginUser = async (user: UserInfo) => {
         return response.json();
       } else {
         response.text().then(text => {
-          const { email } = user;
           if (text.slice(0,1) === 'C') {
-            console.log(`No user with email ${email} was found`)
+            console.log(`Неверное имя пользователя`);
           } else {
-            console.log('Incorrect password')
+            console.log('Неверный пароль');
           }
         })
       }
     })
     .catch(error => {
-      console.log('error is:', error)
+      console.log('Нет соединения с интернетом или сервер не отвечает');
     })
     return info;
 };
@@ -83,51 +83,73 @@ export async function authorize (mail: string, password: string) {
   let info!: LoginResponse;
   try {
     info = await loginUser({ "email": mail, "password": password });
-  } catch (error) {
-    console.log(error);
   } finally {
     if (info) {
       storage.isAuthorized = true;
       storage.userId = info.userId;
       storage.token = info.token;
+      storage.userName = info.name;
+      const greeting = document.querySelector('#greeting');
+      greeting!.innerHTML = `Привет, ${storage.userName}`;
+      const logoutButton = document.querySelector('#auth') as HTMLElement;
+      logoutButton!.style.backgroundImage =  'url(../assets/svg/logout.svg)';
+      logoutButton.addEventListener('click', () => {
+        storage.isAuthorized = false;
+        logoutButton.style.backgroundImage = 'url(../assets/svg/person.svg)';
+        router('home');
+      }, {
+        once: true
+      })
       slider('command');
     }
   }
 }
 
-export async function register(name: string, email: string, password: string) {
+export async function registerUser (user: UserInfo) {
+  const info = await fetch(users, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(user)
+  })
+    .then(response => {
+      if(response.ok) {
+        return response.json();
+      } else if (response.status === 417) {
+        console.log('Пользователь с таким адресом эл. почты уже существует');
+      } else {
+        response.text().then(text => {
+          if (text.search(/mail/) !== -1) {
+            console.log('mail is huinya')
+          }
+          if (text.search(/name/) !== -1) {
+            console.log('name is huinya')
+          }
+          if (text.search(/password/) !== -1) {
+            console.log('password is huinya')
+          }
+        })
+      }
+    })
+    .catch(error => {
+      console.log('Нет соединения с интернетом или сервер не отвечает');
+    })
+  return info;
+}
+
+export async function register (name: string, mail: string, password: string) {
+  let info!: RegistrationResponse;
   try {
-    const rawResponse = await fetch(users, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({name, email, password})
-    });
-    const content = await rawResponse.json();
-    console.log(content);
-  } catch (error) {
-    console.log(error)
+    info = await registerUser ({ "name": name, "email": mail, "password": password });
   } finally {
-    console.log('successfully registered');
-    authorize(email, password);
+    if (info) {
+      authorize(mail, password);
+    }
   }
+}
 
-};
-
-// const createUser = async (user: UserInfo) => {
-//   const rawResponse = await fetch(users, {
-//     method: 'POST',
-//     headers: {
-//       'Accept': 'application/json',
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify(user)
-//   });
-//   const content = await rawResponse.json();
-//   console.log(content);
-// };
 //createUser({ "email": "hello@user.com", "password": "Gfhjkm_123" });
 
 const deleteUser = async () => {
@@ -147,10 +169,8 @@ export function handleLogin(action: string) {
   const passwordInput = document.querySelector('#password') as HTMLInputElement;
 
   const name = nameInput.value;
-  // const mail = mailInput.value;
-  // const password = passwordInput.value;
-  const mail = 'hello@user.com';
-  const password = 'Gfhjkm_123';
+  const mail = mailInput.value;
+  const password = passwordInput.value;
 
   if(action === 'login') {
     authorize(mail, password);

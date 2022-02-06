@@ -96,3 +96,16 @@ export function rollGamesSelector(action: string) {
     storage.isGamesListOpen = false;
   }
 }
+
+export function passwordReveal() {
+  const button = document.querySelector('#passwordReveal') as HTMLImageElement;
+  const input = document.querySelector('#password') as HTMLInputElement;
+
+  if (input.type === 'password') {
+    input.type = 'text';
+    button.src = 'assets/svg/eye-show.svg'
+  } else {
+    input.type = 'password';
+    button.src = 'assets/svg/eye-hide.svg'
+  }
+}

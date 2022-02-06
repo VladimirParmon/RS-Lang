@@ -23,7 +23,6 @@ window.addEventListener("resize", () => {
       case 2: howFar = -currentHeight * 2;
       break;
     }
-    console.log(howFar)
     slider.style.transform = `translateY(${howFar}px)`
   }
 });

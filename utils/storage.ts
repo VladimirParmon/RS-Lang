@@ -33,6 +33,7 @@ interface StorageObject {
   isAuthMenuOpen: boolean,
   userId?: string,
   token?: string,
+  userName?: string,
   currentMainSlide: number,
 }
 
@@ -116,6 +117,12 @@ export interface LoginResponse {
   token: string,
   refreshToken: string,
   userId: string,
+  name: string
+}
+
+export interface RegistrationResponse {
+  email: string,
+  id: string,
   name: string
 }
 

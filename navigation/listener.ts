@@ -1,5 +1,5 @@
 import { storage } from "../utils/storage";
-import { rollMenu, rollPageSelector, rollSectionSelector, rollGamesSelector } from "./rollMenu";
+import { rollMenu, rollPageSelector, rollSectionSelector, rollGamesSelector, passwordReveal } from "./rollMenu";
 import { router } from "./router";
 import { playSound } from "../utils/playSound";
 import { filesUrl, handleLogin } from "../utils/api";
@@ -10,10 +10,10 @@ export const listener = ():void => {
     let id = eventTarget.id;
 
     if (id === 'goHome') router('home');
-    if (id === 'goBook') router('book');
+    if (id === 'goBook' || id === 'learnWords') router('book');
     if (id === 'goHistory') router('history');
-    if (id === 'goGames') router('games');
-    if (id === 'goStats') router('stats');
+    if (id === 'goGames' || id === 'playGames') router('games');
+    if (id === 'goStats' || id === 'yourStats') router('stats');
     if (id === 'goDev') window.open('https://rolling-scopes-school.github.io/vladimirparmon-JSFE2021Q3/CV/index.html','mywindow');
     if (id === 'goComments') router('comments');
 
@@ -74,5 +74,6 @@ export const listener = ():void => {
 
     if (id === 'login') handleLogin('login');
     if (id === 'send') handleLogin('send');
+    if (id === 'passwordReveal') passwordReveal();
   });
 }

@@ -10,17 +10,43 @@ export const homePage: Page = {
       <div id="wrapperAusweisInner">
         <a href="#register" id="register">Еще не зарегистрированы?</a>
         <a href="#whatever" class="undoer">У меня уже есть аккаунт!</a>
-        <div id="nameWrapper">
-          <input type="text" id="name" placeholder="Введите имя">
+        <div id="nameWrapper" class="inputWrapper">
+          <input type="text" id="name" autocomplete="off" placeholder="Введите имя" required>
+          <div class="validation">Имя обязательно</div>
         </div>
-        <input type="text" id="mail" placeholder="Введите адрес эл. почты">
-        <input type="text" id="password" placeholder="Введите пароль">
+        <div class="inputWrapper">
+          <input type="text" id="mail" placeholder="Введите адрес эл. почты" required>
+          <div class="validation">Адрес должен быть валидным</div>
+        </div>
+        <div class="inputWrapper">
+          <img id="passwordReveal" src="assets/svg/eye-hide.svg" alt="password reveal">
+          <input type="password" id="password" placeholder="Введите пароль" required minlength="8">
+          <div class="validation">Минимум 8 символов</div>
+        </div>
         <button id="login">Войти</button>
         <button id="send">Зарегистрироваться</button>
       </div>
       <div id="returnFromAusweis"></div>
     </div>
-    <div id="wrapperHomeAuth" ${storage.isAuthorized ? 'style="display: flex"' : 'style="display: none"'}></div>
+    <div id="wrapperHomeAuth" ${storage.isAuthorized ? 'style="display: flex"' : 'style="display: none"'}>
+      <h1 id="greeting">Привет, ${storage.userName}</h1>
+      <div class="activitySelector">
+        <div id="learnWords"></div>
+        <span>Учить слова</span>
+      </div>
+        <div class="activitySelector">
+        <div id="playGames"></div>
+      <span>Играть в игры</span>
+      </div>
+      <div class="activitySelector">
+        <div id="yourStats"></div>
+        <span>Статистика</span>
+      </div>
+      <div class="activitySelector">
+        <div id="aboutTheProject"></div>
+        <span>о проекте</span>
+      </div>
+    </div>
     <div id="wrapperHome" ${storage.isAuthorized ? 'style="display: none"' : 'style="display: flex"'}>
         <h1 id="logo"><span>R</span><span>S</span><span> Lang</span></h1>
       <div id="homeButtonsWrapper">

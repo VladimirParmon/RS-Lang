@@ -1,3 +1,4 @@
+.activitySelector,
 .gameModeSelector {
   position: relative;
   width: 40%;
@@ -7,6 +8,7 @@
   overflow: hidden;
 }
 
+.activitySelector div,
 .gameModeSelector div {
   position: relative;
   width: 100%;
@@ -19,6 +21,7 @@
   background-position: center;
 }
 
+.activitySelector span,
 .gameModeSelector span {
   position: absolute;
   width: 100%;
@@ -28,8 +31,10 @@
   font-size: 20px;
   background-color: var(--primary-color);
   z-index: 1;
+  padding-left: 10px;
 }
 
+.activitySelector:hover div,
 .gameModeSelector:hover div {
   transform: scale(1.2);
   filter: brightness(40%);
