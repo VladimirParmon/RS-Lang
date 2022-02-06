@@ -35,6 +35,8 @@ interface StorageObject {
   token?: string,
   userName?: string,
   currentMainSlide: number,
+  markedDifficult: string[],
+  markedDeleted: string[]
 }
 
 export let storage: StorageObject = {
@@ -77,9 +79,11 @@ export let storage: StorageObject = {
     wrong: []
   },
   currentGameMode: '',
-  isAuthorized: false,
+  isAuthorized: true,
   isAuthMenuOpen: false,
-  currentMainSlide: 1
+  currentMainSlide: 1,
+  markedDifficult: [],
+  markedDeleted: []
 }
 
 export interface WordInfo {

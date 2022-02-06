@@ -68,7 +68,7 @@ const loginUser = async (user: UserInfo) => {
       } else {
         response.text().then(text => {
           if (text.slice(0,1) === 'C') {
-            displayError('Неверное имя пользователя')
+            displayError('Неверный адрес эл. почты');
           } else {
             displayError('Неверный пароль');
           }

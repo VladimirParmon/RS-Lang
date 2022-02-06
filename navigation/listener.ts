@@ -8,6 +8,7 @@ import { slider } from "../utils/slider";
 export const listener = ():void => {
   window.addEventListener('click', (e) => {
     let eventTarget = e.target as HTMLElement;
+    let eventInputTarget = e.target as HTMLInputElement;
     let id = eventTarget.id;
 
     if (id === 'goHome') router('home');
@@ -76,6 +77,20 @@ export const listener = ():void => {
     if (id === 'login') handleLogin('login');
     if (id === 'send') handleLogin('send');
     if (id === 'passwordReveal') passwordReveal();
+
+    if (id.split('-')[0] === 'checkbox') {
+      if (eventInputTarget.checked) {
+        storage.markedDifficult.push(id.split('-')[1])
+      } else {
+        storage.markedDifficult = storage.markedDifficult?.filter(el => el !== id.split('-')[1])
+      }
+      console.log(storage.markedDifficult)
+    }
+    if (id.split('-')[0] === 'garbage') {
+      storage.markedDeleted.push(id.split('-')[1]);
+      const theCard = document.querySelector(`#card-${id.split('-')[1]}`) as HTMLElement;
+      theCard.style.display = 'none';
+    }
   });
 
   const loginButton = document.querySelector('#authIn') as HTMLElement;

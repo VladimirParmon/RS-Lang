@@ -5,6 +5,7 @@ import { capitalize } from "../utils/misc";
 import { endGame } from "../utils/endGame";
 
 export function runSprint() {
+  console.log(storage.currentGameQueue)
   const wordSpan = document.querySelector('#sprintWordSpan');
   const variantSpan = document.querySelector('#sprintVariantSpan');
   const sprintButtons = document.querySelector('#sprintButtons');
@@ -60,9 +61,7 @@ export function runSprint() {
     signal: storage.abortController.signal
   })
 
-  if (storage.currentGameQueue.length === 0) {
-    endGame();
-  };
+  
 }
 
 function goNext(command: boolean) {
@@ -72,9 +71,10 @@ function goNext(command: boolean) {
     storage.endGameResults.right.push(storage.rightAnswer);
   } else {
     audioBite.src = './assets/sounds/wrongAnswer.mp3'
-    storage.endGameResults.wrong.push(storage.singleVariant);
+    storage.endGameResults.wrong.push(storage.rightAnswer);
   }
   audioBite.play();
   storage.abortController?.abort();
   runSprint();
+  if(storage.currentGameQueue.length === 0) endGame();
 }

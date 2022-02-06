@@ -88,16 +88,18 @@ export function runAudioAnimation(id: string) {
   };
 
   function goNext() {
+    console.log(storage.currentGameQueue, storage.currentGameQueue.length)
     buttonsDiv.style.opacity = '0';
     roundButton.style.width = '140px'
     roundButton.style.height = '140px';
     roundButton.style.borderRadius = '50%';
     roundButton.style.backgroundImage = 'none';
     roundButtonIcon.style.opacity = '1';
+    runAudioGame()
+    if (storage.currentGameQueue.length === 0) endGame();
     setTimeout(() => {
       buttonsDiv.style.opacity = '1';
       buttonsDiv.innerHTML = ``;
-      storage.currentGameQueue.length === 0 ? endGame() : runAudioGame();
     }, 600);
     }
 //=============================================================//

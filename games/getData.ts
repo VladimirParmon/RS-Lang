@@ -55,8 +55,13 @@ export const getSinglePageData = async () => {
       info = await getAllWords(difficulty, 'single');
     } finally {
       if (info) {
+        const infoWithoutDeleted = info.filter(el => {
+          if (!storage.markedDeleted.includes(el.id)) {
+            return el;
+          }
+        })
         storage.onlyOnePageTemplate = info;
-        storage.currentGameQueue = [...shuffle(info)];
+        storage.currentGameQueue = [...shuffle(infoWithoutDeleted)];
       }
     }
 

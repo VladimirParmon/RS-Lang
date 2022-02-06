@@ -26,8 +26,18 @@ export const bookPage: Page = {
   }
 
     async function generateCard (i: number) {
+      const authAdditionalOptions = storage.isAuthorized ? 
+      `<div id="authAdditionalOptions">
+      <input class="bookCheckbox" type="checkbox" id="checkbox-${info[i].id}" style="display: none" ${storage.markedDifficult.includes(info[i].id) ? 'checked' : ''}>
+        <label for="checkbox-${info[i].id}" class="cap">
+          <img src="assets/svg/cap.svg">
+        </label>
+        <div class="garbage" id="garbage-${info[i].id}">
+          <img src="assets/svg/garbage.svg">
+        </div>
+      </div>` : '';
       return `
-        <div class="card">
+        <div class="card" id="card-${info[i].id}" style="display: ${storage.markedDeleted.includes(info[i].id) ? 'none' : 'flex'}">
           <img class="cardImg" src="${filesUrl}/${info[i].image}" alt="${info[i].word}">
           <div class="cardInfo">
             <h2>${capitalize(info[i].word)} - ${info[i].transcription}<img class="soundIcon" id="playSound-${info[i].audio}" src="assets/svg/sound.svg" alt="sound"></h2>
@@ -43,6 +53,7 @@ export const bookPage: Page = {
             </div>
             <span>${info[i].textExampleTranslate}</span>
           </div>
+          ${authAdditionalOptions}
         </div>
       `
     }
