@@ -14,6 +14,7 @@ export const homePage: Page = {
           <input type="text" id="name" autocomplete="off" placeholder="Введите имя" required>
           <div class="validation">Имя обязательно</div>
         </div>
+        <span id="errorSpan"></span>
         <div class="inputWrapper">
           <input type="text" id="mail" placeholder="Введите адрес эл. почты" required>
           <div class="validation">Адрес должен быть валидным</div>

@@ -3,6 +3,7 @@ import { rollMenu, rollPageSelector, rollSectionSelector, rollGamesSelector, pas
 import { router } from "./router";
 import { playSound } from "../utils/playSound";
 import { filesUrl, handleLogin } from "../utils/api";
+import { slider } from "../utils/slider";
 
 export const listener = ():void => {
   window.addEventListener('click', (e) => {
@@ -76,4 +77,12 @@ export const listener = ():void => {
     if (id === 'send') handleLogin('send');
     if (id === 'passwordReveal') passwordReveal();
   });
+
+  const loginButton = document.querySelector('#authIn') as HTMLElement;
+  loginButton.addEventListener('click', async () => {
+    router('home');
+    setTimeout(() => {
+      slider('reg');
+    }, 10) 
+  })
 }

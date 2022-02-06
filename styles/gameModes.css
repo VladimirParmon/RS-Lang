@@ -37,7 +37,7 @@
 .activitySelector:hover div,
 .gameModeSelector:hover div {
   transform: scale(1.2);
-  filter: brightness(40%);
+  filter: brightness(80%);
 }
 
 #goAudio {

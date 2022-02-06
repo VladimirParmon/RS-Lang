@@ -318,7 +318,8 @@
   background-image: url(../assets/img/time.jpg);
 }
 #aboutTheProject {
-  background-image: url(../assets/img/application.jpg);
+  background-image: url(../assets/img/hello.png);
+  background-position: bottom;
 }
 
 #video,
@@ -368,4 +369,11 @@ iframe {
   right: 0;
   width: 100%;
   height: 100%;
+}
+
+#errorSpan {
+  position: absolute;
+  bottom: 0;
+  font-size: 15px;
+  max-width: 90%;
 }

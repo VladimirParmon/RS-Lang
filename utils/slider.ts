@@ -42,9 +42,11 @@ export function slider(command?: string) {
     altAboutButton?.addEventListener('click', goSlideThree);
     returnFromAusweis?.addEventListener('click', goSlideTwo);
     returnFromAbout.addEventListener('click', goSlideTwo);
-  } else {
+  } else if (command === 'main') {
     centralPage.style.display = 'none';
     altCentralPage.style.display = 'flex';
     goSlideTwo();
+  } else {
+    goSlideOne();
   }
 }

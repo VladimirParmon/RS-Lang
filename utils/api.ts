@@ -1,4 +1,5 @@
 import { router } from "../navigation/router";
+import { hideLoader, showLoader } from "./loader";
 import { slider } from "./slider";
 import { storage, WordInfo, ReducedWordInfo, LoginResponse, RegistrationResponse, UserInfo } from "./storage";
 
@@ -52,6 +53,7 @@ export const getAllWords = async (group: number, single?: string) => {
 //======================================================================//
 
 const loginUser = async (user: UserInfo) => {
+  const errorSpan = document.querySelector('#errorSpan');
   const info = await fetch(signIn, {
     method: 'POST',
     headers: {
@@ -66,46 +68,52 @@ const loginUser = async (user: UserInfo) => {
       } else {
         response.text().then(text => {
           if (text.slice(0,1) === 'C') {
-            console.log(`Неверное имя пользователя`);
+            displayError('Неверное имя пользователя')
           } else {
-            console.log('Неверный пароль');
+            displayError('Неверный пароль');
           }
         })
       }
     })
     .catch(error => {
-      console.log('Нет соединения с интернетом или сервер не отвечает');
+      displayError('Нет соединения с интернетом или сервер не отвечает');
     })
     return info;
 };
 
 export async function authorize (mail: string, password: string) {
   let info!: LoginResponse;
+  showLoader();
   try {
     info = await loginUser({ "email": mail, "password": password });
   } finally {
     if (info) {
+      hideLoader();
       storage.isAuthorized = true;
       storage.userId = info.userId;
       storage.token = info.token;
       storage.userName = info.name;
       const greeting = document.querySelector('#greeting');
       greeting!.innerHTML = `Привет, ${storage.userName}`;
-      const logoutButton = document.querySelector('#auth') as HTMLElement;
-      logoutButton!.style.backgroundImage =  'url(../assets/svg/logout.svg)';
+      const logoutButton = document.querySelector('#authOut') as HTMLElement;
+      const loginButton = document.querySelector('#authIn') as HTMLElement;
+      logoutButton!.style.display =  'block';
+      loginButton!.style.display =  'none';
       logoutButton.addEventListener('click', () => {
         storage.isAuthorized = false;
-        logoutButton.style.backgroundImage = 'url(../assets/svg/person.svg)';
+        loginButton.style.display = 'block';
+        logoutButton.style.display = 'none';
         router('home');
       }, {
         once: true
       })
-      slider('command');
+      slider('main');
     }
   }
 }
 
 export async function registerUser (user: UserInfo) {
+  const errorSpan = document.querySelector('#errorSpan');
   const info = await fetch(users, {
     method: 'POST',
     headers: {
@@ -118,33 +126,33 @@ export async function registerUser (user: UserInfo) {
       if(response.ok) {
         return response.json();
       } else if (response.status === 417) {
-        console.log('Пользователь с таким адресом эл. почты уже существует');
+        displayError('Адрес эл. почты уже занят');
       } else {
         response.text().then(text => {
           if (text.search(/mail/) !== -1) {
-            console.log('mail is huinya')
-          }
-          if (text.search(/name/) !== -1) {
-            console.log('name is huinya')
-          }
-          if (text.search(/password/) !== -1) {
-            console.log('password is huinya')
+            displayError('Адрес эл. почты должен быть валидным');
+          } else if (text.search(/name/) !== -1) {
+            displayError('Имя не должно быть пустым');
+          } else if (text.search(/password/) !== -1) {
+            displayError('Пароль не должен быть короче 8 символов');
           }
         })
       }
     })
     .catch(error => {
-      console.log('Нет соединения с интернетом или сервер не отвечает');
+      displayError('Нет соединения с интернетом или сервер не отвечает');
     })
   return info;
 }
 
 export async function register (name: string, mail: string, password: string) {
   let info!: RegistrationResponse;
+  showLoader();
   try {
     info = await registerUser ({ "name": name, "email": mail, "password": password });
   } finally {
     if (info) {
+      hideLoader();
       authorize(mail, password);
     }
   }
@@ -177,4 +185,14 @@ export function handleLogin(action: string) {
   } else {
     register(name, mail, password);
   }
+}
+
+function displayError(info: string) {
+  const errorSpan = document.querySelector('#errorSpan') as HTMLElement;
+  errorSpan!.textContent = info;
+  errorSpan.style.opacity = '1';
+  setTimeout(() => {
+    errorSpan.style.opacity = '0';
+  }, 1000)
+  hideLoader();
 }

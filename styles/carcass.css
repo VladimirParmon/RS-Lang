@@ -119,14 +119,20 @@ footer img:hover {
   color: var(--trio3);
 }
 
-#auth {
+#authOut,
+#authIn {
   position: fixed;
   right: 10px;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   background-image: url(../assets/svg/person.svg);
   background-size: contain;
   cursor: pointer;
+}
+
+#authOut {
+  display: none;
+  background-image: url(../assets/svg/logout.svg);
 }
 
 #openMenuButton {
