@@ -1,11 +1,11 @@
-import { addFooter } from "../../utils/misc";
-import { Page } from "../router";
+import { addFooter } from '../../utils/misc';
+import { Page } from '../router';
 
 export const statsPage: Page = {
-  render: () => (`
+  render: () => `
     <h1>Hello Stats blyad</h1>
-  `),
+  `,
   afterRender: () => {
     addFooter();
   }
-}
+};

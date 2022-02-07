@@ -1,10 +1,10 @@
-import { Page } from "../router";
-import { runSprint } from "../../games/sprint";
-import { getData, getSinglePageData } from "../../games/getData";
-import { storage } from "../../utils/storage";
-import { hideLoader, showLoader } from "../../utils/loader";
-import { timer } from "../../utils/timer";
-import { removeFooter } from "../../utils/misc";
+import { Page } from '../router';
+import { runSprint } from '../../games/sprint';
+import { getData, getSinglePageData } from '../../games/getData';
+import { storage } from '../../utils/storage';
+import { hideLoader, showLoader } from '../../utils/loader';
+import { timer } from '../../utils/timer';
+import { removeFooter } from '../../utils/misc';
 
 export const sprintPage: Page = {
   render: async () => {
@@ -12,11 +12,11 @@ export const sprintPage: Page = {
       showLoader();
       storage.onlyOnePage ? await getSinglePageData() : await getData();
     } catch {
-      console.log('Network error')
+      console.log('Network error');
     } finally {
       hideLoader();
     }
-  return `
+    return `
   <div class="wrapperGames">
     <div id="wrapperSprint">
       <div class="timerHolder">
@@ -28,10 +28,11 @@ export const sprintPage: Page = {
       <div id="sprintButtons"></div>
     </div>
   </div>
-  `},
+  `;
+  },
   afterRender: () => {
-    if(storage.secondsInterval) clearInterval(storage.secondsInterval);
-    if(storage.msInterval) clearInterval(storage.msInterval);
+    if (storage.secondsInterval) clearInterval(storage.secondsInterval);
+    if (storage.msInterval) clearInterval(storage.msInterval);
     storage.currentGameMode = 'Sprint';
     storage.endGameResults.right = [];
     storage.endGameResults.wrong = [];
@@ -39,4 +40,4 @@ export const sprintPage: Page = {
     timer();
     runSprint();
   }
-}
+};

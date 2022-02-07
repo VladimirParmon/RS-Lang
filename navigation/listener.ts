@@ -80,14 +80,17 @@ export const listener = ():void => {
 
     if (id.split('-')[0] === 'checkbox') {
       if (eventInputTarget.checked) {
-        storage.markedDifficult.push(id.split('-')[1])
+        const current = storage.markedDifficult;
+        current.push(id.split('-')[1]);
+        storage.markedDifficult = current;
       } else {
         storage.markedDifficult = storage.markedDifficult?.filter(el => el !== id.split('-')[1])
       }
-      console.log(storage.markedDifficult)
     }
     if (id.split('-')[0] === 'garbage') {
-      storage.markedDeleted.push(id.split('-')[1]);
+      const current = storage.markedDeleted;
+      current.push(id.split('-')[1]);
+      storage.markedDeleted = current;
       const theCard = document.querySelector(`#card-${id.split('-')[1]}`) as HTMLElement;
       theCard.style.display = 'none';
     }

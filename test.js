@@ -1,50 +1,30 @@
+// let storage = {
+//   a: 1,
+//   b: 2,
+//   c: 3
+// }
 
-  const loginUser = async (user) => {
-    const rawResponse = await fetch('https://rs-lang-redblooded.herokuapp.com/signin', {
-      method: 'POST',
-      headers: {
+// let storageProxy = new Proxy(storage, {
+//   set: function () {
+//     localStorage.setItem('myStorage', JSON.stringify(storage))
+//     return true;
+//   }
+// })
 
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(user)
-    });
-    const content = await rawResponse.json();
-  
-    const userID = content.userId;
-    const token = content.token;
-    console.log(content)
+// // storageProxy.d = 4;
+// // storageProxy.a = 1;
+// // console.log(storage, storage.d);
 
-    const deleteUser = async user => {
-      console.log(userID, token);
-      const rawResponse = await fetch(`https://rs-lang-redblooded.herokuapp.com/users/${userID}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-      });
-    };
-    //deleteUser()
-  };
-  
-  loginUser({ "email": "hello@user.com", "password": "Gfhjkm_123" });
+// const root = document.querySelector('body')
+// const button = document.createElement('button')
+// button.textContent = 'FFFFFFFFFFFF'
+// button.style.zIndex = 1000;
+// button.style.position = 'absolute';
+// button.addEventListener('click', () => {
+//   storage.g = 25;
+//   storage.a = 42;
+//   localStorage.setItem('myStorage', JSON.stringify(storage))
+//   console.log(storage)
+// })
 
-  const createUser = async user => {
-    const rawResponse = await fetch('https://rs-lang-redblooded.herokuapp.com/users', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(user)
-    });
-    const content = await rawResponse.json();
-  
-    console.log(content);
-  };
-
-//createUser({ "email": "hello@user.com", "password": "Gfhjkm_123" });
-
-
+// root.append(button)

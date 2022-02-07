@@ -2,6 +2,7 @@ import { router } from "../navigation/router";
 import { hideLoader, showLoader } from "./loader";
 import { slider } from "./slider";
 import { storage, WordInfo, ReducedWordInfo, LoginResponse, RegistrationResponse, UserInfo } from "./storage";
+import { adjustLoginButton } from "../master";
 
 const baseURL = 'https://rs-lang-redblooded.herokuapp.com';
 export const filesUrl = 'https://raw.githubusercontent.com/vladimirparmon/react-rslang-be/master'
@@ -95,18 +96,7 @@ export async function authorize (mail: string, password: string) {
       storage.userName = info.name;
       const greeting = document.querySelector('#greeting');
       greeting!.innerHTML = `Привет, ${storage.userName}`;
-      const logoutButton = document.querySelector('#authOut') as HTMLElement;
-      const loginButton = document.querySelector('#authIn') as HTMLElement;
-      logoutButton!.style.display =  'block';
-      loginButton!.style.display =  'none';
-      logoutButton.addEventListener('click', () => {
-        storage.isAuthorized = false;
-        loginButton.style.display = 'block';
-        logoutButton.style.display = 'none';
-        router('home');
-      }, {
-        once: true
-      })
+      adjustLoginButton();
       slider('main');
     }
   }

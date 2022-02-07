@@ -16,7 +16,7 @@ export type Page = {
   afterRender(instruction?: string): string | void;
 }
 
-type routerLib = {
+export type routerLib = {
   home: Page,
   book: Page,
   history: Page,
@@ -44,6 +44,7 @@ const getPageFromName = (pageName: keyof routerLib) => pages[pageName] || null;
 
 export const router = async (pageName: keyof routerLib, instruction?: string) => {
     let page = getPageFromName(pageName);
+    storage.currentPage = pageName;
     instruction ? storage.onlyOnePage = true : storage.onlyOnePage = false;
 
     if (page && root) {

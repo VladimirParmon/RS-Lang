@@ -1,11 +1,23 @@
-import { addFooter } from "../../utils/misc";
-import { slider } from "../../utils/slider";
-import { storage } from "../../utils/storage";
-import { Page } from "../router";
+import { addFooter } from '../../utils/misc';
+import { slider } from '../../utils/slider';
+import { storage } from '../../utils/storage';
+import { Page } from '../router';
 
 export const homePage: Page = {
-  render: () => (`
-  <div id="slider">
+  render: () => {
+    const page = document.querySelector('#content') as HTMLElement;
+    const currentHeight = page.offsetHeight;
+    let value: number = 0;
+    switch(storage.currentMainSlide) {
+      case 0: value = 0;
+      break;
+      case 1: value = -currentHeight - 10;
+      break;
+      case 2: value = (-currentHeight - 10) * 2;
+      break
+    }
+    return`
+  <div id="slider" style="transform: translateY(${value}px)">
     <div id="wrapperAusweis">
       <div id="wrapperAusweisInner">
         <a href="#register" id="register">Еще не зарегистрированы?</a>
@@ -56,7 +68,7 @@ export const homePage: Page = {
       </div>
     </div>
     <div id="wrapperAbout">
-      <div id="returnFromAbout"></div>
+      <div id="returnFromAbout" ${storage.currentMainSlide === 2 ? 'style="opacity: 1"' : ''}></div>
       <div id="video">
         <div id="videoItself">
           <iframe
@@ -87,9 +99,9 @@ export const homePage: Page = {
       </div>
     </div>
   </div>
-  `),
+  `},
   afterRender: () => {
     addFooter();
     slider();
   }
-}
+};

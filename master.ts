@@ -1,9 +1,11 @@
 import { listener } from "./navigation/listener";
-import { router } from "./navigation/router";
+import { router, routerLib } from "./navigation/router";
 import { storage } from './utils/storage'
 
 listener();
-router('home');
+const currentPage = storage.currentPage as keyof routerLib;
+router(currentPage);
+adjustLoginButton();
 
 let resizeTimer: NodeJS.Timeout;
 window.addEventListener("resize", () => {
@@ -26,4 +28,21 @@ window.addEventListener("resize", () => {
     slider.style.transform = `translateY(${howFar}px)`
   }
 });
+
+export function adjustLoginButton() {
+  if (storage.isAuthorized) {
+    const logoutButton = document.querySelector('#authOut') as HTMLElement;
+    const loginButton = document.querySelector('#authIn') as HTMLElement;
+    logoutButton!.style.display =  'block';
+    loginButton!.style.display =  'none';
+    logoutButton.addEventListener('click', () => {
+      storage.isAuthorized = false;
+      loginButton.style.display = 'block';
+      logoutButton.style.display = 'none';
+      router('home');
+    }, {
+      once: true
+    })
+  }
+}
 

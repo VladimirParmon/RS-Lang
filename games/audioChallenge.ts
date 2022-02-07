@@ -23,11 +23,11 @@ export function runAudioGame() {
     keyIcon.src = `assets/svg/white/${i + 1}w.svg`;
     option.appendChild(keyIcon);
     option.id = `audioGameOption-${el.id}`;
-    option!.innerHTML += capitalize(el.translate);
-    option?.addEventListener('click', () => {
+    option.innerHTML += capitalize(el.translate);
+    option.addEventListener('click', () => {
       checkChoice(el.id);
     })
-    optionsContainer?.appendChild(option);
+    optionsContainer!.appendChild(option);
   }) 
   storage.currentOptions = intermediateArray;
 
@@ -88,18 +88,16 @@ export function runAudioAnimation(id: string) {
   };
 
   function goNext() {
-    console.log(storage.currentGameQueue, storage.currentGameQueue.length)
     buttonsDiv.style.opacity = '0';
     roundButton.style.width = '140px'
     roundButton.style.height = '140px';
     roundButton.style.borderRadius = '50%';
     roundButton.style.backgroundImage = 'none';
     roundButtonIcon.style.opacity = '1';
-    runAudioGame()
-    if (storage.currentGameQueue.length === 0) endGame();
     setTimeout(() => {
       buttonsDiv.style.opacity = '1';
       buttonsDiv.innerHTML = ``;
+      storage.currentGameQueue.length === 0 ? endGame() : runAudioGame();
     }, 600);
     }
 //=============================================================//

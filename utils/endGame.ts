@@ -18,8 +18,6 @@ export function endGame() {
     
     const resultsWrapper = document.createElement('div');
     resultsWrapper.id = 'resultsWrapper';
-
-    storage.abortController?.abort();
   
     const theId = `#wrapper${storage.currentGameMode}`;
 

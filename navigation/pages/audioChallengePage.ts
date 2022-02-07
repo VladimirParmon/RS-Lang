@@ -1,9 +1,9 @@
-import { Page } from "../router";
-import { hideLoader, showLoader } from "../../utils/loader";
-import { runAudioGame } from "../../games/audioChallenge";
-import { getData, getSinglePageData } from "../../games/getData"
-import { storage } from "../../utils/storage";
-import { removeFooter } from "../../utils/misc";
+import { Page } from '../router';
+import { hideLoader, showLoader } from '../../utils/loader';
+import { runAudioGame } from '../../games/audioChallenge';
+import { getData, getSinglePageData } from '../../games/getData';
+import { storage } from '../../utils/storage';
+import { removeFooter } from '../../utils/misc';
 
 export const audioChallengePage: Page = {
   render: async () => {
@@ -11,7 +11,7 @@ export const audioChallengePage: Page = {
       showLoader();
       storage.onlyOnePage ? await getSinglePageData() : await getData();
     } catch {
-      console.log('Network error')
+      console.log('Network error');
     } finally {
       hideLoader();
     }
@@ -25,7 +25,7 @@ export const audioChallengePage: Page = {
         <div id="audioGameOptions"></div>
       </div>
     </div>
-    `
+    `;
   },
   afterRender: () => {
     storage.currentGameMode = 'AudioGame';
@@ -34,4 +34,4 @@ export const audioChallengePage: Page = {
     removeFooter();
     runAudioGame();
   }
-}
+};
