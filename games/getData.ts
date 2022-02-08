@@ -5,7 +5,7 @@ import { ReducedWordInfo, storage } from '../utils/storage';
 export const getData = async () => {
   const difficulty = storage.currentDifficulty;
   let info;
-  if (Object.keys(storage.difficultyLevels).length === 0) {
+  if (!Object.keys(storage.difficultyLevels).includes(difficulty.toString())) {
     try {
       info = await getAllWords(difficulty);
     } finally {

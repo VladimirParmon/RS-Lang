@@ -8,6 +8,7 @@ import { commentsPage } from './pages/commentsPage';
 import { audioChallengePage } from './pages/audioChallengePage';
 import { storage } from '../utils/storage';
 import { sprintPage } from './pages/sprintPage';
+import { redirectPage } from './pages/gamesRedirect';
 
 const root = document.querySelector('#content');
 
@@ -25,7 +26,8 @@ export type routerLib = {
   dev: Page,
   comments: Page,
   audio: Page,
-  sprint: Page
+  sprint: Page,
+  redirect: Page
 }
 
 const pages: routerLib = {
@@ -37,7 +39,8 @@ const pages: routerLib = {
   dev: devPage,
   comments: commentsPage,
   audio: audioChallengePage,
-  sprint: sprintPage
+  sprint: sprintPage,
+  redirect: redirectPage
 };
 
 const getPageFromName = (pageName: keyof routerLib) => pages[pageName] || null;

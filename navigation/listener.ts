@@ -1,6 +1,6 @@
 import { storage } from "../utils/storage";
 import { rollMenu, rollPageSelector, rollSectionSelector, rollGamesSelector, passwordReveal } from "./rollMenu";
-import { router } from "./router";
+import { router, routerLib } from "./router";
 import { playSound } from "../utils/playSound";
 import { filesUrl, handleLogin } from "../utils/api";
 import { slider } from "../utils/slider";
@@ -19,8 +19,19 @@ export const listener = ():void => {
     if (id === 'goDev') window.open('https://rolling-scopes-school.github.io/vladimirparmon-JSFE2021Q3/CV/index.html','mywindow');
     if (id === 'goComments') router('comments');
 
-    if (id === 'goAudio') router('audio');
-    if (id === 'goSprint') router('sprint');
+    if (id === 'goAudio') {
+      storage.currentGameMode = 'audio';
+      router('redirect');
+    }
+    if (id === 'goSprint') {
+      storage.currentGameMode = 'sprint';
+      router('redirect');
+    } 
+    if (id.split('-')[0] === 'levelsListOption') {
+      const x = storage.currentGameMode as keyof routerLib;
+      storage.currentDifficulty = +id.split('-')[1];
+      router(x)
+    }
 
     if (id === 'openMenuButton') rollMenu('open');
     if (id === 'closeMenuButton') rollMenu('close');

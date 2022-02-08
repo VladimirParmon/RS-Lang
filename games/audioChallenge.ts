@@ -5,6 +5,7 @@ import { checkChoice } from "../utils/checks";
 import { prepareData } from "./getData";
 import { checkFor } from "../utils/misc";
 import { endGame } from "../utils/endGame";
+import { updateIndicator } from "../utils/indicator";
 
 export function runAudioGame() {
   window.addEventListener('keyup', checkFor)
@@ -88,6 +89,7 @@ export function runAudioAnimation(id: string) {
   };
 
   function goNext() {
+    if (storage.onlyOnePage) updateIndicator();
     buttonsDiv.style.opacity = '0';
     roundButton.style.width = '140px'
     roundButton.style.height = '140px';

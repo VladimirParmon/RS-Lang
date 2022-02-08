@@ -67,7 +67,7 @@
   transform: scale(1.1);
 }
 
-#wrapperAudioGame {
+#wrapper-audio {
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -3,13 +3,14 @@ import { storage } from '../utils/storage';
 import { prepareData } from './getData';
 import { capitalize } from '../utils/misc';
 import { endGame } from '../utils/endGame';
+import { updateIndicator } from '../utils/indicator';
 
 export function runSprint() {
   const wordSpan = document.querySelector('#sprintWordSpan');
   const variantSpan = document.querySelector('#sprintVariantSpan');
   const sprintButtons = document.querySelector('#sprintButtons');
 
-  const wrapper = document.querySelector('#wrapperSprint') as HTMLElement;
+  const wrapper = document.querySelector('#wrapper-sprint') as HTMLElement;
   wrapper.style.pointerEvents = 'all';
   wrapper.style.opacity = '1';
 
@@ -77,6 +78,7 @@ export function runSprint() {
 }
 
 function goNext(command: boolean) {
+  if (storage.onlyOnePage) updateIndicator();
   const audioBite = new Audio();
   if (command) {
     audioBite.src = './assets/sounds/rightAnswer.mp3';
@@ -87,9 +89,11 @@ function goNext(command: boolean) {
   }
   audioBite.play();
   storage.abortController?.abort();
-  runSprint();
+  // runSprint();
   if (storage.currentGameQueue.length === 0) {
     storage.abortController!.abort();
     endGame();
+  } else {
+    runSprint();
   }
 }

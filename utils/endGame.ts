@@ -3,6 +3,7 @@ import { getData, getSinglePageData } from "../games/getData";
 import { timer } from "./timer";
 import { runSprint } from "../games/sprint";
 import { runAudioGame } from "../games/audioChallenge";
+import { router } from "../navigation/router";
 
 export function endGame() {
   const root = document.querySelector('.wrapperGames');
@@ -19,7 +20,7 @@ export function endGame() {
     const resultsWrapper = document.createElement('div');
     resultsWrapper.id = 'resultsWrapper';
   
-    const theId = `#wrapper${storage.currentGameMode}`;
+    const theId = `#wrapper-${storage.currentGameMode}`;
 
     const wrapper = document.querySelector(theId) as HTMLElement;
     wrapper.style.pointerEvents = 'none';
@@ -65,9 +66,11 @@ export function endGame() {
     }
     results?.appendChild(rightOnes);
     results?.appendChild(wrongOnes);
+
+    const buttonsWrapper = document.createElement('div');
+    buttonsWrapper.id = 'resultsButtonsWrapper';
   
     const playAgain = document.createElement('button');
-    playAgain.id = 'resultsPlayAgain';
     playAgain.textContent = 'Играть снова';
     playAgain.addEventListener('click', () => {
       root?.removeChild(resultsWrapper);
@@ -77,9 +80,9 @@ export function endGame() {
       storage.endGameResults.wrong = [];
       storage.onlyOnePage ? getSinglePageData() : getData();
       switch (storage.currentGameMode) {
-        case 'AudioGame': runAudioGame()
+        case 'audio': runAudioGame()
         break;
-        case 'Sprint': {
+        case 'sprint': {
           timer();
           runSprint();
         } 
@@ -91,9 +94,21 @@ export function endGame() {
       }
     }, {
       once: true
-    })
+    });
+    const exit = document.createElement('button');
+    exit.textContent = 'Выйти';
+    exit.addEventListener('click', () => {
+      root?.removeChild(resultsWrapper);
+      storage.endGameResults.right = [];
+      storage.endGameResults.wrong = [];
+      router('home');
+    }, {
+      once: true
+    });
     resultsWrapper.appendChild(results);
-    resultsWrapper.appendChild(playAgain);
+    buttonsWrapper.appendChild(playAgain);
+    buttonsWrapper.appendChild(exit);
+    resultsWrapper.appendChild(buttonsWrapper);
   
     root?.appendChild(resultsWrapper)
   }

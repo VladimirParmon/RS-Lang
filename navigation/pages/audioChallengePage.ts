@@ -4,6 +4,7 @@ import { runAudioGame } from '../../games/audioChallenge';
 import { getData, getSinglePageData } from '../../games/getData';
 import { storage } from '../../utils/storage';
 import { removeFooter } from '../../utils/misc';
+import { addIndicator } from '../../utils/indicator';
 
 export const audioChallengePage: Page = {
   render: async () => {
@@ -18,7 +19,7 @@ export const audioChallengePage: Page = {
 
     return `
     <div class="wrapperGames">
-      <div id="wrapperAudioGame">
+      <div id="wrapper-audio">
         <div id="repeatAudio">
           <img id="repeatAudioIcon" src="assets/svg/sound.svg" alt="icon">
         </div>
@@ -28,10 +29,11 @@ export const audioChallengePage: Page = {
     `;
   },
   afterRender: () => {
-    storage.currentGameMode = 'AudioGame';
+    storage.currentGameMode = 'audio';
     storage.endGameResults.right = [];
     storage.endGameResults.wrong = [];
     removeFooter();
     runAudioGame();
+    if(storage.onlyOnePage) addIndicator();
   }
 };

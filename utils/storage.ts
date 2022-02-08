@@ -36,6 +36,7 @@ interface StorageObject {
   currentMainSlide: number;
   markedDifficult: string[];
   markedDeleted: string[];
+  initialGameQueueLength?: number
 }
 
 let storageObject: StorageObject = {
@@ -88,7 +89,8 @@ export let storage = new Proxy(storageObject, {
       key === 'bookGroup' ||
       key === 'bookPage' ||
       key === 'currentDifficulty' ||
-      key === 'currentMainSlide'
+      key === 'currentMainSlide' ||
+      key === 'initialGameQueueLength'
     ) {
       target[key] = value;
     }
@@ -204,7 +206,8 @@ if (localStorageInit !== null) {
       (key === 'bookGroup' ||
       key === 'bookPage' ||
       key === 'currentDifficulty' ||
-      key === 'currentMainSlide') && typeof value === 'number'
+      key === 'currentMainSlide' ||
+      key === 'initialGameQueueLength') && typeof value === 'number'
     ) {
       storage[key] = value;
     } else if (
