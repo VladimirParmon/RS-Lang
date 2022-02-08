@@ -9,6 +9,7 @@ import { audioChallengePage } from './pages/audioChallengePage';
 import { storage } from '../utils/storage';
 import { sprintPage } from './pages/sprintPage';
 import { redirectPage } from './pages/gamesRedirect';
+import { hideLoader } from '../utils/loader';
 
 const root = document.querySelector('#content');
 
@@ -46,16 +47,20 @@ const pages: routerLib = {
 const getPageFromName = (pageName: keyof routerLib) => pages[pageName] || null;
 
 export const router = async (pageName: keyof routerLib, instruction?: string) => {
-    let page = getPageFromName(pageName);
-    storage.currentPage = pageName;
-    instruction ? storage.onlyOnePage = true : storage.onlyOnePage = false;
+  hideLoader();
+  let page = getPageFromName(pageName);
+  storage.currentPage = pageName;
+  instruction ? storage.onlyOnePage = true : storage.onlyOnePage = false;
 
-    if (page && root) {
-        root.innerHTML = await page.render();
-        if (page.afterRender) {
-          page.afterRender();
-        }
+  if (page && root) {
+    const layout = await page.render();
+    if(storage.currentPage === pageName) {
+      root.innerHTML = layout;
+      if (page.afterRender) {
+        page.afterRender();
+      }
     }
+  } 
 };
 
 function additionalEvent() {

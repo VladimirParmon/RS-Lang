@@ -8,5 +8,5 @@ export function showLoader() {
 export function hideLoader() {
   const root = document.querySelector('body');
   const loader = document.querySelector('.loader') as HTMLElement;
-  root?.removeChild(loader);
+  if (root && loader) root.removeChild(loader);
 }
