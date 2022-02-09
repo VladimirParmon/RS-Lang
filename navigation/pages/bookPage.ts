@@ -1,5 +1,5 @@
 import { Page } from "../router";
-import { storage, WordInfo } from "../../utils/storage";
+import { storage, WordInfo, storageT } from "../../utils/storage";
 import { getWords, filesUrl } from "../../utils/api";
 import { showLoader, hideLoader } from "../../utils/loader";
 import { addFooter } from "../../utils/misc";
@@ -63,13 +63,13 @@ export const bookPage: Page = {
       <div class="pageControls">
         <div id="section">
           <img src="assets/svg/folder.svg" alt="folderIcon">
-          <span>Раздел <span id="sectionCounter">${storage.bookGroup + 1}/${storage.totalGroups}</span></span>
+          <span>Раздел <span id="sectionCounter">${storage.bookGroup + 1}/${storageT.totalGroups}</span></span>
         </div>
         <div id="page">
           <div id="previousPage">
             <img src="assets/svg/arrow.svg" alt="prev">
           </div>
-          <span>Страница <span id="pageCounter">${storage.bookPage + 1}/${storage.totalPages}</span></span>
+          <span>Страница <span id="pageCounter">${storage.bookPage + 1}/${storageT.totalPages}</span></span>
           <div id="nextPage">
             <img src="assets/svg/arrow.svg" alt="next">
           </div>

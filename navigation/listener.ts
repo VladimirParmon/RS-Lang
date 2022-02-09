@@ -1,4 +1,4 @@
-import { storage } from "../utils/storage";
+import { storage, storageT } from "../utils/storage";
 import { rollMenu, rollPageSelector, rollSectionSelector, rollGamesSelector, passwordReveal } from "./rollMenu";
 import { router, routerLib } from "./router";
 import { playSound } from "../utils/playSound";
@@ -20,16 +20,16 @@ export const listener = ():void => {
     if (id === 'goComments') router('comments');
 
     if (id === 'goAudio') {
-      storage.currentGameMode = 'audio';
+      storageT.currentGameMode = 'audio';
       router('redirect');
     }
     if (id === 'goSprint') {
-      storage.currentGameMode = 'sprint';
+      storageT.currentGameMode = 'sprint';
       router('redirect');
     } 
     if (id.split('-')[0] === 'levelsListOption') {
-      const x = storage.currentGameMode as keyof routerLib;
-      storage.currentDifficulty = +id.split('-')[1];
+      const x = storageT.currentGameMode as keyof routerLib;
+      storageT.currentDifficulty = +id.split('-')[1];
       router(x)
     }
 
@@ -44,7 +44,7 @@ export const listener = ():void => {
       router('book');
     }
     if (id === 'nextPage') {
-      storage.bookPage < storage.totalPages ? storage.bookPage += 1 : storage.bookPage;
+      storage.bookPage < storageT.totalPages ? storage.bookPage += 1 : storage.bookPage;
       router('book');
     }
     if (id.split('-')[0] === 'pageListOption') {
@@ -81,7 +81,7 @@ export const listener = ():void => {
 
     if (id === 'repeatAudio') {
       const audioBite = new Audio;
-      audioBite.src = `${filesUrl}/${storage.rightAnswer.audio}`;
+      audioBite.src = `${filesUrl}/${storageT.rightAnswer.audio}`;
       audioBite.play();
     }
 

@@ -1,5 +1,5 @@
 import { authorize, register } from "../utils/api";
-import { storage } from "../utils/storage";
+import { storage, storageT } from "../utils/storage";
 
 export function rollMenu(action: string): void {
   const openMenuButton = document.querySelector('#openMenuButton') as HTMLElement;
@@ -7,27 +7,27 @@ export function rollMenu(action: string): void {
   const upperBar = document.querySelector('#upperBar') as HTMLElement;
   const logoMain = document.querySelector('#logoMain') as HTMLElement;
 
-  if(action === 'open' && !storage.isMenuOpen) {
+  if(action === 'open' && !storageT.isMenuOpen) {
     openMenuButton.style.transform = 'translateX(-100%)';
     upperBar.style.width = 'calc(100vw - 260px)';
     navigationMenu.style.width = '260px';
     logoMain.style.transform = 'translateX(-120%)';
-    storage.isMenuOpen = true;
+    storageT.isMenuOpen = true;
   } else {
     openMenuButton.style.transform = 'translateX(0%)';
     upperBar.style.width = 'calc(100vw - 70px)';
     navigationMenu.style.width = '70px';
     logoMain.style.transform = 'translateX(0%)';
-    storage.isMenuOpen = false;
+    storageT.isMenuOpen = false;
   }
 }
 
 export function rollPageSelector(action: string) {
   const root = document.querySelector('.wrapper');
-  if (!storage.isPageListOpen && action === 'open') {
+  if (!storageT.isPageListOpen && action === 'open') {
     const list = document.createElement('div');
     list.classList.add('pageList');
-    for (let i=0; i < storage.totalPages; i++) {
+    for (let i=0; i < storageT.totalPages; i++) {
       const option = document.createElement('div');
       option.classList.add('pageListOption')
       option.id = `pageListOption-${i}`;
@@ -35,38 +35,38 @@ export function rollPageSelector(action: string) {
       list.appendChild(option);
     }
     root?.appendChild(list);
-    storage.isPageListOpen = true;
-  } else if (storage.isPageListOpen) {
+    storageT.isPageListOpen = true;
+  } else if (storageT.isPageListOpen) {
     const list = document.querySelector('.pageList') as HTMLElement;
     root?.removeChild(list);
-    storage.isPageListOpen = false;
+    storageT.isPageListOpen = false;
   }
 }
 
 export function rollSectionSelector(action: string) {
   const root = document.querySelector('.wrapper');
-  if (!storage.isGroupListOpen && action === 'open') {
+  if (!storageT.isGroupListOpen && action === 'open') {
     const list = document.createElement('div');
     list.classList.add('sectionList');
-    for (let i=0; i < storage.totalGroups; i++) {
+    for (let i=0; i < storageT.totalGroups; i++) {
       const option = document.createElement('div');
       option.classList.add('sectionListOption')
       option.id = `sectionListOption-${i}`;
       option.innerText = `Раздел ${i+1}`;
       list.appendChild(option);
     }
-    storage.isGroupListOpen = true;
+    storageT.isGroupListOpen = true;
     root?.appendChild(list);
-  } else if (storage.isGroupListOpen) {
+  } else if (storageT.isGroupListOpen) {
     const list = document.querySelector('.sectionList') as HTMLElement;
     root?.removeChild(list);
-    storage.isGroupListOpen = false;
+    storageT.isGroupListOpen = false;
   }
 }
 
 export function rollGamesSelector(action: string) {
   const root = document.querySelector('.wrapper');
-  if (!storage.isGamesListOpen && action === 'open') {
+  if (!storageT.isGamesListOpen && action === 'open') {
     const list = document.createElement('div');
     list.classList.add('gamesList');
     enum GamesRU {
@@ -81,19 +81,19 @@ export function rollGamesSelector(action: string) {
       sniper,
       puzzle
     }
-    for (let i=0; i < storage.totalGames; i++) {
+    for (let i=0; i < storageT.totalGames; i++) {
       const option = document.createElement('div');
       option.classList.add('gamesListOption');
       option.id = `gamesListOption-${Games[i]}`;
       option.innerText = `${GamesRU[i]}`;
       list.appendChild(option);
     }    
-    storage.isGamesListOpen = true;
+    storageT.isGamesListOpen = true;
     root?.appendChild(list);
-  } else if (storage.isGamesListOpen) {
+  } else if (storageT.isGamesListOpen) {
     const list = document.querySelector('.gamesList') as HTMLElement;
     root?.removeChild(list);
-    storage.isGamesListOpen = false;
+    storageT.isGamesListOpen = false;
   }
 }
 

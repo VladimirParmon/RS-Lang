@@ -1,5 +1,5 @@
 import { getRandomInt } from '../utils/misc';
-import { storage } from '../utils/storage';
+import { storage, storageT } from '../utils/storage';
 import { prepareData } from './getData';
 import { capitalize } from '../utils/misc';
 import { endGame } from '../utils/endGame';
@@ -19,11 +19,11 @@ export function runSprint() {
 
   const coin = getRandomInt(0, 1);
   if (wordSpan && variantSpan) {
-    wordSpan.innerHTML = capitalize(storage.rightAnswer.word);
+    wordSpan.innerHTML = capitalize(storageT.rightAnswer.word);
     variantSpan.innerHTML =
       coin === 1
-        ? capitalize(storage.rightAnswer.translate)
-        : capitalize(storage.singleVariant.translate);
+        ? capitalize(storageT.rightAnswer.translate)
+        : capitalize(storageT.singleVariant.translate);
   }
 
   const buttonRight = document.createElement('button');
@@ -37,7 +37,7 @@ export function runSprint() {
   sprintButtons?.appendChild(buttonWrong);
   sprintButtons?.appendChild(buttonRight);
 
-  storage.abortController = new AbortController();
+  storageT.abortController = new AbortController();
 
   buttonRight.addEventListener(
     'click',
@@ -46,7 +46,7 @@ export function runSprint() {
     },
     {
       once: true,
-      signal: storage.abortController.signal
+      signal: storageT.abortController!.signal
     }
   );
 
@@ -57,7 +57,7 @@ export function runSprint() {
     },
     {
       once: true,
-      signal: storage.abortController.signal
+      signal: storageT.abortController!.signal
     }
   );
 
@@ -72,26 +72,26 @@ export function runSprint() {
     },
     {
       once: true,
-      signal: storage.abortController.signal
+      signal: storageT.abortController!.signal
     }
   );
 }
 
 function goNext(command: boolean) {
-  if (storage.onlyOnePage) updateIndicator();
+  if (storageT.onlyOnePage) updateIndicator();
   const audioBite = new Audio();
   if (command) {
     audioBite.src = './assets/sounds/rightAnswer.mp3';
-    storage.endGameResults.right.push(storage.rightAnswer);
+    storageT.endGameResults.right.push(storageT.rightAnswer);
   } else {
     audioBite.src = './assets/sounds/wrongAnswer.mp3';
-    storage.endGameResults.wrong.push(storage.rightAnswer);
+    storageT.endGameResults.wrong.push(storageT!.rightAnswer);
   }
   audioBite.play();
-  storage.abortController?.abort();
+  storageT.abortController?.abort();
   // runSprint();
-  if (storage.currentGameQueue.length === 0) {
-    storage.abortController!.abort();
+  if (storageT.currentGameQueue!.length === 0) {
+    storageT.abortController!.abort();
     endGame();
   } else {
     runSprint();

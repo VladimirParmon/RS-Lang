@@ -1,7 +1,7 @@
 import { Page } from '../router';
 import { runSprint } from '../../games/sprint';
 import { getData, getSinglePageData } from '../../games/getData';
-import { storage } from '../../utils/storage';
+import { storage, storageT } from '../../utils/storage';
 import { hideLoader, showLoader } from '../../utils/loader';
 import { timer } from '../../utils/timer';
 import { removeFooter } from '../../utils/misc';
@@ -11,7 +11,7 @@ export const sprintPage: Page = {
   render: async () => {
     try {
       showLoader();
-      storage.onlyOnePage ? await getSinglePageData() : await getData();
+      storageT.onlyOnePage ? await getSinglePageData() : await getData();
     } catch {
       console.log('Network error');
     } finally {
@@ -32,14 +32,14 @@ export const sprintPage: Page = {
   `;
   },
   afterRender: () => {
-    if (storage.secondsInterval) clearInterval(storage.secondsInterval);
-    if (storage.msInterval) clearInterval(storage.msInterval);
-    storage.currentGameMode = 'sprint';
-    storage.endGameResults.right = [];
-    storage.endGameResults.wrong = [];
+    if (storageT.secondsInterval) clearInterval(storageT.secondsInterval);
+    if (storageT.msInterval) clearInterval(storageT.msInterval);
+    storageT.currentGameMode = 'sprint';
+    storageT.endGameResults.right = [];
+    storageT.endGameResults.wrong = [];
     removeFooter();
     timer();
     runSprint();
-    if (storage.onlyOnePage) addIndicator();
+    if (storageT.onlyOnePage) addIndicator();
   }
 };

@@ -1,11 +1,11 @@
-import { storage } from "./storage";
+import { storage, storageT } from "./storage";
 
 export function addIndicator() {
   const root = document.querySelector('#content');
   const indicator = document.createElement('div');
   indicator.id = 'indicator';
   root?.appendChild(indicator);
-  storage.initialGameQueueLength = storage.currentGameQueue.length;
+  storageT.initialGameQueueLength = storageT.currentGameQueue.length;
 }
 
 export function removeIndicator() {
@@ -16,6 +16,6 @@ export function removeIndicator() {
 
 export function updateIndicator() {
   const indicator = document.querySelector('#indicator') as HTMLElement;
-  const percentage = 100 * (storage.initialGameQueueLength! - storage.currentGameQueue.length) / storage.initialGameQueueLength!;
+  const percentage = 100 * (storageT.initialGameQueueLength - storageT.currentGameQueue.length) / storageT.initialGameQueueLength;
   indicator.style.backgroundImage = `linear-gradient(to right, var(--action) ${percentage}%, var(--trio3) ${percentage}%)`;
 }

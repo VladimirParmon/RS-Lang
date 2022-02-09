@@ -1,4 +1,4 @@
-import { storage } from "./storage";
+import { storage, storageT } from "./storage";
 import { getData, getSinglePageData } from "../games/getData";
 import { timer } from "./timer";
 import { runSprint } from "../games/sprint";
@@ -11,16 +11,16 @@ export function endGame() {
     const soundBite = new Audio;
     soundBite.src = 'assets/sounds/roundEnded.mp3';
     soundBite.play();
-    if (storage.onlyOnePage) {
+    if (storageT.onlyOnePage) {
       getSinglePageData();
-      if(storage.secondsInterval) clearInterval(storage.secondsInterval);
-      if(storage.msInterval) clearInterval(storage.msInterval);
+      if(storageT.secondsInterval) clearInterval(storageT.secondsInterval);
+      if(storageT.msInterval) clearInterval(storageT.msInterval);
     };
     
     const resultsWrapper = document.createElement('div');
     resultsWrapper.id = 'resultsWrapper';
   
-    const theId = `#wrapper-${storage.currentGameMode}`;
+    const theId = `#wrapper-${storageT.currentGameMode}`;
 
     const wrapper = document.querySelector(theId) as HTMLElement;
     wrapper.style.pointerEvents = 'none';
@@ -37,8 +37,8 @@ export function endGame() {
     rightOnes.appendChild(spanR);
     wrongOnes.appendChild(spanW);
   
-    if (storage.endGameResults.right.length !== 0) {
-      storage.endGameResults.right.forEach((el) => {
+    if (storageT.endGameResults.right.length !== 0) {
+      storageT.endGameResults.right.forEach((el) => {
         const option = `
         <div class="resultsOption">
           <img src="assets/svg/sound.svg" alt="audio" id="playSound-${el.audio}">
@@ -51,8 +51,8 @@ export function endGame() {
       rightOnes.innerHTML += 'Нет правильных ответов :('
     }
   
-    if (storage.endGameResults.wrong.length !== 0) {
-      storage.endGameResults.wrong.forEach((el) => {
+    if (storageT.endGameResults.wrong.length !== 0) {
+      storageT.endGameResults.wrong.forEach((el) => {
         const option = `
         <div class="resultsOption">
           <img src="assets/svg/sound.svg" alt="audio" id="playSound-${el.audio}">
@@ -76,10 +76,10 @@ export function endGame() {
       root?.removeChild(resultsWrapper);
       wrapper.style.opacity = '1';
       wrapper.style.pointerEvents = 'all';
-      storage.endGameResults.right = [];
-      storage.endGameResults.wrong = [];
-      storage.onlyOnePage ? getSinglePageData() : getData();
-      switch (storage.currentGameMode) {
+      storageT.endGameResults.right = [];
+      storageT.endGameResults.wrong = [];
+      storageT.onlyOnePage ? getSinglePageData() : getData();
+      switch (storageT.currentGameMode) {
         case 'audio': runAudioGame()
         break;
         case 'sprint': {
@@ -99,8 +99,8 @@ export function endGame() {
     exit.textContent = 'Выйти';
     exit.addEventListener('click', () => {
       root?.removeChild(resultsWrapper);
-      storage.endGameResults.right = [];
-      storage.endGameResults.wrong = [];
+      storageT.endGameResults.right = [];
+      storageT.endGameResults.wrong = [];
       router('home');
     }, {
       once: true

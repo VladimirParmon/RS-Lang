@@ -6,7 +6,7 @@ import { statsPage } from './pages/statsPage';
 import { devPage } from './pages/devPage';
 import { commentsPage } from './pages/commentsPage';
 import { audioChallengePage } from './pages/audioChallengePage';
-import { storage } from '../utils/storage';
+import { storage, storageT } from '../utils/storage';
 import { sprintPage } from './pages/sprintPage';
 import { redirectPage } from './pages/gamesRedirect';
 import { hideLoader } from '../utils/loader';
@@ -50,7 +50,7 @@ export const router = async (pageName: keyof routerLib, instruction?: string) =>
   hideLoader();
   let page = getPageFromName(pageName);
   storage.currentPage = pageName;
-  instruction ? storage.onlyOnePage = true : storage.onlyOnePage = false;
+  instruction ? storageT.onlyOnePage = true : storageT.onlyOnePage = false;
 
   if (page && root) {
     const layout = await page.render();

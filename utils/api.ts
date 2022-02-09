@@ -1,7 +1,7 @@
 import { router } from "../navigation/router";
 import { hideLoader, showLoader } from "./loader";
 import { slider } from "./slider";
-import { storage, WordInfo, ReducedWordInfo, LoginResponse, RegistrationResponse, UserInfo } from "./storage";
+import { storage, WordInfo, ReducedWordInfo, LoginResponse, RegistrationResponse, UserInfo, storageT } from "./storage";
 import { adjustLoginButton } from "../master";
 
 const baseURL = 'https://rs-lang-redblooded.herokuapp.com';
@@ -19,7 +19,7 @@ export const getWords = async (group: number, page: number) => {
 export const getAllWords = async (group: number, single?: string) => {
   let result: ReducedWordInfo[] = [];
   if (!single) {
-    for (let i=0; i < storage.totalPages; i++) {
+    for (let i=0; i < storageT.totalPages; i++) {
       const info = await getWords(group, i);
       const page = info.map((el: WordInfo) => {
         return {

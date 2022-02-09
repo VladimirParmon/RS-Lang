@@ -1,5 +1,5 @@
 import { endGame } from "../utils/endGame";
-import { storage } from "./storage";
+import { storage, storageT } from "./storage";
 
 export function timer() {
   const canvas = document.querySelector('#timeLeft') as HTMLCanvasElement;
@@ -15,29 +15,29 @@ export function timer() {
 
   clear();
 
-  const timeLimit = storage.timeLimit * 1000;
+  const timeLimit = storageT.timeLimit * 1000;
   let timeLeft = timeLimit;
-  let secondsLeft = storage.timeLimit;
+  let secondsLeft = storageT.timeLimit;
   digits.innerHTML = secondsLeft.toString();
 
-  storage.secondsInterval = setInterval(() => {
+  storageT.secondsInterval = setInterval(() => {
     if (timeLeft >= 0) {
       secondsLeft--;
       digits.innerHTML = secondsLeft.toString();
     } else {
-      if(storage.secondsInterval) clearInterval(storage.secondsInterval);
+      if(storageT.secondsInterval) clearInterval(storageT.secondsInterval);
       endGame();
     }
   }, 1000)
 
-  storage.msInterval = setInterval(() => {
+  storageT.msInterval = setInterval(() => {
     if (timeLeft >= 0) {
       clear();
       setTrack();
       setIndicator();
       timeLeft -= 10;
     } else {
-      if(storage.msInterval) clearInterval(storage.msInterval);
+      if(storageT.msInterval) clearInterval(storageT.msInterval);
     }
   }, 10);
 

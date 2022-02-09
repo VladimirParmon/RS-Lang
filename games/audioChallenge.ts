@@ -1,5 +1,5 @@
 import { filesUrl } from "../utils/api"
-import { storage } from "../utils/storage";
+import { storage, storageT } from "../utils/storage";
 import { capitalize } from "../utils/misc";
 import { checkChoice } from "../utils/checks";
 import { prepareData } from "./getData";
@@ -13,7 +13,7 @@ export function runAudioGame() {
   prepareData();
   let intermediateArray: string[] = [];
 
-  storage.workingArray.forEach((el, i) => {
+  storageT.workingArray.forEach((el, i) => {
     intermediateArray.push(el.id);
     const optionsContainer = document.querySelector(`#audioGameOptions`);
     const option = document.createElement('div');
@@ -30,10 +30,10 @@ export function runAudioGame() {
     })
     optionsContainer!.appendChild(option);
   }) 
-  storage.currentOptions = intermediateArray;
+  storageT.currentOptions = intermediateArray;
 
   const audioBite = new Audio;
-  audioBite.src = `${filesUrl}/${storage.rightAnswer.audio}`;
+  audioBite.src = `${filesUrl}/${storageT.rightAnswer.audio}`;
   audioBite.play();
 }
 
@@ -55,14 +55,14 @@ export function runAudioAnimation(id: string) {
     roundButtonIcon.style.opacity = '0';
     
     setTimeout(() => {
-      roundButton.style.backgroundImage = `url(${filesUrl}/${storage.rightAnswer.image})`;
+      roundButton.style.backgroundImage = `url(${filesUrl}/${storageT.rightAnswer.image})`;
       roundButton.style.width = '500px'
       roundButton.style.height = '300px';
       roundButton.style.borderRadius = '0';
       buttonsDiv.innerHTML = `
-        <div>${storage.rightAnswer.word}</div>
-        <div>${storage.rightAnswer.transcription}</div>
-        <div>${storage.rightAnswer.translate}</div>
+        <div>${storageT.rightAnswer.word}</div>
+        <div>${storageT.rightAnswer.transcription}</div>
+        <div>${storageT.rightAnswer.translate}</div>
       `;
       buttonsDiv.appendChild(nextQuestionButton);
 
@@ -89,7 +89,7 @@ export function runAudioAnimation(id: string) {
   };
 
   function goNext() {
-    if (storage.onlyOnePage) updateIndicator();
+    if (storageT.onlyOnePage) updateIndicator();
     buttonsDiv.style.opacity = '0';
     roundButton.style.width = '140px'
     roundButton.style.height = '140px';
@@ -99,7 +99,7 @@ export function runAudioAnimation(id: string) {
     setTimeout(() => {
       buttonsDiv.style.opacity = '1';
       buttonsDiv.innerHTML = ``;
-      storage.currentGameQueue.length === 0 ? endGame() : runAudioGame();
+      storageT.currentGameQueue.length === 0 ? endGame() : runAudioGame();
     }, 600);
     }
 //=============================================================//

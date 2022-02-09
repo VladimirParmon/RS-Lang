@@ -1,9 +1,9 @@
 import { getAllWords } from '../utils/api';
 import { getRandomInt, shuffle } from '../utils/misc';
-import { ReducedWordInfo, storage } from '../utils/storage';
+import { ReducedWordInfo, storage, storageT } from '../utils/storage';
 
 export const getData = async () => {
-  const difficulty = storage.currentDifficulty;
+  const difficulty = storageT.currentDifficulty;
   let info;
   if (!Object.keys(storage.difficultyLevels).includes(difficulty.toString())) {
     try {
@@ -12,8 +12,8 @@ export const getData = async () => {
       if (info) storage.difficultyLevels[difficulty] = shuffle(info);
     }
   }
-  if (storage.currentGameQueue.length <= storage.itemsPerGroup) {
-    storage.currentGameQueue = [
+  if (storageT.currentGameQueue.length <= storageT.itemsPerGroup) {
+    storageT.currentGameQueue = [
       ...shuffle(storage.difficultyLevels[difficulty])
     ];
   }
@@ -22,17 +22,17 @@ export const getData = async () => {
 
 export const prepareData = () => {
   const howManyVariants = 4;
-  const difficulty = storage.currentDifficulty;
-  const theWord = storage.currentGameQueue.pop();
+  const difficulty = storageT.currentDifficulty;
+  const theWord = storageT.currentGameQueue.pop();
   let variants: ReducedWordInfo[] = [];
   for (let i = 0; i < howManyVariants; i++) {
-    const num = getRandomInt(0, storage.itemsPerGroup - 1);
-    if (storage.onlyOnePage) {
+    const num = getRandomInt(0, storageT.itemsPerGroup - 1);
+    if (storageT.onlyOnePage) {
       if (
-        storage.onlyOnePageTemplate[num] !== theWord &&
-        !variants.includes(storage.onlyOnePageTemplate[num])
+        storageT.onlyOnePageTemplate[num] !== theWord &&
+        !variants.includes(storageT.onlyOnePageTemplate[num])
       ) {
-        variants.push(storage.onlyOnePageTemplate[num]);
+        variants.push(storageT.onlyOnePageTemplate[num]);
       } else {
         i--;
       }
@@ -48,9 +48,9 @@ export const prepareData = () => {
     }
   }
   if (theWord) {
-    storage.rightAnswer = theWord;
-    storage.singleVariant = variants[0];
-    storage.workingArray = shuffle([theWord, ...variants]);
+    storageT.rightAnswer = theWord;
+    storageT.singleVariant = variants[0];
+    storageT.workingArray = shuffle([theWord, ...variants]);
   }
 };
 
@@ -66,8 +66,8 @@ export const getSinglePageData = async () => {
           return el;
         }
       });
-      storage.onlyOnePageTemplate = info;
-      storage.currentGameQueue = [...shuffle(infoWithoutDeleted)];
+      storageT.onlyOnePageTemplate = info;
+      storageT.currentGameQueue = [...shuffle(infoWithoutDeleted)];
     }
   }
 
