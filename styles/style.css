@@ -107,6 +107,21 @@
   background-image: linear-gradient(to left, var(--action) 0%, var(--trio3) 0%);
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+  margin-left: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--header);
+  border-radius: 150px;
+}
+
 /*===========================================*/
 
 @media screen and (max-width: 1600px) {

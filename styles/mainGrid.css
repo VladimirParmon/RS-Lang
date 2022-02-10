@@ -1,0 +1,178 @@
+#grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-auto-columns: 1fr;
+  grid-template-areas:
+    'one'
+    'two'
+    'three'
+    'four'
+    'five';
+  width: 95%;
+  height: 95%;
+  overflow: hidden;
+}
+
+.activitySelector:nth-child(1) {
+  grid-area: one;
+}
+.activitySelector:nth-child(2) {
+  grid-area: two;
+}
+.activitySelector:nth-child(3) {
+  grid-area: three;
+}
+.activitySelector:nth-child(4) {
+  grid-area: four;
+}
+.activitySelector:nth-child(5) {
+  grid-area: five;
+}
+
+.activitySelector:not(.noHover) {
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  border-radius: 5px;
+  min-height: 250px;
+}
+
+#wrapperHomeAuth {
+  overflow-y: hidden;
+  padding-top: 8vh;
+  justify-content: center;
+  align-items: center;
+}
+
+#wrapperHomeAuth h1 {
+  position: absolute;
+  top: 1vh;
+  font-family: var(--font2);
+  font-size: 5vh;
+  background-color: rgba(250, 250, 250, 0.5);
+  padding: 5px 0;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+}
+
+#learnWords {
+  background-image: url(../assets/img/book.jpg);
+}
+#playGames {
+  background-image: url(../assets/img/gamepad.jpg);
+}
+#yourStats {
+  background-image: url(../assets/img/time.jpg);
+}
+#aboutTheProject {
+  background-image: url(../assets/img/hello.png);
+  background-position: bottom;
+}
+.noHover {
+  background-color: rgba(255, 255, 255, 0.3);
+  border: 2px solid var(--header);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  position: relative;
+  padding-bottom: 50px;
+}
+
+.quoteSpan {
+  color: black;
+  font-size: 30px;
+}
+
+#quotesDecoration {
+  background-image: url(../assets/svg/quotes.svg);
+  width: 100%;
+  height: 80px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left;
+}
+
+#change-quote {
+  font-size: 50px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 50px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 10px;
+  background-image: linear-gradient(to bottom, rgba(0,0,0, 0.0), rgba(0,0,0, 0.2) 100%);
+}
+
+#change-quote::before {
+  background-image: linear-gradient(to bottom, rgba(0,0,0, 0.0), rgba(0,0,0, 0.3) 100%);
+  opacity: 0;
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  opacity: 0;
+  transition: 1s;
+  border-radius: 10px;
+}
+
+#change-quote:hover::before {
+  opacity: 1;
+}
+
+#quoteSpan {
+  font-family: var(--font1);
+}
+
+#authorSpan {
+  font-family: var(--font4);
+}
+
+@media screen and (min-width: 33em) {
+  #grid {
+      grid-template-areas:
+      "one one"
+      "two three"
+      "five five"
+      "four four";
+  }
+}
+
+@media screen and (min-width: 38em) {
+  #grid {
+    grid-template-areas:
+      'one one'
+      'two five'
+      'three five'
+      'four four';
+  }
+}
+
+@media screen and (min-width: 54em) {
+  #grid {
+      grid-template-areas:
+      "one one two"
+      "five five five"
+      "three four four";
+  }
+}
+
+@media screen and (min-width: 75em) {
+  #grid {
+      grid-template-areas:
+      "one one two five"
+      "three four four five";
+  }
+}
+
+@media screen and (max-width: 75em) {
+  #grid {
+    overflow-y: scroll;
+    padding-right: 20px;
+  }
+}

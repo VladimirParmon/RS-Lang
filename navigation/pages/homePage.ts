@@ -1,3 +1,4 @@
+import { getQuotes } from '../../utils/api';
 import { addFooter } from '../../utils/misc';
 import { slider } from '../../utils/slider';
 import { storage } from '../../utils/storage';
@@ -43,21 +44,29 @@ export const homePage: Page = {
     </div>
     <div id="wrapperHomeAuth" ${storage.isAuthorized ? 'style="display: flex"' : 'style="display: none"'}>
       <h1 id="greeting">Привет, ${storage.userName}</h1>
-      <div class="activitySelector">
-        <div id="learnWords"></div>
-        <span>Учить слова</span>
-      </div>
+      <div id="grid">
         <div class="activitySelector">
-        <div id="playGames"></div>
-      <span>Играть в игры</span>
-      </div>
-      <div class="activitySelector">
-        <div id="yourStats"></div>
-        <span>Статистика</span>
-      </div>
-      <div class="activitySelector">
-        <div id="aboutTheProject"></div>
-        <span>о проекте</span>
+          <div id="learnWords"></div>
+          <span>Учить слова</span>
+        </div>
+          <div class="activitySelector">
+          <div id="playGames"></div>
+        <span>Играть в игры</span>
+        </div>
+        <div class="activitySelector">
+          <div id="yourStats"></div>
+          <span>Статистика</span>
+        </div>
+        <div class="activitySelector">
+          <div id="aboutTheProject"></div>
+          <span>о проекте</span>
+        </div>
+        <div class="activitySelector noHover">
+          <div class="quotes" id="quotesDecoration"></div>
+          <span class="quoteSpan" id="quoteSpan"></span>
+          <span class="quoteSpan" id="authorSpan"></span>
+          <div class="quotes" id="change-quote" >↻</div>
+        </div>
       </div>
     </div>
     <div id="wrapperHome" ${storage.isAuthorized ? 'style="display: none"' : 'style="display: flex"'}>
@@ -103,5 +112,6 @@ export const homePage: Page = {
   afterRender: () => {
     addFooter();
     slider();
+    getQuotes();
   }
 };

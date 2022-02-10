@@ -186,3 +186,21 @@ function displayError(info: string) {
   }, 1000)
   hideLoader();
 }
+
+export async function getQuotes() {
+  const quote = document.querySelector('#quoteSpan');
+  const author = document.querySelector('#authorSpan');
+  const changeQ = document.querySelector('#change-quote');
+  const quotes = 'https://favqs.com/api/qotd';
+  const res = await fetch(quotes);
+  const data = await res.json(); 
+  if(quote && author) {
+    quote.textContent = data.quote.body;
+    author.textContent = data.quote.author;
+  }
+  changeQ?.addEventListener('click', ()=> {
+    getQuotes();
+  }, {
+    once: true
+  })
+}

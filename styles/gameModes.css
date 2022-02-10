@@ -1,4 +1,4 @@
-.activitySelector,
+/* .activitySelector, */
 .gameModeSelector {
   position: relative;
   width: 40%;
@@ -8,7 +8,7 @@
   overflow: hidden;
 }
 
-.activitySelector div,
+.activitySelector div:not(.quotes),
 .gameModeSelector div {
   position: relative;
   width: 100%;
@@ -21,7 +21,7 @@
   background-position: center;
 }
 
-.activitySelector span,
+.activitySelector span:not(.quoteSpan),
 .gameModeSelector span {
   position: absolute;
   width: 100%;
@@ -34,7 +34,7 @@
   padding-left: 10px;
 }
 
-.activitySelector:hover div,
+.activitySelector:hover div:not(.quotes),
 .gameModeSelector:hover div {
   transform: scale(1.2);
   filter: brightness(80%);

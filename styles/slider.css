@@ -288,40 +288,6 @@
   padding-bottom: 20px;
 }
 
-#wrapperHomeAuth {
-  /* display: none; */
-  overflow-y: hidden;
-  padding-top: 8vh;
-  justify-content: center;
-  align-items: center;
-}
-
-#wrapperHomeAuth h1 {
-  position: absolute;
-  top: 1vh;
-  font-family: var(--font2);
-  font-size: 5vh;
-  background-color: rgba(250, 250, 250, 0.5);
-  padding: 5px 0;
-  width: 100%;
-  text-align: center;
-  white-space: nowrap;
-}
-
-#learnWords {
-  background-image: url(../assets/img/book.jpg);
-}
-#playGames {
-  background-image: url(../assets/img/gamepad.jpg);
-}
-#yourStats {
-  background-image: url(../assets/img/time.jpg);
-}
-#aboutTheProject {
-  background-image: url(../assets/img/hello.png);
-  background-position: bottom;
-}
-
 #video,
 #additionalInfo {
   width: 100%;
