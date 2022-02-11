@@ -188,19 +188,27 @@ function displayError(info: string) {
 }
 
 export async function getQuotes() {
-  const quote = document.querySelector('#quoteSpan');
-  const author = document.querySelector('#authorSpan');
+  const quote = document.querySelector('#quoteSpan') as HTMLElement;
+  const author = document.querySelector('#authorSpan') as HTMLElement;;
   const changeQ = document.querySelector('#change-quote');
   const quotes = 'https://favqs.com/api/qotd';
   const res = await fetch(quotes);
   const data = await res.json(); 
   if(quote && author) {
-    quote.textContent = data.quote.body;
-    author.textContent = data.quote.author;
+    setTimeout(()=> {
+      quote.textContent = data.quote.body;
+      author.textContent = data.quote.author;
+    }, 400)
   }
   changeQ?.addEventListener('click', ()=> {
     getQuotes();
   }, {
     once: true
+  })
+  quote.classList.add('sideSlide');
+  author.classList.add('sideSlide2');
+  author.addEventListener('animationend', () => {
+    quote.classList.remove('sideSlide');
+    author.classList.remove('sideSlide2');
   })
 }
