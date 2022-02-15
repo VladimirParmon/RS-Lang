@@ -1,4 +1,4 @@
-import { storage, storageT } from "../utils/storage";
+import { manageServerInfo, serverInfoObject, storage, storageT } from "../utils/storage";
 import { rollMenu, rollPageSelector, rollSectionSelector, rollGamesSelector, passwordReveal } from "./rollMenu";
 import { router, routerLib } from "./router";
 import { playSound } from "../utils/playSound";
@@ -89,20 +89,27 @@ export const listener = ():void => {
     if (id === 'send') handleLogin('send');
     if (id === 'passwordReveal') passwordReveal();
 
-    if (id.split('-')[0] === 'checkbox') {
+
+    if (id.split('-')[0] === 'learnt') {
+      const wordId = id.split('-')[1];
       if (eventInputTarget.checked) {
-        const current = storage.markedDifficult;
-        current.push(id.split('-')[1]);
-        storage.markedDifficult = current;
+        manageServerInfo(wordId, "learnt", 'add');
       } else {
-        storage.markedDifficult = storage.markedDifficult?.filter(el => el !== id.split('-')[1])
+        manageServerInfo(wordId, "learnt", 'remove');
+      }
+    }
+    if (id.split('-')[0] === 'difficult') {
+      const wordId = id.split('-')[1];
+      if (eventInputTarget.checked) {
+        manageServerInfo(wordId, "difficult", 'add');
+      } else {
+        manageServerInfo(wordId, "difficult", 'remove');
       }
     }
     if (id.split('-')[0] === 'garbage') {
-      const current = storage.markedDeleted;
-      current.push(id.split('-')[1]);
-      storage.markedDeleted = current;
-      const theCard = document.querySelector(`#card-${id.split('-')[1]}`) as HTMLElement;
+      const wordId = id.split('-')[1];
+      manageServerInfo(wordId, "deleted", 'add');
+      const theCard = document.querySelector(`#card-${wordId}`) as HTMLElement;
       theCard.style.display = 'none';
     }
   });

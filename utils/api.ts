@@ -1,7 +1,7 @@
 import { router } from "../navigation/router";
 import { hideLoader, showLoader } from "./loader";
 import { slider } from "./slider";
-import { storage, WordInfo, ReducedWordInfo, LoginResponse, RegistrationResponse, UserInfo, storageT } from "./storage";
+import { storage, WordInfo, ReducedWordInfo, LoginResponse, RegistrationResponse, UserInfo, storageT, serverInfoObject, rewriteServerInfo } from "./storage";
 import { adjustLoginButton } from "../master";
 
 const baseURL = 'https://rs-lang-redblooded.herokuapp.com';
@@ -212,3 +212,53 @@ export async function getQuotes() {
     author.classList.remove('sideSlide2');
   })
 }
+
+//======================================================================//
+
+export const putUserSettings = async () => {
+  const response = await fetch(`${users}/${storage.userId}/settings`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${storage.token}`,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      //"wordsPerDay": 3,
+      "optional": {
+        "deleted": serverInfoObject.deleted,
+        "difficult": serverInfoObject.difficult,
+        "learning": serverInfoObject.learning,
+        "learnt": serverInfoObject.learnt
+      }
+    })
+  });
+}
+
+export const getUserSettings = async () => {
+    const response = await fetch(`${users}/${storage.userId}/settings`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${storage.token}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(async (response) => {
+      if(response.ok) {
+        const info = await response.json();
+        if (info.optional) rewriteServerInfo(info.optional);
+      } else if (response.status === 404) {
+        putUserSettings();
+      }
+    })
+}
+
+// interface ApiError {
+//   code: number;
+//   error: string;
+// }
+
+// function isApiError(x: any): x is ApiError {
+//   return typeof x.code === 'number';
+// }

@@ -1,8 +1,9 @@
 import { Page } from "../router";
-import { storage, WordInfo, storageT } from "../../utils/storage";
+import { storage, WordInfo, storageT, serverInfoObject } from "../../utils/storage";
 import { getWords, filesUrl } from "../../utils/api";
 import { showLoader, hideLoader } from "../../utils/loader";
 import { addFooter } from "../../utils/misc";
+import { getUserSettings } from "../../utils/api"
 
 export const bookPage: Page = {
   render: async () => {
@@ -11,6 +12,7 @@ export const bookPage: Page = {
     try {
       showLoader();
       info = await getWords(bookGroup, bookPage);
+      await getUserSettings();
     } finally {
       hideLoader();
     }
@@ -26,18 +28,25 @@ export const bookPage: Page = {
   }
 
     async function generateCard (i: number) {
+      const isMarkedDifficult = serverInfoObject.difficult ? serverInfoObject.difficult[info[i].id] : null;
+      const isMarkedDeleted = serverInfoObject.deleted ? serverInfoObject.deleted[info[i].id] : null;
+      const isMarkedLearnt = serverInfoObject.learnt ? serverInfoObject.learnt[info[i].id] : null;
       const authAdditionalOptions = storage.isAuthorized ? 
       `<div id="authAdditionalOptions">
-      <input class="bookCheckbox" type="checkbox" id="checkbox-${info[i].id}" style="display: none" ${storage.markedDifficult.includes(info[i].id) ? 'checked' : ''}>
-        <label for="checkbox-${info[i].id}" class="cap">
+        <input class="bookCheckbox" type="checkbox" id="learnt-${info[i].id}" style="display: none" ${isMarkedLearnt ? 'checked' : ''}>
+        <label for="learnt-${info[i].id}" class="learntLabel">
           <img src="assets/svg/cap.svg">
+        </label>
+        <input class="bookCheckbox" type="checkbox" id="difficult-${info[i].id}" style="display: none" ${isMarkedDifficult ? 'checked' : ''}>
+        <label for="difficult-${info[i].id}" class="difficultLabel">
+          <img src="assets/svg/dumbbell.svg">
         </label>
         <div class="garbage" id="garbage-${info[i].id}">
           <img src="assets/svg/garbage.svg">
         </div>
       </div>` : '';
       return `
-        <div class="card" id="card-${info[i].id}" style="display: ${storage.markedDeleted.includes(info[i].id) ? 'none' : 'flex'}">
+        <div class="card" id="card-${info[i].id}" style="display: ${isMarkedDeleted ? 'none' : 'flex'}">
           <img class="cardImg" src="${filesUrl}/${info[i].image}" alt="${info[i].word}">
           <div class="cardInfo">
             <h2>${capitalize(info[i].word)} - ${info[i].transcription}<img class="soundIcon" id="playSound-${info[i].audio}" src="assets/svg/sound.svg" alt="sound"></h2>

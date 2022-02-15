@@ -1,3 +1,5 @@
+import { getUserSettings, putUserSettings } from "./api"
+
 interface StorageObject {
   bookGroup: number;
   bookPage: number;
@@ -39,6 +41,45 @@ interface DoesNotNeedToBeStoredLocally {
   abortController?: AbortController;
   initialGameQueueLength: number,
   currentGameMode: string;
+}
+
+interface ServerInfoObject {
+  deleted: List,
+  difficult: List,
+  learning: List,
+  learnt: List
+}
+
+interface List {
+  [key: string]: boolean
+}
+
+export let serverInfoObject: ServerInfoObject = {
+  deleted: {
+    'test': true
+  },
+  difficult: {
+    'test': true
+  },
+  learning: {
+    'test': true
+  },
+  learnt: {
+    'test': true
+  }
+}
+
+export function manageServerInfo(wordId: string, whatToChange: keyof ServerInfoObject, whatToDo: string) {
+  if (whatToDo === 'add') {
+    serverInfoObject[whatToChange][wordId] = true;
+  } else {
+    serverInfoObject[whatToChange][wordId] = false;
+  }
+  putUserSettings();
+}
+
+export function rewriteServerInfo(info: ServerInfoObject) {
+  serverInfoObject = info
 }
 
 export let storageT: DoesNotNeedToBeStoredLocally = {
@@ -206,3 +247,5 @@ if (localStorageInit !== null) {
       }
   }
 }
+
+//putUserSettings();
