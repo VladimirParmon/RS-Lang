@@ -46,34 +46,54 @@ interface DoesNotNeedToBeStoredLocally {
 interface ServerInfoObject {
   deleted: List,
   difficult: List,
-  learning: List,
+  howManyInARow: HowMany,
+  howManyWrong: HowMany,
+  howManyRight: HowMany,
   learnt: List
 }
 
 interface List {
-  [key: string]: boolean
+  [key: string]: boolean | number
+}
+
+interface HowMany {
+  [key: string]: number
 }
 
 export let serverInfoObject: ServerInfoObject = {
   deleted: {
-    'test': true
+    'server_deletes_empty_fields': true
   },
   difficult: {
-    'test': true
-  },
-  learning: {
-    'test': true
+    'so_I_have_to_put_something_in_here': true
   },
   learnt: {
-    'test': true
+    'otherwise_I_wont_get_the_reference': true
+  },
+  howManyInARow: {
+    '': 0
+  },
+  howManyRight: {
+    '':0
+  },
+  howManyWrong: {
+    '': 0  
   }
 }
 
-export function manageServerInfo(wordId: string, whatToChange: keyof ServerInfoObject, whatToDo: string) {
+export function manageServerInfo(wordId: string, whatToChange: keyof ServerInfoObject, whatToDo: string, num?: string) {
   if (whatToDo === 'add') {
     serverInfoObject[whatToChange][wordId] = true;
-  } else {
+  } else if (whatToDo === 'remove') {
     serverInfoObject[whatToChange][wordId] = false;
+  } else if (num) {
+    serverInfoObject[whatToChange][wordId] = Number(num);
+    if (whatToDo === 'raise' && ((+num >= 3 && !serverInfoObject.difficult[wordId]) || +num >= 5)) {
+      serverInfoObject.learnt[wordId] = true;
+    } else if (whatToDo === 'lower') {
+      serverInfoObject.learnt[wordId] = false;
+    }
+
   }
   putUserSettings();
 }

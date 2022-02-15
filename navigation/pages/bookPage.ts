@@ -26,11 +26,13 @@ export const bookPage: Page = {
     function capitalize (string: string) {
       return string[0].toUpperCase() + string.slice(1);
   }
-
-    async function generateCard (i: number) {
-      const isMarkedDifficult = serverInfoObject.difficult ? serverInfoObject.difficult[info[i].id] : null;
-      const isMarkedDeleted = serverInfoObject.deleted ? serverInfoObject.deleted[info[i].id] : null;
-      const isMarkedLearnt = serverInfoObject.learnt ? serverInfoObject.learnt[info[i].id] : null;
+    async function generateCard (i: number) { 
+      const isMarkedDifficult = serverInfoObject.difficult[info[i].id] ? serverInfoObject.difficult[info[i].id] : null;
+      const isMarkedDeleted = serverInfoObject.deleted[info[i].id] ? serverInfoObject.deleted[info[i].id] : null;
+      const isMarkedLearnt = serverInfoObject.learnt[info[i].id] ? serverInfoObject.learnt[info[i].id] : null;
+      const howManyInARow = serverInfoObject.howManyInARow[info[i].id] ? serverInfoObject.howManyInARow[info[i].id] : 0;
+      const howManyRight = serverInfoObject.howManyRight[info[i].id] ? serverInfoObject.howManyRight[info[i].id] : 0;
+      const howManyWrong = serverInfoObject.howManyWrong[info[i].id] ? serverInfoObject.howManyWrong[info[i].id] : 0;
       const authAdditionalOptions = storage.isAuthorized ? 
       `<div id="authAdditionalOptions">
         <input class="bookCheckbox" type="checkbox" id="learnt-${info[i].id}" style="display: none" ${isMarkedLearnt ? 'checked' : ''}>
@@ -45,6 +47,14 @@ export const bookPage: Page = {
           <img src="assets/svg/garbage.svg">
         </div>
       </div>` : '';
+      const authAdditionalInfo = storage.isAuthorized ? `
+      <button class="statsButton"></button>
+      <div class="inBookStats">
+        <span>Угадано подряд: ${howManyInARow}</span>
+        <span>Правильных ответов: ${howManyRight}</span>
+        <span>Ошибок: ${howManyWrong}</span>
+      </div>
+      ` : '';
       return `
         <div class="card" id="card-${info[i].id}" style="display: ${isMarkedDeleted ? 'none' : 'flex'}">
           <img class="cardImg" src="${filesUrl}/${info[i].image}" alt="${info[i].word}">
@@ -63,6 +73,7 @@ export const bookPage: Page = {
             <span>${info[i].textExampleTranslate}</span>
           </div>
           ${authAdditionalOptions}
+          ${authAdditionalInfo}
         </div>
       `
     }

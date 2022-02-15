@@ -1,6 +1,6 @@
 import { filesUrl } from "../utils/api"
-import { storage, storageT } from "../utils/storage";
-import { capitalize } from "../utils/misc";
+import { serverInfoObject, storage, storageT } from "../utils/storage";
+import { capitalize, inGameStats } from "../utils/misc";
 import { checkChoice } from "../utils/checks";
 import { prepareData } from "./getData";
 import { checkFor } from "../utils/misc";
@@ -9,6 +9,9 @@ import { updateIndicator } from "../utils/indicator";
 
 export function runAudioGame() {
   window.addEventListener('keyup', checkFor)
+  const wrapper = document.querySelector('#wrapper-audio') as HTMLElement;
+  const gameStats = document.querySelector('.inGameStats') as HTMLElement;
+  if (gameStats) wrapper.removeChild(gameStats);
 
   prepareData();
   let intermediateArray: string[] = [];
@@ -35,6 +38,14 @@ export function runAudioGame() {
   const audioBite = new Audio;
   audioBite.src = `${filesUrl}/${storageT.rightAnswer.audio}`;
   audioBite.play();
+
+  if (storage.isAuthorized) {
+    const gameStats = document.createElement('div');
+    gameStats.classList.add('inGameStats');
+    const stats = inGameStats();
+    gameStats.innerHTML = stats;
+    wrapper.appendChild(gameStats);
+  }
 }
 
 export function runAudioAnimation(id: string) {

@@ -1,6 +1,6 @@
 import { getAllWords } from '../utils/api';
 import { getRandomInt, shuffle } from '../utils/misc';
-import { ReducedWordInfo, storage, storageT } from '../utils/storage';
+import { ReducedWordInfo, serverInfoObject, storage, storageT } from '../utils/storage';
 
 export const getData = async () => {
   const difficulty = storageT.currentDifficulty;
@@ -62,7 +62,7 @@ export const getSinglePageData = async () => {
   } finally {
     if (info) {
       const infoWithoutDeleted = info.filter((el) => {
-        if (!storage.markedDeleted.includes(el.id)) {
+        if (!serverInfoObject.deleted[el.id] && !serverInfoObject.learnt[el.id]) {
           return el;
         }
       });

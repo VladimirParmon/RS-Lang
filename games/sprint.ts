@@ -1,5 +1,5 @@
-import { getRandomInt } from '../utils/misc';
-import { storage, storageT } from '../utils/storage';
+import { getRandomInt, inGameStats } from '../utils/misc';
+import { manageServerInfo, serverInfoObject, storage, storageT } from '../utils/storage';
 import { prepareData } from './getData';
 import { capitalize } from '../utils/misc';
 import { endGame } from '../utils/endGame';
@@ -11,6 +11,8 @@ export function runSprint() {
   const sprintButtons = document.querySelector('#sprintButtons');
 
   const wrapper = document.querySelector('#wrapper-sprint') as HTMLElement;
+  const gameStats = document.querySelector('.inGameStats') as HTMLElement;
+  if (gameStats) wrapper.removeChild(gameStats);
   wrapper.style.pointerEvents = 'all';
   wrapper.style.opacity = '1';
 
@@ -75,21 +77,42 @@ export function runSprint() {
       signal: storageT.abortController!.signal
     }
   );
+
+  if (storage.isAuthorized) {
+    const gameStats = document.createElement('div');
+    gameStats.classList.add('inGameStats');
+    const stats = inGameStats();
+    gameStats.innerHTML = stats;
+    wrapper.appendChild(gameStats);
+  }
 }
 
 function goNext(command: boolean) {
   if (storageT.onlyOnePage) updateIndicator();
   const audioBite = new Audio();
   if (command) {
+    const inARowData = serverInfoObject.howManyInARow[storageT.rightAnswer.id];
+    const inARow = inARowData ? inARowData : 0;
+    manageServerInfo(storageT.rightAnswer.id, 'howManyInARow', 'raise', (inARow + 1).toString());
+
+    const totalRightAnswersData = serverInfoObject.howManyRight[storageT.rightAnswer.id];
+    const totalRightAnswers = totalRightAnswersData ? totalRightAnswersData : 0;
+    manageServerInfo(storageT.rightAnswer.id, 'howManyRight', 'raise', (totalRightAnswers + 1).toString());
+
     audioBite.src = './assets/sounds/rightAnswer.mp3';
     storageT.endGameResults.right.push(storageT.rightAnswer);
   } else {
+    manageServerInfo(storageT.rightAnswer.id, 'howManyInARow', 'lower', '0');
+
+    const totalWrongAnswersData = serverInfoObject.howManyWrong[storageT.rightAnswer.id];
+    const totalWrongAnswers = totalWrongAnswersData ? totalWrongAnswersData : 0;
+    manageServerInfo(storageT.rightAnswer.id, 'howManyWrong', 'raise', (totalWrongAnswers + 1).toString());
+    
     audioBite.src = './assets/sounds/wrongAnswer.mp3';
-    storageT.endGameResults.wrong.push(storageT!.rightAnswer);
+    storageT.endGameResults.wrong.push(storageT.rightAnswer);
   }
   audioBite.play();
   storageT.abortController?.abort();
-  // runSprint();
   if (storageT.currentGameQueue!.length === 0) {
     storageT.abortController!.abort();
     endGame();

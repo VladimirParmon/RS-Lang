@@ -228,8 +228,10 @@ export const putUserSettings = async () => {
       "optional": {
         "deleted": serverInfoObject.deleted,
         "difficult": serverInfoObject.difficult,
-        "learning": serverInfoObject.learning,
-        "learnt": serverInfoObject.learnt
+        "learnt": serverInfoObject.learnt,
+        "howManyInARow": serverInfoObject.howManyInARow,
+        "howManyRight": serverInfoObject.howManyRight,
+        "howManyWrong": serverInfoObject.howManyWrong
       }
     })
   });
@@ -247,6 +249,7 @@ export const getUserSettings = async () => {
     .then(async (response) => {
       if(response.ok) {
         const info = await response.json();
+        console.log(info)
         if (info.optional) rewriteServerInfo(info.optional);
       } else if (response.status === 404) {
         putUserSettings();
