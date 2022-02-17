@@ -62,13 +62,13 @@ interface HowMany {
 
 export let serverInfoObject: ServerInfoObject = {
   deleted: {
-    'server_deletes_empty_fields': true
+    '': true
   },
   difficult: {
-    'so_I_have_to_put_something_in_here': true
+    '': true
   },
   learnt: {
-    'otherwise_I_wont_get_the_reference': true
+    '': true
   },
   howManyInARow: {
     '': 0

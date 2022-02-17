@@ -15,17 +15,24 @@ export function checkChoice(id: string | null) {
   const buttonPressed = document.querySelector(`#audioGameOption-${id}`) as HTMLElement;
   const audioBite = new Audio;
   if (id === storageT.rightAnswer.id) {
-    const inARow = serverInfoObject.howManyInARow[storageT.rightAnswer.id] ? serverInfoObject.howManyInARow[storageT.rightAnswer.id] : 0;
-    const totalRightAnswers = serverInfoObject.howManyRight[storageT.rightAnswer.id] ? serverInfoObject.howManyRight[storageT.rightAnswer.id] : 0;
+    const inARowData = serverInfoObject.howManyInARow[storageT.rightAnswer.id];
+    const inARow = inARowData ? inARowData : 0;
     manageServerInfo(storageT.rightAnswer.id, 'howManyInARow', 'raise', (inARow + 1).toString());
+
+    const totalRightAnswersData = serverInfoObject.howManyRight[storageT.rightAnswer.id];
+    const totalRightAnswers = totalRightAnswersData ? totalRightAnswersData : 0;
     manageServerInfo(storageT.rightAnswer.id, 'howManyRight', 'raise', (totalRightAnswers + 1).toString());
+
     storageT.endGameResults.right.push(storageT.rightAnswer);
     audioBite.src = './assets/sounds/rightAnswer.mp3';
     buttonPressed.style.backgroundColor = 'var(--trio3)';
   } else {
-    const totalWrongAnswers = serverInfoObject.howManyWrong[storageT.rightAnswer.id] ? serverInfoObject.howManyWrong[storageT.rightAnswer.id] : 0;
     manageServerInfo(storageT.rightAnswer.id, 'howManyInARow', 'lower', '0');
+
+    const totalWrongAnswersData = serverInfoObject.howManyWrong[storageT.rightAnswer.id];
+    const totalWrongAnswers = totalWrongAnswersData ? totalWrongAnswersData : 0;
     manageServerInfo(storageT.rightAnswer.id, 'howManyWrong', 'raise', (totalWrongAnswers + 1).toString());
+    
     storageT.endGameResults.wrong.push(storageT.rightAnswer);
     audioBite.src = './assets/sounds/wrongAnswer.mp3'
     buttonPressed.style.backgroundColor = 'var(--wrong)';

@@ -11,6 +11,11 @@ const words = `${baseURL}/words`;
 const users = `${baseURL}/users`;
 const signIn = `${baseURL}/signin`;
 
+export const getSingleWord = async (id: string) => {
+  const response = await fetch(`${words}/${id}`);
+  return await response.json();
+}
+
 export const getWords = async (group: number, page: number) => {
   const response = await fetch(`${words}?group=${group}&page=${page}`);
   return await response.json();
@@ -249,7 +254,6 @@ export const getUserSettings = async () => {
     .then(async (response) => {
       if(response.ok) {
         const info = await response.json();
-        console.log(info)
         if (info.optional) rewriteServerInfo(info.optional);
       } else if (response.status === 404) {
         putUserSettings();

@@ -25,7 +25,7 @@ export const bookPage: Page = {
 
     function capitalize (string: string) {
       return string[0].toUpperCase() + string.slice(1);
-  }
+    }
     async function generateCard (i: number) { 
       const isMarkedDifficult = serverInfoObject.difficult[info[i].id] ? serverInfoObject.difficult[info[i].id] : null;
       const isMarkedDeleted = serverInfoObject.deleted[info[i].id] ? serverInfoObject.deleted[info[i].id] : null;
@@ -43,7 +43,7 @@ export const bookPage: Page = {
         <label for="difficult-${info[i].id}" class="difficultLabel">
           <img src="assets/svg/dumbbell.svg">
         </label>
-        <div class="garbage" id="garbage-${info[i].id}">
+        <div id="garbage-${info[i].id}">
           <img src="assets/svg/garbage.svg">
         </div>
       </div>` : '';

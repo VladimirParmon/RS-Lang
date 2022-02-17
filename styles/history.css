@@ -1,0 +1,94 @@
+#history1:checked ~ .historyInner #difficultWords,
+#history2:checked ~ .historyInner #deletedWords,
+#history3:checked ~ .historyInner #learntWords,
+#history4:checked ~ .historyInner #learning {
+  display: block;
+}
+
+.historyHeader {
+  cursor: pointer;
+  position: relative;
+  font-family: var(--font2);
+  font-size: 30px;
+  white-space: nowrap;
+  margin: 10px;
+  color: var(--icons);
+}
+
+.historyHeader:hover {
+  color: var(--header);
+}
+
+input[type="radio"]:checked + label {
+  color: var(--header);
+}
+
+input[type="radio"]:checked + label::after {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--header);
+}
+
+#wrapperHistory {
+  display: flex;
+  position: absolute;
+  top: 0;
+  justify-content: center;
+  width: 100%;
+  min-width: 300px;
+  background-color: var(--primary-color);
+  flex-wrap: wrap;
+}
+
+.historyInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: var(--hover);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  overflow-y: scroll;
+  height: calc(100vh - 120px); 
+}
+
+.historyInner > div {
+  position: absolute;
+  padding-bottom: 100px;
+  display: none;
+  transition: none;
+}
+
+.redoButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  font-size: 35px;
+  font-family: var(--font4);
+  cursor: pointer;
+  background-color: var(--primary-color);
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.redoButton img {
+  pointer-events: none;
+}
+
+.redoButton:hover {
+  background-color: var(--wrong);
+}
+
+.redoButton img:hover {
+  transform: scale(1.1);
+}

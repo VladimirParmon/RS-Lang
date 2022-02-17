@@ -10,7 +10,7 @@ export const listener = ():void => {
     let eventTarget = e.target as HTMLElement;
     let eventInputTarget = e.target as HTMLInputElement;
     let id = eventTarget.id;
-    
+
     console.log(serverInfoObject)
 
     if (id === 'goHome') router('home');
@@ -112,6 +112,18 @@ export const listener = ():void => {
       const wordId = id.split('-')[1];
       manageServerInfo(wordId, "deleted", 'add');
       const theCard = document.querySelector(`#card-${wordId}`) as HTMLElement;
+      theCard.style.display = 'none';
+    }
+    if (id.split('-')[0] === 'difficultHistory') {
+      const wordId = id.split('-')[1];
+      manageServerInfo(wordId, "difficult", 'remove');
+      const theCard = document.querySelector(`#carddifficult-${wordId}`) as HTMLElement;
+      theCard.style.display = 'none';
+    }
+    if (id.split('-')[0] === 'garbageHistory') {
+      const wordId = id.split('-')[1];
+      manageServerInfo(wordId, "deleted", 'remove');
+      const theCard = document.querySelector(`#carddeleted-${wordId}`) as HTMLElement;
       theCard.style.display = 'none';
     }
   });
