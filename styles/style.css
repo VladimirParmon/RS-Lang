@@ -131,6 +131,13 @@
   flex-direction: column;
 }
 
+/* .inGameStats span {
+  position: absolute;
+  top: 160px;
+  font-family: var(--font3);
+  color: red;
+} */
+
 .inARowIndicators {
   display: flex;
   justify-content: center;

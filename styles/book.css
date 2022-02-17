@@ -281,3 +281,13 @@ h1 {
   border-color: var(--trio3);
   background-color: rgba(255, 189, 168, 0.4);
 }
+
+.difficultLabel:hover {
+  background-color: var(--trio2);
+}
+.learntLabel:hover {
+  background-color: var(--trio3);
+}
+.garbage:hover {
+  background-color: var(--wrong);
+}

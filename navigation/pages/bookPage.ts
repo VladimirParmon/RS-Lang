@@ -43,7 +43,7 @@ export const bookPage: Page = {
         <label for="difficult-${info[i].id}" class="difficultLabel">
           <img src="assets/svg/dumbbell.svg">
         </label>
-        <div id="garbage-${info[i].id}">
+        <div class="garbage" id="garbage-${info[i].id}">
           <img src="assets/svg/garbage.svg">
         </div>
       </div>` : '';

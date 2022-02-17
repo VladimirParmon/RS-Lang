@@ -78,7 +78,7 @@ export function inGameStats() {
     <div style="display:${isDifficult ? 'block' : 'none'}; background-color:${inARow > 3 ? 'var(--trio3)' : 'var(--header)'}"></div>
     <div style="display:${isDifficult ? 'block' : 'none'}; background-color:${inARow > 4 ? 'var(--trio3)' : 'var(--header)'}"></div>
   </div>
-  <span style="display:${isLearnt ? 'block' : 'none'}">Изученное слово</span>
-  <span style="display:${isDifficult ? 'block' : 'none'}">Сложное слово</span>
+  <span class="inGameStatsSpanDifficult" style="opacity:${isDifficult ? '1' : '0'}">Сложное слово</span>
+  <span class="inGameStatsSpanLearnt" style="opacity:${isLearnt ? '1' : '0'}">Изученное слово</span>
   `
 }
