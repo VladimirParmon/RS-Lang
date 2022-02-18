@@ -39,8 +39,10 @@ interface DoesNotNeedToBeStoredLocally {
     wrong: ReducedWordInfo[];
   };
   abortController?: AbortController;
-  initialGameQueueLength: number,
+  initialGameQueueLength: number;
   currentGameMode: string;
+  animation: number,
+  currentBirdStatus: string
 }
 
 interface ServerInfoObject {
@@ -92,6 +94,7 @@ export function manageServerInfo(wordId: string, whatToChange: keyof ServerInfoO
       serverInfoObject.learnt[wordId] = true;
     } else if (whatToDo === 'lower') {
       serverInfoObject.learnt[wordId] = false;
+      serverInfoObject.howManyInARow[wordId] = 0;
     }
 
   }
@@ -139,7 +142,9 @@ export let storageT: DoesNotNeedToBeStoredLocally = {
     wrong: []
   },
   currentGameMode: '',
-  initialGameQueueLength: 0
+  initialGameQueueLength: 0,
+  animation: 0,
+  currentBirdStatus: 'flies'
 }
 
 let storageObject: StorageObject = {

@@ -10,6 +10,7 @@ import { storage, storageT } from '../utils/storage';
 import { sprintPage } from './pages/sprintPage';
 import { redirectPage } from './pages/gamesRedirect';
 import { hideLoader } from '../utils/loader';
+import { sniperPage } from './pages/sniperPage'
 
 const root = document.querySelector('#content');
 
@@ -28,6 +29,7 @@ export type routerLib = {
   comments: Page,
   audio: Page,
   sprint: Page,
+  sniper: Page,
   redirect: Page
 }
 
@@ -41,6 +43,7 @@ const pages: routerLib = {
   comments: commentsPage,
   audio: audioChallengePage,
   sprint: sprintPage,
+  sniper: sniperPage,
   redirect: redirectPage
 };
 

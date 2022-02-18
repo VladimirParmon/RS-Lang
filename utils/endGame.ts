@@ -4,6 +4,8 @@ import { timer } from "./timer";
 import { runSprint } from "../games/sprint";
 import { runAudioGame } from "../games/audioChallenge";
 import { router } from "../navigation/router";
+import { runSniper } from "../games/sniper";
+import { updateIndicator } from "./indicator";
 
 export function endGame() {
   const root = document.querySelector('.wrapperGames');
@@ -73,6 +75,8 @@ export function endGame() {
     const playAgain = document.createElement('button');
     playAgain.textContent = 'Играть снова';
     playAgain.addEventListener('click', () => {
+      storageT.initialGameQueueLength = storageT.currentGameQueue.length;
+      if (storageT.onlyOnePage) updateIndicator();
       root?.removeChild(resultsWrapper);
       wrapper.style.opacity = '1';
       wrapper.style.pointerEvents = 'all';
@@ -89,8 +93,8 @@ export function endGame() {
         break;
         // case 'Puzzle': runPuzzle();
         // break;
-        // case 'Sniper': runSniper();
-        // break;
+        case 'sniper': runSniper();
+        break;
       }
     }, {
       once: true

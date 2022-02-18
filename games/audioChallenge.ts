@@ -26,7 +26,7 @@ export function runAudioGame() {
     keyIcon.style.marginRight = '10px';
     keyIcon.src = `assets/svg/white/${i + 1}w.svg`;
     option.appendChild(keyIcon);
-    option.id = `audioGameOption-${el.id}`;
+    option.id = `gameOption-${el.id}`;
     option.innerHTML += capitalize(el.translate);
     option.addEventListener('click', () => {
       checkChoice(el.id);
@@ -50,7 +50,7 @@ export function runAudioGame() {
 
 export function runAudioAnimation(id: string) {
   const buttonsDiv = document.querySelector('#audioGameOptions') as HTMLElement;
-  const buttonPressed = document.querySelector(`#audioGameOption-${id}`) as HTMLElement;
+  const buttonPressed = document.querySelector(`#gameOption-${id}`) as HTMLElement;
   const roundButton = document.querySelector('#repeatAudio') as HTMLElement;
   const roundButtonIcon = document.querySelector('#repeatAudioIcon') as HTMLElement;
 

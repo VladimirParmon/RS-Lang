@@ -29,6 +29,10 @@ export const listener = ():void => {
       storageT.currentGameMode = 'sprint';
       router('redirect');
     } 
+    if (id === 'goSniper') {
+      storageT.currentGameMode = 'sniper';
+      router('sniper');
+    }
     if (id.split('-')[0] === 'levelsListOption') {
       const x = storageT.currentGameMode as keyof routerLib;
       storageT.currentDifficulty = +id.split('-')[1];
@@ -72,8 +76,8 @@ export const listener = ():void => {
         break;
         // case 'puzzle': router('puzzle', 'onlyOnePageRequired');
         // break;
-        // case 'sniper': router('sniper', 'onlyOnePageRequired');
-        // break;
+        case 'sniper': router('sniper', 'onlyOnePageRequired');
+        break;
         case 'sprint': router('sprint', 'onlyOnePageRequired');
         break;
       }

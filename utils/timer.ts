@@ -13,6 +13,7 @@ export function timer() {
   const circle = radius - indicatorWidth / 2;
   const track = radius - indicatorWidth / 2;
 
+
   clear();
 
   const timeLimit = storageT.timeLimit * 1000;
@@ -26,12 +27,14 @@ export function timer() {
       digits.innerHTML = secondsLeft.toString();
     } else {
       if(storageT.secondsInterval) clearInterval(storageT.secondsInterval);
-      endGame();
+      const wrapper = document.querySelector('#wrapper-sprint');
+      if (wrapper) endGame();
     }
   }, 1000)
 
   storageT.msInterval = setInterval(() => {
-    if (timeLeft >= 0) {
+    const wrapper = document.querySelector('#wrapper-sprint');
+    if (timeLeft >= 0 && wrapper) {
       clear();
       setTrack();
       setIndicator();
