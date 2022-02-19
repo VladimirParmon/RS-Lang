@@ -191,6 +191,54 @@
 }
 /*===========================================*/
 
+#contactMe {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1000px;
+  align-items: center;
+  padding: 20px;
+}
+
+#contactMe input,
+#contactMe textarea,
+#contactMe button {
+  width: 100%;
+  border: none;
+  padding: 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-family: var(--font2);
+  font-size: 30px;
+}
+
+#contactMe input:focus,
+#contactMe textarea:focus {
+  outline: none;
+}
+
+#contactMe input {
+  height: 50px;
+  box-sizing: border-box;
+}
+
+#contactMe textarea {
+  resize: none;
+  height: 50vh;
+}
+
+#contactMe button {
+  cursor: pointer;
+  height: 50px;
+  line-height: 10px;
+}
+
+#contactMe button:hover {
+  background-color: var(--hover);
+}
+
+/*====================================================================*/
+
 
 @media screen and (max-width: 1600px) {
   #additionalInfo {
