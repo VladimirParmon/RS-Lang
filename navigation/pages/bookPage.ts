@@ -12,7 +12,7 @@ export const bookPage: Page = {
     try {
       showLoader();
       info = await getWords(bookGroup, bookPage);
-      await getUserSettings();
+      //await getUserSettings();
     } finally {
       hideLoader();
     }

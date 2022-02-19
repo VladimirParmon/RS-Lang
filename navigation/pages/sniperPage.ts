@@ -36,6 +36,8 @@ export const sniperPage: Page = {
   afterRender: () => {
     removeFooter();
     storageT.currentGameMode = 'sniper'
+    storageT.endGameResults.right = [];
+    storageT.endGameResults.wrong = [];
     if (storageT.onlyOnePage) addIndicator();
     runSniper();
   }

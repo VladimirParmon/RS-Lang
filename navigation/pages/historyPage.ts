@@ -16,8 +16,8 @@ export const historyPage: Page = {
     let learntLayout = '';
     let learningLayout = '';
     showLoader();
-    await getUserSettings()
-    .then(() => {
+    //await getUserSettings()
+    //.then(() => {
       difficult = Object.keys(serverInfoObject.difficult);
       deleted = Object.keys(serverInfoObject.deleted);
       learnt = Object.keys(serverInfoObject.learnt);
@@ -26,8 +26,8 @@ export const historyPage: Page = {
       deleted.forEach(el => learningSet.add(el));
       learnt.forEach(el => learningSet.add(el));
       learning = Array.from(learningSet) as string[];
-    })
-    .then(async () => {
+   // })
+   // .then(async () => {
       for (let i = 0; i < difficult.length; i++) {
         if (difficult[i] !== '' && serverInfoObject.difficult[difficult[i]]) {
           const info = await getSingleWord(difficult[i]);
@@ -52,10 +52,10 @@ export const historyPage: Page = {
           learningLayout += generateCard(info, 'learning');
         }
       }
-    })
-    .finally(() => {
+ //   })
+  //  .finally(() => {
       hideLoader()
-    })
+   // })
     function capitalize (string: string) {
       return string[0].toUpperCase() + string.slice(1);
     }

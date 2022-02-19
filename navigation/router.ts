@@ -11,6 +11,7 @@ import { sprintPage } from './pages/sprintPage';
 import { redirectPage } from './pages/gamesRedirect';
 import { hideLoader } from '../utils/loader';
 import { sniperPage } from './pages/sniperPage'
+import { getUserSettings } from '../utils/api';
 
 const root = document.querySelector('#content');
 
@@ -50,20 +51,31 @@ const pages: routerLib = {
 const getPageFromName = (pageName: keyof routerLib) => pages[pageName] || null;
 
 export const router = async (pageName: keyof routerLib, instruction?: string) => {
-  hideLoader();
-  let page = getPageFromName(pageName);
-  storage.currentPage = pageName;
-  instruction ? storageT.onlyOnePage = true : storageT.onlyOnePage = false;
+  if (!storage.isAuthorized) {
+    routing(pageName, instruction);
+  } else {
+    getUserSettings()
+    .then(async () => {
+      routing(pageName, instruction);
+    })
+  }
 
-  if (page && root) {
-    const layout = await page.render();
-    if(storage.currentPage === pageName) {
-      root.innerHTML = layout;
-      if (page.afterRender) {
-        page.afterRender();
+  async function routing(pageName: keyof routerLib, instruction?: string) {
+    hideLoader();
+    let page = getPageFromName(pageName);
+    storage.currentPage = pageName;
+    instruction ? storageT.onlyOnePage = true : storageT.onlyOnePage = false;
+  
+    if (page && root) {
+      const layout = await page.render();
+      if(storage.currentPage === pageName) {
+        root.innerHTML = layout;
+        if (page.afterRender) {
+          page.afterRender();
+        }
       }
-    }
-  } 
+    } 
+  }
 };
 
 function additionalEvent() {

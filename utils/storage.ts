@@ -1,4 +1,5 @@
 import { getUserSettings, putUserSettings } from "./api"
+import { hideLoader, showLoader } from "./loader";
 
 interface StorageObject {
   bookGroup: number;
@@ -90,13 +91,12 @@ export function manageServerInfo(wordId: string, whatToChange: keyof ServerInfoO
     serverInfoObject[whatToChange][wordId] = false;
   } else if (num) {
     serverInfoObject[whatToChange][wordId] = Number(num);
-    if (whatToDo === 'raise' && ((+num >= 3 && !serverInfoObject.difficult[wordId]) || +num >= 5)) {
+    if (whatToDo === 'raise' && whatToChange === 'howManyInARow' && ((+num >= 3 && !serverInfoObject.difficult[wordId]) || +num >= 5)) {
       serverInfoObject.learnt[wordId] = true;
     } else if (whatToDo === 'lower') {
       serverInfoObject.learnt[wordId] = false;
       serverInfoObject.howManyInARow[wordId] = 0;
     }
-
   }
   putUserSettings();
 }

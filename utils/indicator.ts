@@ -15,7 +15,6 @@ export function removeIndicator() {
 }
 
 export function updateIndicator() {
-  console.log(storageT.initialGameQueueLength, storageT.currentGameQueue.length)
   const indicator = document.querySelector('#indicator') as HTMLElement;
   const percentage = 100 * (storageT.initialGameQueueLength - storageT.currentGameQueue.length) / storageT.initialGameQueueLength;
   indicator.style.backgroundImage = `linear-gradient(to right, var(--action) ${percentage}%, var(--trio3) ${percentage}%)`;
