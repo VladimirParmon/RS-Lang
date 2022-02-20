@@ -104,7 +104,7 @@ export const homePage: Page = {
         <h2><img icon2 src="assets/svg/gamepad.svg" alt="gamepad">Игры</h2>
         <span>4 увлекательных игры, которые помогут расширить вокабуляр, улучшить навыки правописания и восприятия  речи на слух</span>
         <h2><img icon2 src="assets/svg/chart.svg" alt="chart">Статистика</h2>
-        <span>ПОка не сделано и хуй знает добурусь ли))000!001))адын</span>
+        <span>Самые важные показатели вашего прогресса. В удобной форме и наглядно</span>
       </div>
     </div>
   </div>
