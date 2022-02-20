@@ -1,5 +1,6 @@
-import { getUserSettings, putUserSettings } from "./api"
+import { getUserSettings, putUserSettings, putUserStatistics } from "./api"
 import { hideLoader, showLoader } from "./loader";
+import { getDate } from "./misc";
 
 interface StorageObject {
   bookGroup: number;
@@ -55,6 +56,17 @@ interface ServerInfoObject {
   learnt: List
 }
 
+export interface StatisticsInfo {
+  [key: string]: Statistics
+}
+
+interface Statistics {
+  totalRight: number,
+  totalWrong: number,
+  inARowMax: number,
+  learnt: number
+}
+
 interface List {
   [key: string]: boolean | number
 }
@@ -86,11 +98,27 @@ export let serverInfoObject: ServerInfoObject = {
 
 export function manageServerInfo(wordId: string, whatToChange: keyof ServerInfoObject, whatToDo: string, num?: string) {
   if (whatToDo === 'add') {
+    if (whatToChange === "learnt" && !Object.keys(serverInfoObject[whatToChange]).includes(wordId)) {
+      statistics.learnt = statistics.learnt + 1
+    }
     serverInfoObject[whatToChange][wordId] = true;
   } else if (whatToDo === 'remove') {
     serverInfoObject[whatToChange][wordId] = false;
   } else if (num) {
+    if (whatToDo === 'raise') {
+      if (whatToChange === 'howManyRight') {
+        statistics.totalRight = statistics.totalRight + 1
+      } else if (whatToChange === 'howManyWrong') {
+        statistics.totalWrong = statistics.totalWrong + 1
+      }
+    }
     serverInfoObject[whatToChange][wordId] = Number(num);
+    if (whatToDo === 'raise' && whatToChange === 'howManyInARow') {
+      const currentHighest = statistics.inARowMax
+      if (currentHighest < Number(num)) {
+        statistics.inARowMax = Number(num);
+      }
+    }
     if (whatToDo === 'raise' && whatToChange === 'howManyInARow' && ((+num >= 3 && !serverInfoObject.difficult[wordId]) || +num >= 5)) {
       serverInfoObject.learnt[wordId] = true;
     } else if (whatToDo === 'lower') {
@@ -99,10 +127,23 @@ export function manageServerInfo(wordId: string, whatToChange: keyof ServerInfoO
     }
   }
   putUserSettings();
+  putUserStatistics();
 }
 
 export function rewriteServerInfo(info: ServerInfoObject) {
   serverInfoObject = info
+}
+
+export function rewriteStatistics(info: StatisticsInfo) {
+  const date = getDate();
+  statistics = info[date];
+}
+
+export let statistics: Statistics = {
+  totalRight: 0,
+  totalWrong: 0,
+  inARowMax: 0,
+  learnt: 0
 }
 
 export let storageT: DoesNotNeedToBeStoredLocally = {
@@ -273,4 +314,5 @@ if (localStorageInit !== null) {
   }
 }
 
-//putUserSettings();
+// putUserSettings();
+// putUserStatistics();

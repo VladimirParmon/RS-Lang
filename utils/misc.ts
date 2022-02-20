@@ -23,6 +23,11 @@ export function shuffle (array: ReducedWordInfo[]) {
 
 export function checkFor(el: KeyboardEvent) {
   checkKeys(el.code);
+  if (storageT.currentGameMode === 'sniper') {
+    const audioBite = new Audio;
+    audioBite.src = `assets/sounds/gunshot.mp3`;
+    audioBite.play();
+  }
 }
 
 export function addFooter() {
@@ -81,4 +86,10 @@ export function inGameStats() {
   <span class="inGameStatsSpanDifficult" style="opacity:${isDifficult ? '1' : '0'}">Сложное слово</span>
   <span class="inGameStatsSpanLearnt" style="opacity:${isLearnt ? '1' : '0'}">Изученное слово</span>
   `
+}
+
+export function getDate() {
+  const today = new Date();
+  const date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+  return date;
 }

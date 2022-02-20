@@ -23,7 +23,7 @@ export const audioChallengePage: Page = {
         <div id="repeatAudio">
           <img id="repeatAudioIcon" src="assets/svg/sound.svg" alt="icon">
         </div>
-        <div id="audioGameOptions"></div>
+        <div class="gameOptions" id="audioGameOptions"></div>
       </div>
     </div>
     `;

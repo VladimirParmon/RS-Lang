@@ -3,12 +3,11 @@ import { checkChoice } from "../utils/checks";
 import { endGame } from "../utils/endGame";
 import { updateIndicator } from "../utils/indicator";
 import { getDistanceBetweenElements } from "../utils/measures";
-import { capitalize, inGameStats } from "../utils/misc";
+import { capitalize, checkFor, inGameStats } from "../utils/misc";
 import { storage, storageT } from "../utils/storage";
 import { prepareData } from "./getData";
 
 export function runSniper() {
-  // window.addEventListener('keyup', checkFor)
   const optionsContainer = document.querySelector(`#sniperOptions`);
   const theWord = document.querySelector('#sniperWordSpan') as HTMLElement;
   const wrapper = document.querySelector('#wrapper-sniper') as HTMLElement;
@@ -60,7 +59,19 @@ export function runSniper() {
 }
 
 function animation (bird: HTMLElement, distance: number, birdImg: HTMLElement) {
-  const animationTime = 4000;
+  let animationTime = 4000;
+  switch(storageT.currentDifficulty) {
+    case 1: animationTime = 3500;
+    break;
+    case 2: animationTime = 3000;
+    break;
+    case 3: animationTime = 2500;
+    break;
+    case 4: animationTime = 2000;
+    break;
+    case 5: animationTime = 1750;
+    break;
+  }
   let start : number | null = null;
 
   function step(timestamp: number) {
@@ -101,6 +112,11 @@ function animation (bird: HTMLElement, distance: number, birdImg: HTMLElement) {
 
   export const startSniperAnimation = () => {
   const wrapper = document.querySelector('#wrapper-sniper');
+  const buttonsDiv = document.querySelector('.gameOptions') as HTMLElement;
+  setTimeout(() => {
+    buttonsDiv.style.pointerEvents = 'all';
+    window.addEventListener('keyup', checkFor);
+  }, 1000)
   if (wrapper) {
     const bird = document.querySelector('#bird') as HTMLElement;
     const birdImg = document.querySelector('#birdImg') as HTMLElement;

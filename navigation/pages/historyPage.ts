@@ -103,10 +103,10 @@ export const historyPage: Page = {
     <label for="history4" class="historyHeader">Уже встречались</label>
 
     <div class="historyInner">
-      <div id="difficultWords">${diffLayout}</div> 
-      <div id="deletedWords">${delLayout}</div> 
-      <div id="learntWords">${learntLayout}</div> 
-      <div id="learning">${learningLayout}</div> 
+      <div id="difficultWords">${diffLayout ? diffLayout : 'Тут пока ничего нет'}</div> 
+      <div id="deletedWords">${delLayout ? delLayout : 'Тут пока ничего нет'}</div> 
+      <div id="learntWords">${learntLayout ? learntLayout : 'Тут пока ничего нет'}</div> 
+      <div id="learning">${learningLayout ? learningLayout : 'Тут пока ничего нет'}</div> 
     </div>
   </div>
   `},

@@ -8,7 +8,7 @@ import { endGame } from "../utils/endGame";
 import { updateIndicator } from "../utils/indicator";
 
 export function runAudioGame() {
-  window.addEventListener('keyup', checkFor)
+  window.addEventListener('keyup', checkFor);
   const wrapper = document.querySelector('#wrapper-audio') as HTMLElement;
   const gameStats = document.querySelector('.inGameStats') as HTMLElement;
   if (gameStats) wrapper.removeChild(gameStats);
@@ -54,8 +54,8 @@ export function runAudioAnimation(id: string) {
   const roundButton = document.querySelector('#repeatAudio') as HTMLElement;
   const roundButtonIcon = document.querySelector('#repeatAudioIcon') as HTMLElement;
 
-  buttonsDiv.style.pointerEvents = 'none';
-  buttonPressed.style.transform = 'scale(1.07)';
+  // buttonsDiv.style.pointerEvents = 'none';
+  // buttonPressed.style.transform = 'scale(1.07)';
 
   const nextQuestionButton = document.createElement('div');
   nextQuestionButton.id = 'nextAudioQuestion';

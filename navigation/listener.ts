@@ -1,4 +1,4 @@
-import { manageServerInfo, serverInfoObject, storage, storageT } from "../utils/storage";
+import { manageServerInfo, serverInfoObject, statistics, storage, storageT } from "../utils/storage";
 import { rollMenu, rollPageSelector, rollSectionSelector, rollGamesSelector, passwordReveal } from "./rollMenu";
 import { router, routerLib } from "./router";
 import { playSound } from "../utils/playSound";
@@ -11,7 +11,7 @@ export const listener = ():void => {
     let eventInputTarget = e.target as HTMLInputElement;
     let id = eventTarget.id;
 
-    //console.log(serverInfoObject)
+    console.log(statistics.totalRight, statistics.totalWrong)
 
     if (id === 'goHome') router('home');
     if (id === 'goBook' || id === 'learnWords') router('book');
@@ -31,7 +31,7 @@ export const listener = ():void => {
     } 
     if (id === 'goSniper') {
       storageT.currentGameMode = 'sniper';
-      router('sniper');
+      router('redirect');
     }
     if (id.split('-')[0] === 'levelsListOption') {
       const x = storageT.currentGameMode as keyof routerLib;

@@ -98,10 +98,14 @@
   left: 50%;
   top: 50%;
   transform: translateX(-50%);
+  background: linear-gradient(10deg, var(--header) 53%, #8AA9D6 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .falling {
-  animation: 3s falling forwards;
+  animation: 2s falling forwards;
 }
 
 .rotating {

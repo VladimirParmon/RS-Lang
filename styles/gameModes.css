@@ -71,6 +71,7 @@
 #levelsListWrapper h2 {
   font-family: var(--font3);
   font-size: 5vh;
+  color: var(--header);
 }
 
 #levelsList {
@@ -98,9 +99,12 @@
   transform: scale(1.1);
 }
 
-#levelsListOption-0 {background-color:cornflowerblue;}
-#levelsListOption-1 {background-color:darkcyan;}
-#levelsListOption-2 {background-color:darkgoldenrod;}
-#levelsListOption-3 {background-color: dimgray;}
-#levelsListOption-4 {background-color: darkorchid;}
-#levelsListOption-5 {background-color: antiquewhite;}
+#levelsListOption-0,
+#levelsListOption-1,
+#levelsListOption-2,
+#levelsListOption-3,
+#levelsListOption-4,
+#levelsListOption-5 {
+  background-color: antiquewhite;
+  border: 3px solid var(--primary-color);
+}

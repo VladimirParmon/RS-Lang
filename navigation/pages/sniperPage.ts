@@ -28,7 +28,7 @@ export const sniperPage: Page = {
           <div id="flag"></div>
           <span id="sniperWordSpan"></span>
         </div>
-        <div id="sniperOptions"></div>
+        <div class="gameOptions" id="sniperOptions"></div>
       </div>
     </div>
     `

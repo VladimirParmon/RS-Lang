@@ -1,8 +1,9 @@
 import { router } from "../navigation/router";
 import { hideLoader, showLoader } from "./loader";
 import { slider } from "./slider";
-import { storage, WordInfo, ReducedWordInfo, LoginResponse, RegistrationResponse, UserInfo, storageT, serverInfoObject, rewriteServerInfo } from "./storage";
+import { storage, WordInfo, ReducedWordInfo, LoginResponse, RegistrationResponse, UserInfo, storageT, serverInfoObject, rewriteServerInfo, rewriteStatistics, statistics } from "./storage";
 import { adjustLoginButton } from "../master";
+import { getDate } from "./misc";
 
 const baseURL = 'https://rs-lang-redblooded.herokuapp.com';
 export const filesUrl = 'https://raw.githubusercontent.com/vladimirparmon/react-rslang-be/master'
@@ -260,6 +261,48 @@ export const getUserSettings = async () => {
       }
     })
 }
+
+//======================================================================//
+
+export const putUserStatistics = async () => {
+  const date = getDate();
+  const response = await fetch(`${users}/${storage.userId}/statistics`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${storage.token}`,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "optional": {
+        [date]: statistics
+      }
+    })
+  });
+}
+
+export const getUserStatistics = async () => {
+  let info;
+  const response = await fetch(`${users}/${storage.userId}/statistics`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${storage.token}`,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(async (response) => {
+    if(response.ok) {
+      info = await response.json();
+      if (info.optional) rewriteStatistics(info.optional);
+    } else if (response.status === 404) {
+      putUserStatistics();
+    }
+  })
+  if (info) return info;
+}
+
+
 
 // interface ApiError {
 //   code: number;

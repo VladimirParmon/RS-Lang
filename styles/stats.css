@@ -1,0 +1,84 @@
+#wrapper-stats {
+  position: absolute;
+  top: 0;
+  right: 0;
+  overflow-y: scroll;
+  width: 100%;
+  height: calc(100% - 50px);
+  display: flex;
+  flex-direction: column;
+}
+
+.statsCircles {
+  width: 100%;
+  max-width: 400px;
+  margin: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.statsCircles span {
+  position: absolute;
+  font-family: var(--font4);
+  font-size: 24vh;
+  
+}
+
+#longestSeries::after,
+#percentage::after,
+#newWords::after {
+  position: absolute;
+  left: 50%;
+  top: 75%;
+  font-size: 40px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+#longestSeries::after {
+  content: 'Угадано подряд';
+}
+
+#percentage::after {
+  content: 'Угадано верно';
+}
+
+#newWords::after {
+  content: 'Новых слов';
+}
+
+.statsCirclesInner {
+  width: 100%;
+  padding-bottom: 100%;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+#wrapper-stats-circles {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+#wrapper-stats-charts {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+#chartWordsWrapper,
+#chartDaysWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 400px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 5px;
+}

@@ -15,6 +15,9 @@ export function checkKeys (code: string) {
 
 export function checkChoice(id: string | null) {
   const buttonPressed = document.querySelector(`#gameOption-${id}`) as HTMLElement;
+  const buttonsDiv = document.querySelector('.gameOptions') as HTMLElement;
+  buttonsDiv.style.pointerEvents = 'none';
+  if(buttonPressed) buttonPressed.style.transform = 'scale(1.07)';
   const audioBite = new Audio;
   const wrapper = document.querySelector(`#wrapper-${storageT.currentGameMode}`)
   if (wrapper) {
