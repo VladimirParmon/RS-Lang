@@ -11,7 +11,7 @@ export const listener = ():void => {
     let eventInputTarget = e.target as HTMLInputElement;
     let id = eventTarget.id;
 
-    console.log(statistics.totalRight, statistics.totalWrong)
+    //console.log(statistics.totalRight, statistics.totalWrong)
 
     if (id === 'goHome') router('home');
     if (id === 'goBook' || id === 'learnWords') router('book');

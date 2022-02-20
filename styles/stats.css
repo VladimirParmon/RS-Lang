@@ -11,7 +11,7 @@
 
 .statsCircles {
   width: 100%;
-  max-width: 400px;
+  max-width: 385px;
   margin: 15px;
   display: flex;
   align-items: center;
@@ -81,4 +81,5 @@
   height: 400px;
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: 5px;
+  margin-bottom: 10px;
 }

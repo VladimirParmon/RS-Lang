@@ -59,7 +59,7 @@ export const bookPage: Page = {
         <div class="card" id="card-${info[i].id}" style="display: ${isMarkedDeleted ? 'none' : 'flex'}">
           <img class="cardImg" src="${filesUrl}/${info[i].image}" alt="${info[i].word}">
           <div class="cardInfo">
-            <h2>${capitalize(info[i].word)} - ${info[i].transcription}<img class="soundIcon" id="playSound-${info[i].audio}" src="assets/svg/sound.svg" alt="sound"></h2>
+            <h2>${capitalize(info[i].word)} - ${info[i].transcription}<img class="soundIcon" id="playSound-${info[i].audio}" src="assets/svg/playButton.svg" alt="sound"></h2>
             <h3>${capitalize(info[i].wordTranslate)}</h3>
             <div style="margin-top: 20px">
               <img class="soundIcon2" id="playSound-${info[i].audioMeaning}" src="assets/svg/playButton.svg" alt="sound">

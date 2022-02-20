@@ -25,6 +25,8 @@
   --font2: 'Roboto', sans-serif;
   --font3: 'Neucha', cursive;
   --font4: 'Comforter', cursive;
+  --text: #000000;
+  --contrast: #ffffff;
 }
 
 a {
@@ -49,7 +51,7 @@ footer {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: rgba(245, 245, 245, 0.7);
+  background-color: rgba(245, 245, 245, 0.5);
   z-index: 2;
   transition: none;
 }
@@ -82,7 +84,7 @@ footer img:hover {
   padding-bottom: 40px;
   overflow: hidden;
   z-index: 2;
-  border-right: 1px solid rgba(169, 169, 169, 0.6)
+  border-right: 1px solid var(--header);
 }
 
 #navigationMenu span { 
@@ -229,6 +231,7 @@ footer img:hover {
   font-size: 20px;
   transition: 0.2s;
   pointer-events: none;
+  color: var(--text);
 }
 
 [option]:hover {
@@ -246,7 +249,7 @@ footer img:hover {
   height: calc(100vh - 60px);
   width: calc(100vw - 69px);
   border-left: 1px solid var(--icons);
-  background-image: url(../assets/mainLight1.jpg);
+  background-image: url(../assets/mainLight.jpg);
   background-position: center;
   background-size: cover;
   overflow: hidden;

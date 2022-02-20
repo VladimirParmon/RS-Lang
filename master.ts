@@ -46,3 +46,16 @@ export function adjustLoginButton() {
   }
 }
 
+const modeSwitch = document.querySelector('#modeSwitch')!;
+const root = document.querySelector('#content')! as HTMLElement;
+const html = document.querySelector('html')!;
+modeSwitch.addEventListener('click', () => {
+  if(html.classList.contains('dark')) {
+    html.classList.remove('dark');
+    root.style.backgroundImage = 'url(assets/mainLight.jpg)';
+  } else {
+    html.classList.add('dark');
+    root.style.backgroundImage = 'url(assets/mainDark.jpg)';
+  }
+})
+

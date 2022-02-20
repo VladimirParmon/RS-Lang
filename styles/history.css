@@ -12,16 +12,16 @@
   font-size: 30px;
   white-space: nowrap;
   margin: 10px;
-  color: var(--icons);
+  color: var(--text);
 }
 
 .historyHeader:hover {
-  color: var(--header);
+  color: var(--icons);
 }
 
-input[type="radio"]:checked + label {
-  color: var(--header);
-}
+/* input[type="radio"]:checked + label {
+  color: var(--contrast);
+} */
 
 input[type="radio"]:checked + label::after {
   content: '';
@@ -30,7 +30,7 @@ input[type="radio"]:checked + label::after {
   left: 0;
   width: 100%;
   height: 4px;
-  background-color: var(--header);
+  background-color: var(--text);
 }
 
 #wrapperHistory {
@@ -74,7 +74,7 @@ input[type="radio"]:checked + label::after {
   font-size: 35px;
   font-family: var(--font4);
   cursor: pointer;
-  background-color: var(--primary-color);
+  background-color: #ffffff;
   width: 40px;
   height: 40px;
   border-radius: 5px;

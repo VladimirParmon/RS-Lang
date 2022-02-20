@@ -82,6 +82,7 @@ export async function createChart() {
         }]
       },
       options: {
+        color: '#000',
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
@@ -92,6 +93,18 @@ export async function createChart() {
                 size: 24,
                 family: 'Roboto, sans-serif'
               }
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: "#000"
+            }
+          },
+          y: {
+            ticks: {
+              color: "#000"
             }
           }
         }
@@ -106,9 +119,9 @@ export async function createChart() {
               label: 'Количество новых слов',
               data: yValuesWords,
               backgroundColor: [
-                'rgba(197, 194, 213, 0.5)',
-                'rgb(255, 189, 168, 0.5)',
-                'rgba(148, 181, 174, 0.5)'
+                'rgba(197, 194, 213, 0.8)',
+                'rgb(255, 189, 168, 0.8)',
+                'rgba(148, 181, 174, 0.8)'
               ],
               borderColor: [
                 'rgba(197, 194, 213, 1)',
@@ -119,13 +132,9 @@ export async function createChart() {
           }]
       },
       options: {
+        color: '#000',
         responsive: true,
         maintainAspectRatio: false,
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        },
         plugins: {
           legend: {
             labels: {
@@ -134,6 +143,18 @@ export async function createChart() {
                 size: 24,
                 family: 'Roboto, sans-serif'
               }
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: "#000"
+            }
+          },
+          y: {
+            ticks: {
+              color: "#000"
             }
           }
         }
