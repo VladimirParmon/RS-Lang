@@ -1,5 +1,6 @@
 import { listener } from "./navigation/listener";
 import { router, routerLib } from "./navigation/router";
+import { adjustStatsButton } from "./utils/misc";
 import { storage } from './utils/storage'
 
 listener();
@@ -37,12 +38,19 @@ export function adjustLoginButton() {
     loginButton!.style.display =  'none';
     logoutButton.addEventListener('click', () => {
       storage.isAuthorized = false;
-      loginButton.style.display = 'block';
-      logoutButton.style.display = 'none';
+      storage.userId = '';
+      storage.userName = '';
+      storage.token = '';
+      // loginButton.style.display = 'block';
+      // logoutButton.style.display = 'none';
       router('home');
+      document.location.reload();
+      return false;
     }, {
       once: true
     })
+  } else {
+    adjustStatsButton(false);
   }
 }
 

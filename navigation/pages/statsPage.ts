@@ -1,25 +1,22 @@
-import { getUserStatistics, putUserStatistics } from '../../utils/api';
+
 import { createChart } from '../../utils/chart';
 import { hideLoader, showLoader } from '../../utils/loader';
 import { addFooter } from '../../utils/misc';
-import { statistics } from '../../utils/storage';
+import { rewriteWholePackage, statistics } from '../../utils/storage';
 import { Page } from '../router';
 
 export const statsPage: Page = {
   render: async () => {
     const today = new Date();
     const date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
-    try {
-      showLoader();
-      await getUserStatistics();
-    } finally {
-      hideLoader();
-    }
-    const percentage = (statistics.totalRight *  100) / (statistics.totalRight + statistics.totalWrong);
+
+    let percentage = (statistics.totalRight *  100) / (statistics.totalRight + statistics.totalWrong);
+    if (!percentage) percentage = 0;
     return `
     <div id="wrapper-stats">
       <div id="wrapper-stats-circles">
-        <div class="statsCircles"><span id="newWords">${statistics.learnt}</span><div class="statsCirclesInner"></div></div>
+        <div class="statsCircles"><span id="newWords">${statistics.new}</span><div class="statsCirclesInner"></div></div>
+        <div class="statsCircles"><span id="learntWordsStats">${statistics.learnt}</span><div class="statsCirclesInner"></div></div>
         <div class="statsCircles"><span id="percentage">${percentage.toFixed(0)}%</span><div class="statsCirclesInner"></div></div>
         <div class="statsCircles"><span id="longestSeries">${statistics.inARowMax}</span><div class="statsCirclesInner"></div></div>
       </div>
@@ -36,6 +33,7 @@ export const statsPage: Page = {
   },
   afterRender: () => {
     addFooter();
+    rewriteWholePackage();
     createChart();
   }
 };

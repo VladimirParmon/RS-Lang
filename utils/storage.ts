@@ -1,5 +1,4 @@
-import { getUserSettings, putUserSettings, putUserStatistics } from "./api"
-import { hideLoader, showLoader } from "./loader";
+import { getUserSettings, putUserSettings, putUserStatistics, putUserStatisticsInit } from "./api"
 import { getDate } from "./misc";
 
 interface StorageObject {
@@ -60,11 +59,12 @@ export interface StatisticsInfo {
   [key: string]: Statistics
 }
 
-interface Statistics {
+export interface Statistics {
   totalRight: number,
   totalWrong: number,
   inARowMax: number,
-  learnt: number
+  learnt: number,
+  new: number
 }
 
 interface List {
@@ -97,6 +97,22 @@ export let serverInfoObject: ServerInfoObject = {
 }
 
 export function manageServerInfo(wordId: string, whatToChange: keyof ServerInfoObject, whatToDo: string, num?: string) {
+  function newWordCheck() {
+    const allFields = Object.keys(serverInfoObject).length
+    let acc = 0;
+    for (let key in serverInfoObject) {
+      const x = key as keyof ServerInfoObject;
+      if (!Object.keys(serverInfoObject[x]).includes(wordId)) {
+        acc++;
+      }
+    }
+    if (allFields === acc) return true;
+    return false;
+  }
+  const check = newWordCheck();
+  if (check) {
+    statistics.new = statistics.new + 1
+  }
   if (whatToDo === 'add') {
     if (whatToChange === "learnt" && !Object.keys(serverInfoObject[whatToChange]).includes(wordId)) {
       statistics.learnt = statistics.learnt + 1
@@ -122,10 +138,11 @@ export function manageServerInfo(wordId: string, whatToChange: keyof ServerInfoO
     if (whatToDo === 'raise' && whatToChange === 'howManyInARow' && ((+num >= 3 && !serverInfoObject.difficult[wordId]) || +num >= 5)) {
       serverInfoObject.learnt[wordId] = true;
     } else if (whatToDo === 'lower') {
-      serverInfoObject.learnt[wordId] = false;
+      if (Object.keys(serverInfoObject.learnt).includes(wordId)) serverInfoObject.learnt[wordId] = false;
       serverInfoObject.howManyInARow[wordId] = 0;
     }
   }
+  rewriteWholePackage();
   putUserSettings();
   putUserStatistics();
 }
@@ -134,16 +151,37 @@ export function rewriteServerInfo(info: ServerInfoObject) {
   serverInfoObject = info
 }
 
-export function rewriteStatistics(info: StatisticsInfo) {
+// let prevDaysKeys: string[] = [];
+// let prevDaysValues: Statistics[] = [];
+export let wholePackage: StatisticsInfo = {}
+
+export function rewriteWholePackage() {
   const date = getDate();
-  statistics = info[date];
+  wholePackage[date] = statistics;
+}
+
+export function rewriteStatistics(info: StatisticsInfo) {
+  let prevDaysKeys = Object.keys(info);
+  let prevDaysValues = Object.values(info);
+  const date = getDate();
+  prevDaysKeys.forEach((key, i) => {
+    wholePackage[key] = prevDaysValues[i]
+  })
+  wholePackage[date] = statistics;
+  // if (!info[date]) {
+  //   putUserStatistics(info);
+  // } else {
+  //   statistics = info[date];
+  // }
+  if (info[date]) statistics = info[date];
 }
 
 export let statistics: Statistics = {
   totalRight: 0,
   totalWrong: 0,
   inARowMax: 0,
-  learnt: 0
+  learnt: 0,
+  new: 0
 }
 
 export let storageT: DoesNotNeedToBeStoredLocally = {
@@ -188,7 +226,7 @@ export let storageT: DoesNotNeedToBeStoredLocally = {
   currentBirdStatus: 'flies'
 }
 
-let storageObject: StorageObject = {
+export let storageObject: StorageObject = {
   bookGroup: 0,
   bookPage: 0,
   difficultyLevels: {},
@@ -314,5 +352,6 @@ if (localStorageInit !== null) {
   }
 }
 
-// putUserSettings();
-// putUserStatistics();
+//putUserSettings();
+//putUserStatisticsInit();
+  

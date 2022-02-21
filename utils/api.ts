@@ -1,9 +1,9 @@
 import { router } from "../navigation/router";
 import { hideLoader, showLoader } from "./loader";
 import { slider } from "./slider";
-import { storage, WordInfo, ReducedWordInfo, LoginResponse, RegistrationResponse, UserInfo, storageT, serverInfoObject, rewriteServerInfo, rewriteStatistics, statistics } from "./storage";
+import { storage, WordInfo, ReducedWordInfo, LoginResponse, RegistrationResponse, UserInfo, storageT, serverInfoObject, rewriteServerInfo, rewriteStatistics, statistics, StatisticsInfo, Statistics, wholePackage } from "./storage";
 import { adjustLoginButton } from "../master";
-import { getDate } from "./misc";
+import { adjustStatsButton, getDate } from "./misc";
 
 const baseURL = 'https://rs-lang-redblooded.herokuapp.com';
 export const filesUrl = 'https://raw.githubusercontent.com/vladimirparmon/react-rslang-be/master'
@@ -90,7 +90,6 @@ const loginUser = async (user: UserInfo) => {
 
 export async function authorize (mail: string, password: string) {
   let info!: LoginResponse;
-  showLoader();
   try {
     info = await loginUser({ "email": mail, "password": password });
   } finally {
@@ -102,6 +101,7 @@ export async function authorize (mail: string, password: string) {
       storage.userName = info.name;
       const greeting = document.querySelector('#greeting');
       greeting!.innerHTML = `Привет, ${storage.userName}`;
+      adjustStatsButton(true);
       adjustLoginButton();
       slider('main');
     }
@@ -148,7 +148,6 @@ export async function register (name: string, mail: string, password: string) {
     info = await registerUser ({ "name": name, "email": mail, "password": password });
   } finally {
     if (info) {
-      hideLoader();
       authorize(mail, password);
     }
   }
@@ -265,6 +264,20 @@ export const getUserSettings = async () => {
 //======================================================================//
 
 export const putUserStatistics = async () => {
+  const response = await fetch(`${users}/${storage.userId}/statistics`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${storage.token}`,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "optional": wholePackage
+    })
+  });
+}
+
+export const putUserStatisticsInit = async () => {
   const date = getDate();
   const response = await fetch(`${users}/${storage.userId}/statistics`, {
     method: 'PUT',
@@ -296,7 +309,7 @@ export const getUserStatistics = async () => {
       info = await response.json();
       if (info.optional) rewriteStatistics(info.optional);
     } else if (response.status === 404) {
-      putUserStatistics();
+      putUserStatisticsInit();
     }
   })
   if (info) return info;

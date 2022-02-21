@@ -14,7 +14,7 @@
 :root {
   --primary-color: #FFFFFF;
   --icons: #a9a9a9; /*rgba(169, 169, 169, 1);*/
-  --header: #474554;
+  --header: rgb(71, 69, 84);
   --action: #005C68;
   --hover: #F5F5F5;
   --trio1: rgb(197, 194, 213);

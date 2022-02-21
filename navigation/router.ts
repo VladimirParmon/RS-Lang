@@ -11,7 +11,7 @@ import { sprintPage } from './pages/sprintPage';
 import { redirectPage } from './pages/gamesRedirect';
 import { hideLoader } from '../utils/loader';
 import { sniperPage } from './pages/sniperPage'
-import { getUserSettings } from '../utils/api';
+import { getUserSettings, getUserStatistics } from '../utils/api';
 
 const root = document.querySelector('#content');
 
@@ -55,6 +55,7 @@ export const router = async (pageName: keyof routerLib, instruction?: string) =>
     routing(pageName, instruction);
   } else {
     getUserSettings()
+    .then(() => getUserStatistics())
     .then(async () => {
       routing(pageName, instruction);
     })

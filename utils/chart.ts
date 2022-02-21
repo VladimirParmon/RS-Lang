@@ -1,6 +1,5 @@
 import Chart from 'chart.js/auto';
-import { getUserStatistics } from './api';
-import { statistics, StatisticsInfo } from './storage';
+import { wholePackage } from './storage';
 
 export async function createChart() {
   const canvasDays = document.getElementById('chartDays')! as HTMLCanvasElement;
@@ -8,25 +7,9 @@ export async function createChart() {
   const canvasWords = document.getElementById('chartWords')! as HTMLCanvasElement;
   const contextWords = canvasWords.getContext('2d')!;
 
-  let info;
-  interface Stats {
-    id: string,
-    optional: StatisticsInfo
-  }
-  let stats: Stats;
-  try {
-    info = await getUserStatistics();
-  } finally {
-    if (info) {
-      stats = info;
-      drawCharts(stats.optional)
-    }
-  }
+  drawCharts();
   
-  function drawCharts(stats: StatisticsInfo) {
-    // let yValuesDays = [50,60,70]; 
-    // let yValuesWords = [50,60,70];
-    // let xValue = ['sdjasj', 'sdjasj', 'sdjasj', 'sdjasj', 'sdjasj'];
+  function drawCharts() {
     let yValuesDays: number[] = []; //общее кол слов за все дни
     let yValuesWords: number[] = []; //сколько именно в этот день
     let xValue: string[] = [];
@@ -46,10 +29,10 @@ export async function createChart() {
     }
 
     let acc = 0;
-    for (let key in stats) {
-      acc += stats[key].learnt;
+    for (let key in wholePackage) {
+      acc += wholePackage[key].new;
       yValuesDays.push(acc);
-      yValuesWords.push(stats[key].learnt);
+      yValuesWords.push(wholePackage[key].new);
       const dateSpan = key.split('-');
       const monthNum = Number(dateSpan[1]);
       const dayNum = Number(dateSpan[0]);

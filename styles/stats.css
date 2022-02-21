@@ -9,6 +9,21 @@
   flex-direction: column;
 }
 
+/* #wrapper-stats-circles::before {
+  content: "Статистика за сегодня";
+  position: absolute;
+  top: 0px;
+  font-family: var(--font1);
+  font-size: 13px;
+  color: #ffffff;
+  background-image: linear-gradient(to bottom, var(--header), rgba(0,0,0, 0.3) 100%);
+  border-radius: 0 0 5px 5px;
+  padding: 5px;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+} */
+
 .statsCircles {
   width: 100%;
   max-width: 385px;
@@ -28,13 +43,23 @@
 
 #longestSeries::after,
 #percentage::after,
-#newWords::after {
+#newWords::after,
+#learntWordsStats::after {
   position: absolute;
   left: 50%;
   top: 75%;
   font-size: 40px;
   transform: translateX(-50%);
   white-space: nowrap;
+}
+
+#newWords::before {
+  content: 'Сегодня:';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font4);
+  font-size: 35px;
 }
 
 #longestSeries::after {
@@ -47,6 +72,10 @@
 
 #newWords::after {
   content: 'Новых слов';
+}
+
+#learntWordsStats::after {
+  content: 'Изученных слов';
 }
 
 .statsCirclesInner {

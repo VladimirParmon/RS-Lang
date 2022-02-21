@@ -90,6 +90,18 @@ export function inGameStats() {
 
 export function getDate() {
   const today = new Date();
+  today.setDate(today.getDate());
   const date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
   return date;
+}
+
+export function adjustStatsButton(command: boolean) {
+  const statsButton = document.querySelector('#goStats') as HTMLElement;
+  if (command) {
+    statsButton.style.pointerEvents = 'all';
+    statsButton.style.opacity = '1';
+  } else {
+    statsButton.style.pointerEvents = 'none';
+    statsButton.style.opacity = '0.4';
+  }
 }

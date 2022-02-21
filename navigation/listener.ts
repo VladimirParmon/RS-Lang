@@ -1,4 +1,4 @@
-import { manageServerInfo, serverInfoObject, statistics, storage, storageT } from "../utils/storage";
+import { manageServerInfo, serverInfoObject, statistics, storage, storageObject, storageT } from "../utils/storage";
 import { rollMenu, rollPageSelector, rollSectionSelector, rollGamesSelector, passwordReveal } from "./rollMenu";
 import { router, routerLib } from "./router";
 import { playSound } from "../utils/playSound";
@@ -11,7 +11,7 @@ export const listener = ():void => {
     let eventInputTarget = e.target as HTMLInputElement;
     let id = eventTarget.id;
 
-    //console.log(statistics.totalRight, statistics.totalWrong)
+    //console.log(serverInfoObject)
 
     if (id === 'goHome') router('home');
     if (id === 'goBook' || id === 'learnWords') router('book');

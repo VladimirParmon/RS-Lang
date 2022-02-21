@@ -10,6 +10,9 @@ export const historyPage: Page = {
     let deleted: string[];
     let learnt: string[];
     let learning: string[];
+    let inARow: string[];
+    let right: string[];
+    let wrong: string[];
 
     let diffLayout = '';
     let delLayout = '';
@@ -21,10 +24,16 @@ export const historyPage: Page = {
       difficult = Object.keys(serverInfoObject.difficult);
       deleted = Object.keys(serverInfoObject.deleted);
       learnt = Object.keys(serverInfoObject.learnt);
+      inARow = Object.keys(serverInfoObject.howManyInARow);
+      right = Object.keys(serverInfoObject.howManyRight);
+      wrong = Object.keys(serverInfoObject.howManyWrong);
       const learningSet = new Set();
       difficult.forEach(el => learningSet.add(el));
       deleted.forEach(el => learningSet.add(el));
       learnt.forEach(el => learningSet.add(el));
+      inARow.forEach(el => learningSet.add(el));
+      right.forEach(el => learningSet.add(el));
+      wrong.forEach(el => learningSet.add(el));
       learning = Array.from(learningSet) as string[];
    // })
    // .then(async () => {

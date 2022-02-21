@@ -263,7 +263,7 @@
 #returnFromAbout::after,
 #returnFromAusweis::after {
   content: '↻';
-  color: var(--primary-color);
+  color: #ffffff;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
