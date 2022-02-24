@@ -11,7 +11,7 @@ export const listener = ():void => {
     let eventInputTarget = e.target as HTMLInputElement;
     let id = eventTarget.id;
 
-    //console.log(serverInfoObject)
+    //console.log(statistics)
 
     if (id === 'goHome') router('home');
     if (id === 'goBook' || id === 'learnWords') router('book');

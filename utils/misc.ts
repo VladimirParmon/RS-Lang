@@ -1,5 +1,6 @@
 import { ReducedWordInfo, serverInfoObject, storageT } from "./storage";
 import { checkKeys } from "./checks";
+import { handleLogin } from "./api";
 
 export function getRandomInt(min: number, max: number) {
   min = Math.ceil(min);
@@ -97,11 +98,29 @@ export function getDate() {
 
 export function adjustStatsButton(command: boolean) {
   const statsButton = document.querySelector('#goStats') as HTMLElement;
+  const historyButton = document.querySelector('#goHistory') as HTMLElement;
   if (command) {
     statsButton.style.pointerEvents = 'all';
     statsButton.style.opacity = '1';
+    historyButton.style.pointerEvents = 'all';
+    historyButton.style.opacity = '1';
   } else {
     statsButton.style.pointerEvents = 'none';
     statsButton.style.opacity = '0.4';
+    historyButton.style.pointerEvents = 'none';
+    historyButton.style.opacity = '0.4';
   }
+}
+
+export function setEnter() {
+  const button = document.querySelector('#login') as HTMLElement;
+  document.addEventListener('keyup', (e) => {
+    if (e.code === 'Enter') {
+      if (button.style.display !== 'none') {
+        handleLogin('login');
+      } else {
+        handleLogin('register');
+      }
+    }
+  })
 }

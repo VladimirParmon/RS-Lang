@@ -159,6 +159,10 @@
   font-family: var(--font4);
 }
 
+#quotesWrapper {
+  min-height: 500px;
+}
+
 @media screen and (min-width: 33em) {
   #grid {
       grid-template-areas:

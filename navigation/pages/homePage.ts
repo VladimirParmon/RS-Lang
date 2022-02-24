@@ -1,5 +1,5 @@
 import { getQuotes } from '../../utils/api';
-import { addFooter } from '../../utils/misc';
+import { addFooter, setEnter } from '../../utils/misc';
 import { slider } from '../../utils/slider';
 import { storage } from '../../utils/storage';
 import { Page } from '../router';
@@ -59,9 +59,9 @@ export const homePage: Page = {
         </div>
         <div class="activitySelector">
           <div id="aboutTheProject"></div>
-          <span>о проекте</span>
+          <span>О проекте</span>
         </div>
-        <div class="activitySelector noHover">
+        <div class="activitySelector noHover" id="quotesWrapper">
           <div class="quotes" id="quotesDecoration"></div>
           <span class="quoteSpan" id="quoteSpan"></span>
           <span class="quoteSpan" id="authorSpan"></span>
@@ -113,5 +113,6 @@ export const homePage: Page = {
     addFooter();
     slider();
     getQuotes();
+    setEnter();
   }
 };

@@ -262,7 +262,8 @@
 
 #returnFromAbout::after,
 #returnFromAusweis::after {
-  content: '↻';
+  /* content: '↻'; */
+  content: '⇅';
   color: #ffffff;
   position: absolute;
   left: 50%;

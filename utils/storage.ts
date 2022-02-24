@@ -129,17 +129,22 @@ export function manageServerInfo(wordId: string, whatToChange: keyof ServerInfoO
       }
     }
     serverInfoObject[whatToChange][wordId] = Number(num);
+    // if (whatToDo === 'raise' && whatToChange === 'howManyInARow') {
+    //   const currentHighest = statistics.inARowMax
+    //   console.log(currentHighest, num)
+    //   if (currentHighest < Number(num)) {
+    //     statistics.inARowMax = Number(num);
+    //   }
+    // }
     if (whatToDo === 'raise' && whatToChange === 'howManyInARow') {
-      const currentHighest = statistics.inARowMax
-      if (currentHighest < Number(num)) {
-        statistics.inARowMax = Number(num);
-      }
+      statistics.inARowMax = statistics.inARowMax + 1
     }
     if (whatToDo === 'raise' && whatToChange === 'howManyInARow' && ((+num >= 3 && !serverInfoObject.difficult[wordId]) || +num >= 5)) {
       serverInfoObject.learnt[wordId] = true;
     } else if (whatToDo === 'lower') {
       if (Object.keys(serverInfoObject.learnt).includes(wordId)) serverInfoObject.learnt[wordId] = false;
       serverInfoObject.howManyInARow[wordId] = 0;
+      statistics.inARowMax = 0;
     }
   }
   rewriteWholePackage();
