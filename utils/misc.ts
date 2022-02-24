@@ -24,11 +24,6 @@ export function shuffle (array: ReducedWordInfo[]) {
 
 export function checkFor(el: KeyboardEvent) {
   checkKeys(el.code);
-  if (storageT.currentGameMode === 'sniper') {
-    const audioBite = new Audio;
-    audioBite.src = `assets/sounds/gunshot.mp3`;
-    audioBite.play();
-  }
 }
 
 export function addFooter() {

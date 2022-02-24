@@ -115,7 +115,9 @@ function animation (bird: HTMLElement, distance: number, birdImg: HTMLElement) {
   const buttonsDiv = document.querySelector('.gameOptions') as HTMLElement;
   setTimeout(() => {
     buttonsDiv.style.pointerEvents = 'all';
-    window.addEventListener('keyup', checkFor);
+    window.addEventListener('keyup', checkFor, {
+      once: true
+    });
   }, 1000)
   if (wrapper) {
     const bird = document.querySelector('#bird') as HTMLElement;
