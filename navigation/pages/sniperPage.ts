@@ -18,6 +18,7 @@ export const sniperPage: Page = {
     }
     return `
     <div class="wrapperGames">
+      <div id="quitGame"></div>
       <div id="wrapper-sniper">
         <div id="sniperDisplay">
           <div id="sniperPanorama"></div>

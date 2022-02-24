@@ -4,6 +4,7 @@ import { router, routerLib } from "./router";
 import { playSound } from "../utils/playSound";
 import { filesUrl, handleLogin } from "../utils/api";
 import { slider } from "../utils/slider";
+import { endGame } from "../utils/endGame";
 
 export const listener = ():void => {
   window.addEventListener('click', (e) => {
@@ -133,6 +134,8 @@ export const listener = ():void => {
       const theCard = document.querySelector(`#carddeleted-${wordId}`) as HTMLElement;
       theCard.style.display = 'none';
     }
+
+    if (id === 'quitGame') endGame();
   });
 
   const loginButton = document.querySelector('#authIn') as HTMLElement;

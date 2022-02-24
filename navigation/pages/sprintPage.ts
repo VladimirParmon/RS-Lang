@@ -19,6 +19,7 @@ export const sprintPage: Page = {
     }
     return `
   <div class="wrapperGames">
+    <div id="quitGame"></div>
     <div id="wrapper-sprint">
       <div class="timerHolder">
         <canvas id="timeLeft" width="150" height="150"></canvas>
