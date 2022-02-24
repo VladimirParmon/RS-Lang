@@ -1,5 +1,5 @@
 import { manageServerInfo, serverInfoObject, statistics, storage, storageObject, storageT } from "../utils/storage";
-import { rollMenu, rollPageSelector, rollSectionSelector, rollGamesSelector, passwordReveal } from "./rollMenu";
+import { rollMenu, rollPageSelector, rollSectionSelector, rollGamesSelector, passwordReveal, rollSetting } from "./rollMenu";
 import { router, routerLib } from "./router";
 import { playSound } from "../utils/playSound";
 import { filesUrl, handleLogin } from "../utils/api";
@@ -11,7 +11,7 @@ export const listener = ():void => {
     let eventInputTarget = e.target as HTMLInputElement;
     let id = eventTarget.id;
 
-    //console.log(statistics)
+    //console.log(id)
 
     if (id === 'goHome') router('home');
     if (id === 'goBook' || id === 'learnWords') router('book');
@@ -41,7 +41,7 @@ export const listener = ():void => {
 
     if (id === 'openMenuButton') rollMenu('open');
     if (id === 'closeMenuButton') rollMenu('close');
-    if (id !== 'openMenuButton') rollMenu('close');
+    if (id !== 'openMenuButton' && id !== 'modeSwitch') rollMenu('close');
 
     if (id === 'page') rollPageSelector('open');
     if (id !== 'page') rollPageSelector('close');
@@ -82,6 +82,9 @@ export const listener = ():void => {
         break;
       }
     }
+
+    if (id === 'settings') rollSetting('open');
+    if (id !== 'settings' && id !== 'modeSwitch') rollSetting('close');
 
     if (id.split('-')[0] === 'playSound') playSound(id.split('-')[1]);
 

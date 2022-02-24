@@ -24,6 +24,7 @@ interface DoesNotNeedToBeStoredLocally {
   isPageListOpen: boolean;
   isGroupListOpen: boolean;
   isGamesListOpen: boolean;
+  isSettingsListOpen: boolean;
   isMenuOpen: boolean;
   currentGameQueue: ReducedWordInfo[];
   currentDifficulty: number;
@@ -198,6 +199,7 @@ export let storageT: DoesNotNeedToBeStoredLocally = {
   isPageListOpen: false,
   isGroupListOpen: false,
   isGamesListOpen: false,
+  isSettingsListOpen: false,
   isMenuOpen: false,
   currentGameQueue: [],
   currentDifficulty: 0,

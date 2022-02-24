@@ -109,3 +109,16 @@ export function passwordReveal() {
     button.src = 'assets/svg/eye-hide.svg'
   }
 }
+
+export function rollSetting(action: string) {
+  const list = document.querySelector('.settingsList') as HTMLElement;
+  if (!storageT.isSettingsListOpen && action === 'open') {
+    list.classList.add('descend');
+    //list.classList.remove('ascend');
+    storageT.isSettingsListOpen = true;
+  } else if (storageT.isSettingsListOpen) {
+    list.classList.remove('descend');
+    //list.classList.add('ascend');
+    storageT.isSettingsListOpen = false;
+  }
+}

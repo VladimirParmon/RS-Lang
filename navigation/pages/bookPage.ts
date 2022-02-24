@@ -96,7 +96,7 @@ export const bookPage: Page = {
         </div>
         <div id="settings">
           <img src="assets/svg/settings.svg" alt="settingsIcon">
-          <span>Настройки</span>
+          <span>Управление</span>
         </div>
         <div id="games">
           <img src="assets/svg/gamepad.svg" alt="gamesIcon">
@@ -104,6 +104,18 @@ export const bookPage: Page = {
         </div>
       </div>
       ${pageLayout}
+      <div class="settingsList">
+        <div class="redoButton">
+          <img src="assets/svg/x.svg">
+        </div>
+        <div id="settingsInner">
+          <span><img class="soundIcon2" src="assets/svg/cap.svg">Изученное слово – слово, угаданное 3 раза подряд в играх. Не учавствует в играх, запущенных со страницы учебника</span>
+          <span><img class="soundIcon2" src="assets/svg/dumbbell.svg">Сложное слово – слово, помеченное сложным, необходимо угадать 5 раз в играх для того, чтобы оно стало изученым</span>
+          <span><img class="soundIcon2" src="assets/svg/garbage.svg">Удалить слово – убрать слово со страницы учебника. Слово можно вернуть в разделе "История"</span>
+          <span><img class="soundIcon2" src="assets/svg/playButton.svg">Прослушать аудиоотрывок, относящийся к тому тексту, рядом с которым он стоит</span>
+          <span><img class="soundIcon2" src="assets/svg/question.svg">Дополнительная информация о слове (статистика показывает информацию за текущий день)</span>
+        </div>
+      </div>
     </div>
     <div class="returnButton"></div>
     `
