@@ -46,26 +46,6 @@ export function removeFooter() {
   if (root && footer) root.removeChild(footer);
 }
 
-// class InGameStats extends HTMLElement {
-//   connectedCallback() {
-//     this.innerHTML = `    
-//       <div class="inGameStats">
-//         <div class="inARowIndicators">
-//           <div style="background-color:${serverInfoObject.howManyInARow[storageT.rightAnswer.id] > 0 ? 'var(--trio3)' : 'var(--header)'}"></div>
-//           <div style="background-color:${serverInfoObject.howManyInARow[storageT.rightAnswer.id] > 1 ? 'var(--trio3)' : 'var(--header)'}"></div>
-//           <div style="background-color:${serverInfoObject.howManyInARow[storageT.rightAnswer.id] > 2 ? 'var(--trio3)' : 'var(--header)'}"></div>
-//           <div style="display:${serverInfoObject.difficult[storageT.rightAnswer.id] ? 'block' : 'none'}; background-color:${serverInfoObject.howManyInARow[storageT.rightAnswer.id] > 3 ? 'var(--trio3)' : 'var(--header)'}"></div>
-//           <div style="display:${serverInfoObject.difficult[storageT.rightAnswer.id] ? 'block' : 'none'}; background-color:${serverInfoObject.howManyInARow[storageT.rightAnswer.id] > 4 ? 'var(--trio3)' : 'var(--header)'}"></div>
-//         </div>
-//         <span style="display:${serverInfoObject.learnt[storageT.rightAnswer.id] ? 'block' : 'none'}">Изученное слово</span>
-//         <span style="display:${serverInfoObject.difficult[storageT.rightAnswer.id] ? 'block' : 'none'}">Сложное слово</span>
-//       </div>
-//     `;
-//   }
-// }
-
-// customElements.define('game-stats', InGameStats);
-
 export function inGameStats() {
   const inARow = serverInfoObject.howManyInARow[storageT.rightAnswer.id] ? serverInfoObject.howManyInARow[storageT.rightAnswer.id] : 0;
   const isDifficult = serverInfoObject.difficult[storageT.rightAnswer.id];

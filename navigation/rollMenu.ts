@@ -1,5 +1,4 @@
-import { authorize, register } from "../utils/api";
-import { storage, storageT } from "../utils/storage";
+import { storageT } from "../utils/storage";
 
 export function rollMenu(action: string): void {
   const openMenuButton = document.querySelector('#openMenuButton') as HTMLElement;

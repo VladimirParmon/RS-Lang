@@ -1,6 +1,6 @@
 import { addFooter } from "../../utils/misc";
 import { Page } from "../router";
-import { filesUrl, getSingleWord, getUserSettings } from "../../utils/api";
+import { filesUrl, getSingleWord } from "../../utils/api";
 import { serverInfoObject, WordInfo } from "../../utils/storage";
 import { hideLoader, showLoader } from "../../utils/loader";
 
@@ -18,53 +18,51 @@ export const historyPage: Page = {
     let delLayout = '';
     let learntLayout = '';
     let learningLayout = '';
+
     showLoader();
-    //await getUserSettings()
-    //.then(() => {
-      difficult = Object.keys(serverInfoObject.difficult);
-      deleted = Object.keys(serverInfoObject.deleted);
-      learnt = Object.keys(serverInfoObject.learnt);
-      inARow = Object.keys(serverInfoObject.howManyInARow);
-      right = Object.keys(serverInfoObject.howManyRight);
-      wrong = Object.keys(serverInfoObject.howManyWrong);
-      const learningSet = new Set();
-      difficult.forEach(el => learningSet.add(el));
-      deleted.forEach(el => learningSet.add(el));
-      learnt.forEach(el => learningSet.add(el));
-      inARow.forEach(el => learningSet.add(el));
-      right.forEach(el => learningSet.add(el));
-      wrong.forEach(el => learningSet.add(el));
-      learning = Array.from(learningSet) as string[];
-   // })
-   // .then(async () => {
-      for (let i = 0; i < difficult.length; i++) {
-        if (difficult[i] !== '' && serverInfoObject.difficult[difficult[i]]) {
-          const info = await getSingleWord(difficult[i]);
-          diffLayout += generateCard(info, 'difficult');
-        }
+
+    difficult = Object.keys(serverInfoObject.difficult);
+    deleted = Object.keys(serverInfoObject.deleted);
+    learnt = Object.keys(serverInfoObject.learnt);
+    inARow = Object.keys(serverInfoObject.howManyInARow);
+    right = Object.keys(serverInfoObject.howManyRight);
+    wrong = Object.keys(serverInfoObject.howManyWrong);
+    const learningSet = new Set();
+    difficult.forEach(el => learningSet.add(el));
+    deleted.forEach(el => learningSet.add(el));
+    learnt.forEach(el => learningSet.add(el));
+    inARow.forEach(el => learningSet.add(el));
+    right.forEach(el => learningSet.add(el));
+    wrong.forEach(el => learningSet.add(el));
+    learning = Array.from(learningSet) as string[];
+
+    for (let i = 0; i < difficult.length; i++) {
+      if (difficult[i] !== '' && serverInfoObject.difficult[difficult[i]]) {
+        const info = await getSingleWord(difficult[i]);
+        diffLayout += generateCard(info, 'difficult');
       }
-      for (let i = 0; i < deleted.length; i++) {
-        if (deleted[i] !== '' && serverInfoObject.deleted[deleted[i]]) {
-          const info = await getSingleWord(deleted[i]);
-          delLayout += generateCard(info, 'deleted');
-        }
+    }
+    for (let i = 0; i < deleted.length; i++) {
+      if (deleted[i] !== '' && serverInfoObject.deleted[deleted[i]]) {
+        const info = await getSingleWord(deleted[i]);
+        delLayout += generateCard(info, 'deleted');
       }
-      for (let i = 0; i < learnt.length; i++) {
-        if (learnt[i] !== '' && serverInfoObject.learnt[learnt[i]]) {
-          const info = await getSingleWord(learnt[i]);
-          learntLayout += generateCard(info, 'learnt');
-        }
+    }
+    for (let i = 0; i < learnt.length; i++) {
+      if (learnt[i] !== '' && serverInfoObject.learnt[learnt[i]]) {
+        const info = await getSingleWord(learnt[i]);
+        learntLayout += generateCard(info, 'learnt');
       }
-      for (let i = 0; i < learning.length; i++) {
-        if (learning[i] !== '') {
-          const info = await getSingleWord(learning[i]);
-          learningLayout += generateCard(info, 'learning');
-        }
+    }
+    for (let i = 0; i < learning.length; i++) {
+      if (learning[i] !== '') {
+        const info = await getSingleWord(learning[i]);
+        learningLayout += generateCard(info, 'learning');
       }
- //   })
-  //  .finally(() => {
-      hideLoader()
-   // })
+    }
+
+    hideLoader()
+
     function capitalize (string: string) {
       return string[0].toUpperCase() + string.slice(1);
     }

@@ -1,4 +1,3 @@
-import { filesUrl } from "../utils/api";
 import { checkChoice } from "../utils/checks";
 import { endGame } from "../utils/endGame";
 import { updateIndicator } from "../utils/indicator";

@@ -1,5 +1,5 @@
 import { endGame } from "../utils/endGame";
-import { storage, storageT } from "./storage";
+import { storageT } from "./storage";
 
 export function timer() {
   const canvas = document.querySelector('#timeLeft') as HTMLCanvasElement;

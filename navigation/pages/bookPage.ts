@@ -3,7 +3,6 @@ import { storage, WordInfo, storageT, serverInfoObject } from "../../utils/stora
 import { getWords, filesUrl } from "../../utils/api";
 import { showLoader, hideLoader } from "../../utils/loader";
 import { addFooter } from "../../utils/misc";
-import { getUserSettings } from "../../utils/api"
 
 export const bookPage: Page = {
   render: async () => {

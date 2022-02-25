@@ -1,4 +1,4 @@
-import { getUserSettings, putUserSettings, putUserStatistics, putUserStatisticsInit } from "./api"
+import { putUserSettings, putUserStatistics } from "./api"
 import { getDate } from "./misc";
 
 interface StorageObject {
@@ -130,13 +130,7 @@ export function manageServerInfo(wordId: string, whatToChange: keyof ServerInfoO
       }
     }
     serverInfoObject[whatToChange][wordId] = Number(num);
-    // if (whatToDo === 'raise' && whatToChange === 'howManyInARow') {
-    //   const currentHighest = statistics.inARowMax
-    //   console.log(currentHighest, num)
-    //   if (currentHighest < Number(num)) {
-    //     statistics.inARowMax = Number(num);
-    //   }
-    // }
+
     if (whatToDo === 'raise' && whatToChange === 'howManyInARow') {
       statistics.inARowMax = statistics.inARowMax + 1
     }
@@ -157,8 +151,6 @@ export function rewriteServerInfo(info: ServerInfoObject) {
   serverInfoObject = info
 }
 
-// let prevDaysKeys: string[] = [];
-// let prevDaysValues: Statistics[] = [];
 export let wholePackage: StatisticsInfo = {}
 
 export function rewriteWholePackage() {
@@ -174,11 +166,7 @@ export function rewriteStatistics(info: StatisticsInfo) {
     wholePackage[key] = prevDaysValues[i]
   })
   wholePackage[date] = statistics;
-  // if (!info[date]) {
-  //   putUserStatistics(info);
-  // } else {
-  //   statistics = info[date];
-  // }
+
   if (info[date]) statistics = info[date];
 }
 

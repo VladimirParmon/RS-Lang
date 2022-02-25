@@ -1,4 +1,3 @@
-import { router } from "../router";
 import { addFooter } from "../../utils/misc";
 import { Page } from "../router";
 

@@ -1,4 +1,4 @@
-import { storage, storageT } from "./storage";
+import { storageT } from "./storage";
 
 export function addIndicator() {
   const root = document.querySelector('#content');

@@ -1,5 +1,5 @@
 import { filesUrl } from "../utils/api"
-import { serverInfoObject, storage, storageT } from "../utils/storage";
+import { storage, storageT } from "../utils/storage";
 import { capitalize, inGameStats } from "../utils/misc";
 import { checkChoice } from "../utils/checks";
 import { prepareData } from "./getData";
@@ -53,9 +53,6 @@ export function runAudioAnimation(id: string) {
   const buttonPressed = document.querySelector(`#gameOption-${id}`) as HTMLElement;
   const roundButton = document.querySelector('#repeatAudio') as HTMLElement;
   const roundButtonIcon = document.querySelector('#repeatAudioIcon') as HTMLElement;
-
-  // buttonsDiv.style.pointerEvents = 'none';
-  // buttonPressed.style.transform = 'scale(1.07)';
 
   const nextQuestionButton = document.createElement('div');
   nextQuestionButton.id = 'nextAudioQuestion';

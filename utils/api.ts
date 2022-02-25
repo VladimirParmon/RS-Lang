@@ -1,4 +1,3 @@
-import { router } from "../navigation/router";
 import { hideLoader, showLoader } from "./loader";
 import { slider } from "./slider";
 import { storage, WordInfo, ReducedWordInfo, LoginResponse, RegistrationResponse, UserInfo, storageT, serverInfoObject, rewriteServerInfo, rewriteStatistics, statistics, StatisticsInfo, Statistics, wholePackage } from "./storage";
@@ -153,8 +152,6 @@ export async function register (name: string, mail: string, password: string) {
   }
 }
 
-//createUser({ "email": "hello@user.com", "password": "Gfhjkm_123" });
-
 const deleteUser = async () => {
   const rawResponse = await fetch(`https://rs-lang-redblooded.herokuapp.com/users/${storage.userId}`, {
     method: 'DELETE',
@@ -229,7 +226,6 @@ export const putUserSettings = async () => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      //"wordsPerDay": 3,
       "optional": {
         "deleted": serverInfoObject.deleted,
         "difficult": serverInfoObject.difficult,
@@ -314,14 +310,3 @@ export const getUserStatistics = async () => {
   })
   if (info) return info;
 }
-
-
-
-// interface ApiError {
-//   code: number;
-//   error: string;
-// }
-
-// function isApiError(x: any): x is ApiError {
-//   return typeof x.code === 'number';
-// }

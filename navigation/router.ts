@@ -3,7 +3,6 @@ import { bookPage } from './pages/bookPage';
 import { historyPage } from './pages/historyPage';
 import { gamesPage } from './pages/gamesPage';
 import { statsPage } from './pages/statsPage';
-import { devPage } from './pages/devPage';
 import { commentsPage } from './pages/commentsPage';
 import { audioChallengePage } from './pages/audioChallengePage';
 import { storage, storageT } from '../utils/storage';
@@ -26,7 +25,6 @@ export type routerLib = {
   history: Page,
   games: Page,
   stats: Page,
-  dev: Page,
   comments: Page,
   audio: Page,
   sprint: Page,
@@ -40,7 +38,6 @@ const pages: routerLib = {
   history: historyPage,
   games: gamesPage,
   stats: statsPage,
-  dev: devPage,
   comments: commentsPage,
   audio: audioChallengePage,
   sprint: sprintPage,

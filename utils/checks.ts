@@ -1,8 +1,6 @@
-import { manageServerInfo, serverInfoObject, storage, storageT } from "./storage";
-import { runAudioAnimation, runAudioGame } from "../games/audioChallenge";
+import { manageServerInfo, serverInfoObject, storageT } from "./storage";
+import { runAudioAnimation } from "../games/audioChallenge";
 import { checkFor } from "../utils/misc";
-import { runSniper, startSniperAnimation } from "../games/sniper";
-import { updateIndicator } from "./indicator";
 
 export function checkKeys (code: string) {
   const wrapperGames = document.querySelector('.wrapperGames');

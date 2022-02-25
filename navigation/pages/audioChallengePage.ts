@@ -2,7 +2,7 @@ import { Page } from '../router';
 import { hideLoader, showLoader } from '../../utils/loader';
 import { runAudioGame } from '../../games/audioChallenge';
 import { getData, getSinglePageData } from '../../games/getData';
-import { storage, storageT } from '../../utils/storage';
+import { storageT } from '../../utils/storage';
 import { removeFooter } from '../../utils/misc';
 import { addIndicator } from '../../utils/indicator';
 

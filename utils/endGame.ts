@@ -1,4 +1,4 @@
-import { storage, storageT } from "./storage";
+import { storageT } from "./storage";
 import { getData, getSinglePageData } from "../games/getData";
 import { timer } from "./timer";
 import { runSprint } from "../games/sprint";

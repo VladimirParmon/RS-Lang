@@ -1,7 +1,7 @@
 import { Page } from '../router';
 import { runSprint } from '../../games/sprint';
 import { getData, getSinglePageData } from '../../games/getData';
-import { storage, storageT } from '../../utils/storage';
+import { storageT } from '../../utils/storage';
 import { hideLoader, showLoader } from '../../utils/loader';
 import { timer } from '../../utils/timer';
 import { removeFooter } from '../../utils/misc';

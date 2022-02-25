@@ -1,6 +1,5 @@
 
 import { createChart } from '../../utils/chart';
-import { hideLoader, showLoader } from '../../utils/loader';
 import { addFooter } from '../../utils/misc';
 import { rewriteWholePackage, statistics } from '../../utils/storage';
 import { Page } from '../router';
