@@ -11,7 +11,6 @@ export const bookPage: Page = {
     try {
       showLoader();
       info = await getWords(bookGroup, bookPage);
-      //await getUserSettings();
     } finally {
       hideLoader();
     }

@@ -6,6 +6,7 @@ import { runAudioGame } from "../games/audioChallenge";
 import { router } from "../navigation/router";
 import { runSniper } from "../games/sniper";
 import { updateIndicator } from "./indicator";
+import { runPuzzle } from "../games/puzzle";
 
 export function endGame() {
   const root = document.querySelector('.wrapperGames');
@@ -91,8 +92,8 @@ export function endGame() {
           runSprint();
         } 
         break;
-        // case 'Puzzle': runPuzzle();
-        // break;
+        case 'Puzzle': runPuzzle();
+        break;
         case 'sniper': runSniper();
         break;
       }

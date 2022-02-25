@@ -1,0 +1,20 @@
+#wrapper-puzzle {
+  display: flex;
+  flex-direction: column;
+}
+
+.socketBox,
+.draggableBox {
+  width: 100px;
+  height: 50px;
+  border: 1px solid red;
+}
+
+#sockets,
+#blocks {
+  display: flex;
+}
+
+.draggableBox {
+  cursor: move;
+}

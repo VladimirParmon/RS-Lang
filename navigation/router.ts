@@ -11,6 +11,7 @@ import { redirectPage } from './pages/gamesRedirect';
 import { hideLoader } from '../utils/loader';
 import { sniperPage } from './pages/sniperPage'
 import { getUserSettings, getUserStatistics } from '../utils/api';
+import { puzzlePage } from './pages/puzzlePage';
 
 const root = document.querySelector('#content');
 
@@ -29,7 +30,8 @@ export type routerLib = {
   audio: Page,
   sprint: Page,
   sniper: Page,
-  redirect: Page
+  redirect: Page,
+  puzzle: Page
 }
 
 const pages: routerLib = {
@@ -42,7 +44,8 @@ const pages: routerLib = {
   audio: audioChallengePage,
   sprint: sprintPage,
   sniper: sniperPage,
-  redirect: redirectPage
+  redirect: redirectPage,
+  puzzle: puzzlePage
 };
 
 const getPageFromName = (pageName: keyof routerLib) => pages[pageName] || null;
