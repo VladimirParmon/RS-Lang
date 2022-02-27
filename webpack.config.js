@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   entry: './master.ts',
-  mode: 'development', // was production
+  mode: 'production', // was production
   module: {
     rules: [
       {
