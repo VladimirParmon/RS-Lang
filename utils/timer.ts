@@ -13,7 +13,6 @@ export function timer() {
   const circle = radius - indicatorWidth / 2;
   const track = radius - indicatorWidth / 2;
 
-
   clear();
 
   const timeLimit = storageT.timeLimit * 1000;

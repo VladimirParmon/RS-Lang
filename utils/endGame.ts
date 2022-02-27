@@ -29,46 +29,49 @@ export function endGame() {
     wrapper.style.pointerEvents = 'none';
     wrapper.style.opacity = '0.5';
   
-    const results = document.createElement('div');
-    results.id = 'results';
-    const rightOnes = document.createElement('div');
-    const wrongOnes = document.createElement('div');
-    const spanR = document.createElement('h2');
-    const spanW = document.createElement('h2');
-    spanR.textContent = 'Правильные ответы:';
-    spanW.textContent = 'Неправильные ответы:';
-    rightOnes.appendChild(spanR);
-    wrongOnes.appendChild(spanW);
-  
-    if (storageT.endGameResults.right.length !== 0) {
-      storageT.endGameResults.right.forEach((el) => {
-        const option = `
-        <div class="resultsOption">
-          <img src="assets/svg/sound.svg" alt="audio" id="playSound-${el.audio}">
-          <span><b>${el.word}</b> – ${el.translate}</span>
-        </div>
-        `
-        rightOnes.innerHTML += option;
-      })
-    } else {
-      rightOnes.innerHTML += 'Нет правильных ответов :('
-    }
-  
-    if (storageT.endGameResults.wrong.length !== 0) {
-      storageT.endGameResults.wrong.forEach((el) => {
-        const option = `
-        <div class="resultsOption">
-          <img src="assets/svg/sound.svg" alt="audio" id="playSound-${el.audio}">
-          <span><b>${el.word}</b> – ${el.translate}</span>
-        </div>
-        `
-        wrongOnes.innerHTML += option;
-      })
-    } else {
-      wrongOnes.innerHTML += 'Нет неправильных ответов!'
-    }
-    results?.appendChild(rightOnes);
-    results?.appendChild(wrongOnes);
+    //if (storageT.currentGameMode !== 'puzzle') {
+      const results = document.createElement('div');
+      results.id = 'results';
+      const rightOnes = document.createElement('div');
+      const wrongOnes = document.createElement('div');
+      const spanR = document.createElement('h2');
+      const spanW = document.createElement('h2');
+      spanR.textContent = 'Правильные ответы:';
+      spanW.textContent = 'Неправильные ответы:';
+      rightOnes.appendChild(spanR);
+      wrongOnes.appendChild(spanW);
+    
+      if (storageT.endGameResults.right.length !== 0) {
+        storageT.endGameResults.right.forEach((el) => {
+          const option = `
+          <div class="resultsOption">
+            <img src="assets/svg/sound.svg" alt="audio" id="playSound-${el.audio}">
+            <span><b>${el.word}</b> – ${el.translate}</span>
+          </div>
+          `
+          rightOnes.innerHTML += option;
+        })
+      } else {
+        rightOnes.innerHTML += 'Нет правильных ответов :('
+      }
+    
+      if (storageT.endGameResults.wrong.length !== 0) {
+        storageT.endGameResults.wrong.forEach((el) => {
+          const option = `
+          <div class="resultsOption">
+            <img src="assets/svg/sound.svg" alt="audio" id="playSound-${el.audio}">
+            <span><b>${el.word}</b> – ${el.translate}</span>
+          </div>
+          `
+          wrongOnes.innerHTML += option;
+        })
+      } else {
+        wrongOnes.innerHTML += 'Нет неправильных ответов!'
+      }
+      results?.appendChild(rightOnes);
+      results?.appendChild(wrongOnes);
+      resultsWrapper.appendChild(results);
+    //}
 
     const buttonsWrapper = document.createElement('div');
     buttonsWrapper.id = 'resultsButtonsWrapper';
@@ -110,7 +113,7 @@ export function endGame() {
     }, {
       once: true
     });
-    resultsWrapper.appendChild(results);
+    
     buttonsWrapper.appendChild(playAgain);
     buttonsWrapper.appendChild(exit);
     resultsWrapper.appendChild(buttonsWrapper);

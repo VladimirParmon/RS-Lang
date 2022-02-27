@@ -1,20 +1,92 @@
 #wrapper-puzzle {
+  position: relative;
   display: flex;
+  justify-content: center;
   flex-direction: column;
+  width: 100%;
+  max-width: 1000px;
 }
 
+.nextButton,
 .socketBox,
 .draggableBox {
-  width: 100px;
+  font-family: var(--font3);
+  font-size: 24px;
+  color: var(--hover);
   height: 50px;
-  border: 1px solid red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: var(--header);
+}
+
+.socketBox {
+  border: 1px solid var(--hover);
 }
 
 #sockets,
 #blocks {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#blocks {
+  margin-top: 20px;
 }
 
 .draggableBox {
-  cursor: move;
+  cursor: grab;
+  padding: 0 10px 0 10px;
+  width: fit-content;
+  margin: 0 10px;
+}
+
+.dragHover {
+  border: 1px solid var(--text);
+  background-color: var(--hover);
+}
+
+.gameEnded div {
+  min-width: fit-content;
+  min-height: fit-content;
+  margin: 0;
+  border-radius: 0;
+  border: none;
+}
+
+.dragSet {
+  width: 100%;
+  margin: 0;
+}
+
+.nextButton {
+  margin: 0 auto;
+  position: relative;
+  width: 150px;
+}
+
+#attempts {
+  display: flex;
+  margin: 0 auto 30px auto;
+}
+
+#attempts div {
+  width: 25px;
+  height: 25px;
+  border: 2px solid var(--text);
+  margin: 5px;
+  border-radius: 50%;
+}
+
+.invisible {
+  opacity: 0;
+}
+
+@media screen and (max-width: 34em) {
+  #sockets,
+  #blocks {
+    justify-content: flex-start;
+  }
 }

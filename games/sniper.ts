@@ -7,54 +7,53 @@ import { storage, storageT } from "../utils/storage";
 import { prepareData } from "./getData";
 
 export function runSniper() {
-  const optionsContainer = document.querySelector(`#sniperOptions`);
-  const theWord = document.querySelector('#sniperWordSpan') as HTMLElement;
   const wrapper = document.querySelector('#wrapper-sniper') as HTMLElement;
-  if (optionsContainer) optionsContainer!.innerHTML = '';
-  const gameStats = document.querySelector('.inGameStats') as HTMLElement;
-  if (gameStats) wrapper.removeChild(gameStats);
-
-  prepareData();
-  let intermediateArray: string[] = [];
-
-  storageT.workingArray.forEach((el, i) => {
-    intermediateArray.push(el.id);
-    const option = document.createElement('div');
-    const keyIcon = document.createElement('img');
-    keyIcon.style.width = '30px';
-    keyIcon.style.height = '30px';
-    keyIcon.style.marginRight = '10px';
-    keyIcon.src = `assets/svg/white/${i + 1}w.svg`;
-    option.appendChild(keyIcon);
-    option.id = `gameOption-${el.id}`;
-    option.innerHTML += capitalize(el.translate);
-    option.addEventListener('click', () => {
-      checkChoice(el.id);
-      const audioBite = new Audio;
-      audioBite.src = `assets/sounds/gunshot.mp3`;
-      audioBite.play();
-    })
-    if (optionsContainer) optionsContainer.appendChild(option);
-  }) 
-  storageT.currentOptions = intermediateArray;
-  theWord!.textContent = storageT.rightAnswer.word.toUpperCase();
-
-  const audioBite = new Audio;
-  audioBite.src = `assets/sounds/bird.mp3`;
-  setTimeout(() => {
-    audioBite.play();
-  }, 1200)
+  if (wrapper) {
+    const optionsContainer = document.querySelector(`#sniperOptions`);
+    const theWord = document.querySelector('#sniperWordSpan') as HTMLElement;
+    if (optionsContainer) optionsContainer!.innerHTML = '';
+    const gameStats = document.querySelector('.inGameStats') as HTMLElement;
+    if (gameStats) wrapper.removeChild(gameStats);
   
-
-  if (storage.isAuthorized) {
-    const gameStats = document.createElement('div');
-    gameStats.classList.add('inGameStats');
-    const stats = inGameStats();
-    gameStats.innerHTML = stats;
-    wrapper.appendChild(gameStats);
+    prepareData();
+    let intermediateArray: string[] = [];
+  
+    storageT.workingArray.forEach((el, i) => {
+      intermediateArray.push(el.id);
+      const option = document.createElement('div');
+      const keyIcon = document.createElement('img');
+      keyIcon.style.width = '30px';
+      keyIcon.style.height = '30px';
+      keyIcon.style.marginRight = '10px';
+      keyIcon.src = `assets/svg/white/${i + 1}w.svg`;
+      option.appendChild(keyIcon);
+      option.id = `gameOption-${el.id}`;
+      option.innerHTML += capitalize(el.translate);
+      option.addEventListener('click', () => {
+        checkChoice(el.id);
+      })
+      if (optionsContainer) optionsContainer.appendChild(option);
+    }) 
+    storageT.currentOptions = intermediateArray;
+    theWord!.textContent = storageT.rightAnswer.word.toUpperCase();
+  
+    const audioBite = new Audio;
+    audioBite.src = `assets/sounds/bird.mp3`;
+    setTimeout(() => {
+      audioBite.play();
+    }, 1200)
+    
+  
+    if (storage.isAuthorized) {
+      const gameStats = document.createElement('div');
+      gameStats.classList.add('inGameStats');
+      const stats = inGameStats();
+      gameStats.innerHTML = stats;
+      wrapper.appendChild(gameStats);
+    }
+  
+    startSniperAnimation();
   }
-
-  startSniperAnimation();
 }
 
 function animation (bird: HTMLElement, distance: number, birdImg: HTMLElement) {
