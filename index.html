@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles/style.css">
+  <link rel="stylesheet" href="./styles/carcass.css">
+  <link rel="stylesheet" href="./styles/slider.css">
+  <link rel="stylesheet" href="./styles/book.css">
+  <link rel="stylesheet" href="./styles/gameModes.css">
+  <link rel="stylesheet" href="./styles/audioGame.css">
+  <link rel="stylesheet" href="./styles/sprint.css">
+  <link rel="stylesheet" href="./styles/resultsWindow.css">
+  <link rel="stylesheet" href="./styles/mainGrid.css">
+  <link rel="stylesheet" href="./styles/history.css">
+  <link rel="stylesheet" href="./styles/stats.css">
+  <link rel="stylesheet" href="./styles/sniper.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comforter&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Neucha&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.ico">
+  <title>RS Lang</title>
+</head>
+<body>
+  <header>
+    <div id="openMenuButton">
+      <div class="decoration"></div>
+      <div class="decoration"></div>
+      <div class="decoration"></div>
+    </div>
+
+    <div id="upperBar">
+      <div id="logoMain"><span>R</span><span>S</span><span> Lang</span></div>
+      <div id="authIn"></div>
+      <div id="authOut"></div>
+    </div>
+    
+    <div id="navigationMenu">
+      <nav>
+        <div id="closeMenuButton"><span id="logoMenu">RS Lang</span><img src="assets/svg/arrow.svg" alt="arrow"></div>
+        <div option id="goHome"><img icon src="assets/svg/home.svg" alt="home"><span>Главная</span></div>
+        <div option id="goBook"><img icon src="assets/svg/book.svg" alt="book"><span>Учебник</span></div>
+        <div option id="goHistory"><img icon src="assets/svg/history.svg" alt="history"><span>История</span></div>
+        <div option id="goGames"><img icon src="assets/svg/gamepad.svg" alt="gamepad"><span>Игры</span></div>
+        <div option id="goStats"><img icon src="assets/svg/chart.svg" alt="chart"><span>Статистика</span></div>
+        <div option id="goDev"><img icon src="assets/svg/dev.svg" alt="dev"><span>О разработчике</span></div>
+        <div option id="goComments"><img icon src="assets/svg/comment.svg" alt="comment"><span>Отзыв</span></div>
+      </nav>
+      <div class="modeSwitch">
+        <input type="checkbox" class="toggle-button" id="modeSwitch">
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div id="content"></div>
+  </main>
+  
+  <footer>
+    <span onclick="window.open('https://ru.wikipedia.org/wiki/2022_%D0%B3%D0%BE%D0%B4','mywindow')">2022</span> 
+    <span onclick="window.open('https://github.com/VladimirParmon','mywindow')">Vladimir Parmon</span>
+    <img onclick="window.open('https://rs.school/js/','mywindow')" src="assets/svg/rs_school_js.svg" alt="rsSchool">
+  </footer>
+  <script src="main.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script> -->
+  <!-- <script src="test.js"></script> -->
+</body>
+</html>

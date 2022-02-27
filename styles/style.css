@@ -1,0 +1,313 @@
+html.dark {
+  --primary-color: rgb(49, 49, 49);
+  --icons: #a9a9a9; /*rgba(169, 169, 169, 1);*/
+  --header: #000000;
+  --hover: #909090;
+  --text: #ffffff;
+  --contrast: #ffffff;
+}
+
+#modeSwitch {
+  position: absolute;
+  bottom: 60px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-button {
+  position: relative;
+  width: 50px;
+  height: 26px;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.6);
+  border: 2px solid black;
+  border-radius: 30px;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+#modeSwitch::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  transform: translateX(0);
+  transition: all 0.3s cubic-bezier(0.2, 0.85, 0.32, 1.2);
+  background-image: url(../assets/svg/lamp.svg);
+  background-size: contain;
+}
+
+#modeSwitch:checked::after {
+  transform: translateX(calc(100% + 4px));
+  background-image: url(../assets/svg/moon.svg);
+  /* filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%) hue-rotate(324deg) brightness(103%) contrast(103%); */
+}
+
+#modeSwitch:checked {
+  background-image: url(../assets/img/stars.jpg);
+  background-size: contain;
+}
+
+/*====================================================================*/
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  border: 6px solid var(--hover);
+  border-top: 6px solid var(--header);
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+  z-index: 5;
+  /* transform: translate(-50% -50%); */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/*====================================================================*/
+
+.wrapperGames {
+  position: absolute;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  padding: 10px 10px 30px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  overflow: hidden;
+  background-image: url(../assets/poly.jpg);
+  background-size: cover;
+  opacity: 0;
+  animation: 1.5s reveal2 forwards 0.2s;
+}
+
+/*====================================================================*/
+
+#logo {
+  position: relative;
+  top: -30px;
+  font-family: var(--font1);
+  font-size: 11vw;
+  pointer-events: none;
+  white-space: nowrap;
+  font-weight: normal;
+  animation: 1s reveal;
+  animation-fill-mode: forwards; 
+  opacity: 0;
+  transform: translateX(10vw);
+}
+
+#logo span:nth-of-type(1) {
+  color: var(--trio1);
+}
+#logo span:nth-of-type(2) {
+  color: var(--trio2);
+}
+#logo span:nth-of-type(3) {
+  color: var(--trio3);
+}
+
+#logoWrapper {
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+}
+
+#logo::after {
+  content: 'It\'s never been easier';
+  font-family: var(--font4);
+  font-size: 2vw;
+  position: absolute;
+  bottom: 1vw;
+  right: 7vw;
+  color: var(--primary-color);
+  animation: 1.5s reveal;
+  animation-delay: 500ms;
+  animation-fill-mode: forwards; 
+  opacity: 0;
+  letter-spacing: 1px;
+}
+
+@keyframes reveal {
+  0% {
+    opacity: 0;
+    filter: brightness(130%);
+    transform: translateX(-10vw);
+  }
+  100% {
+    opacity: 1;
+    filter: brightness(100%) contrast(95%);
+  }
+}
+
+/*===========================================*/
+#indicator {
+  position: absolute;
+  top: 0;
+  z-index: 3;
+  width: 100%;
+  height: 10px;
+  background-image: linear-gradient(to left, var(--action) 0%, var(--trio3) 0%);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+  margin-left: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--header);
+  border-radius: 150px;
+}
+
+/*===========================================*/
+
+.inGameStats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* .inGameStats span {
+  position: absolute;
+  top: 160px;
+  font-family: var(--font3);
+  color: red;
+} */
+
+.inARowIndicators {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inARowIndicators div {
+  width: 30px;
+  height: 30px;
+  background-color: black;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.inBookStats {
+  width: 0;
+  height: 150px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  overflow: hidden;
+  border-radius: 0 5px 0 5px;
+  background-color: var(--hover);
+}
+
+.inBookStats span {
+  white-space: nowrap;
+}
+
+.statsButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background-image: url(../assets/svg/question.svg);
+  background-size: contain;
+  background-color: rgba(0, 0, 0, 0);
+  /* z-index: 1; */
+  cursor: pointer;
+  border: none;
+}
+
+.statsButton:focus ~ .inBookStats {
+  width: 240px;
+  padding: 10px;
+}
+
+.gameOptions {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/*===========================================*/
+
+#contactMe {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1000px;
+  align-items: center;
+  padding: 20px;
+}
+
+#contactMe input,
+#contactMe textarea,
+#contactMe button {
+  width: 100%;
+  border: none;
+  padding: 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-family: var(--font2);
+  font-size: 30px;
+}
+
+#contactMe input:focus,
+#contactMe textarea:focus {
+  outline: none;
+}
+
+#contactMe input {
+  height: 50px;
+  box-sizing: border-box;
+}
+
+#contactMe textarea {
+  resize: none;
+  height: 50vh;
+}
+
+#contactMe button {
+  cursor: pointer;
+  height: 50px;
+  line-height: 10px;
+}
+
+#contactMe button:hover {
+  background-color: var(--hover);
+}
+
+/*====================================================================*/
+
+
+@media screen and (max-width: 1600px) {
+  #additionalInfo {
+    max-width: 1000px;
+  }
+}
