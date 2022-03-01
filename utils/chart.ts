@@ -39,15 +39,15 @@ export async function createChart() {
       const month = Months[monthNum];
       const prettyDate = dateSpan[0] + ' ' + month;
       xValue.push(prettyDate);
+    }
 
-      const targetDate = new Date();
-      for (let i = 1; i < 5; i++) {
-        targetDate.setDate(targetDate.getDate() + 1);
-        const dd = targetDate.getDate();
-        const mm = targetDate.getMonth() + 1; // 0 is January, so we must add 1
-        const dateString = dd + ' ' + Months[mm];
-        xValue.push(dateString);
-      }
+    const targetDate = new Date();
+    for (let i = 1; i < 5; i++) {
+      targetDate.setDate(targetDate.getDate() + 1);
+      const dd = targetDate.getDate();
+      const mm = targetDate.getMonth() + 1; // 0 is January, so we must add 1
+      const dateString = dd + ' ' + Months[mm];
+      xValue.push(dateString);
     }
 
     const myChart = new Chart(contextDays, {
