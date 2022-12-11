@@ -1,30 +1,68 @@
-import { hideLoader, showLoader } from "./loader";
-import { slider } from "./slider";
-import { storage, WordInfo, ReducedWordInfo, LoginResponse, RegistrationResponse, UserInfo, storageT, serverInfoObject, rewriteServerInfo, rewriteStatistics, statistics, StatisticsInfo, Statistics, wholePackage } from "./storage";
-import { adjustLoginButton } from "../master";
-import { adjustStatsButton, getDate } from "./misc";
+import { hideLoader, showLoader } from './loader';
+import { slider } from './slider';
+import {
+  storage,
+  WordInfo,
+  ReducedWordInfo,
+  LoginResponse,
+  RegistrationResponse,
+  UserInfo,
+  storageT,
+  serverInfoObject,
+  rewriteServerInfo,
+  rewriteStatistics,
+  statistics,
+  StatisticsInfo,
+  Statistics,
+  wholePackage
+} from './storage';
+import { adjustLoginButton } from '../master';
+import { adjustStatsButton, getDate } from './misc';
 
-const baseURL = 'https://rs-lang-redblooded.herokuapp.com';
-export const filesUrl = 'https://raw.githubusercontent.com/vladimirparmon/react-rslang-be/master'
+// In 2022 Heroku became paid only and mongoDB is unavailable because of sanctions.
+// I did not write the back end, and this is only a training project, this is why I just
+// substituted everything with mock data. Legacy code has been commented.
 
-const words = `${baseURL}/words`;
-const users = `${baseURL}/users`;
-const signIn = `${baseURL}/signin`;
+// const baseURL = 'https://rs-lang-redblooded.herokuapp.com';
+export const filesUrl =
+  'https://raw.githubusercontent.com/vladimirparmon/react-rslang-be/master';
+
+// const words = `${baseURL}/words`;
+// const users = `${baseURL}/users`;
+// const signIn = `${baseURL}/signin`;
+
+// export const getSingleWord = async (id: string) => {
+//   const response = await fetch(`${words}/${id}`);
+//   return await response.json();
+// };
 
 export const getSingleWord = async (id: string) => {
-  const response = await fetch(`${words}/${id}`);
-  return await response.json();
-}
+  const response = await fetch('../assets/words.json')
+    .then((res) => res.json())
+    .then((data) => data.find((el: any) => (el._id.$oid = id)));
+  return response;
+};
+
+// export const getWords = async (group: number, page: number) => {
+//   const response = await fetch(`${words}?group=${group}&page=${page}`);
+//   return await response.json();
+// };
 
 export const getWords = async (group: number, page: number) => {
-  const response = await fetch(`${words}?group=${group}&page=${page}`);
-  return await response.json();
-}
+  const response = await fetch('../assets/words.json')
+    .then((res) => res.json())
+    .then((data) =>
+      data
+        .map((raw: any) => ({ ...raw, id: raw._id.$oid }))
+        .filter((item: any) => item.group === group && item.page === page)
+    );
+  return response;
+};
 
 export const getAllWords = async (group: number, single?: string) => {
   let result: ReducedWordInfo[] = [];
   if (!single) {
-    for (let i=0; i < storageT.totalPages; i++) {
+    for (let i = 0; i < storageT.totalPages; i++) {
       const info = await getWords(group, i);
       const page = info.map((el: WordInfo) => {
         return {
@@ -34,12 +72,12 @@ export const getAllWords = async (group: number, single?: string) => {
           audio: el.audio,
           image: el.image,
           transcription: el.transcription
-        }
-      })
+        };
+      });
       result.push(...page);
     }
   } else {
-    const info = await getWords(group,  storage.bookPage);
+    const info = await getWords(group, storage.bookPage);
     const page = info.map((el: WordInfo) => {
       return {
         id: el.id,
@@ -48,49 +86,59 @@ export const getAllWords = async (group: number, single?: string) => {
         audio: el.audio,
         image: el.image,
         transcription: el.transcription
-      }
-    })
-    result.push(...page)
+      };
+    });
+    result.push(...page);
   }
 
   return result;
-}
+};
 
 //======================================================================//
 
+// const loginUser = async (user: UserInfo) => {
+//   const errorSpan = document.querySelector('#errorSpan');
+//   const info = await fetch(signIn, {
+//     method: 'POST',
+//     headers: {
+//       Accept: 'application/json',
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify(user)
+//   })
+//     .then((response) => {
+//       if (response.ok) {
+//         return response.json();
+//       } else {
+//         response.text().then((text) => {
+//           if (text.slice(0, 1) === 'C') {
+//             displayError('Неверный адрес эл. почты');
+//           } else {
+//             displayError('Неверный пароль');
+//           }
+//         });
+//       }
+//     })
+//     .catch((error) => {
+//       displayError('Нет соединения с интернетом или сервер не отвечает');
+//     });
+//   return info;
+// };
+
 const loginUser = async (user: UserInfo) => {
-  const errorSpan = document.querySelector('#errorSpan');
-  const info = await fetch(signIn, {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(user)
-  })
-    .then(response => {
-      if(response.ok) {
-        return response.json();
-      } else {
-        response.text().then(text => {
-          if (text.slice(0,1) === 'C') {
-            displayError('Неверный адрес эл. почты');
-          } else {
-            displayError('Неверный пароль');
-          }
-        })
-      }
-    })
-    .catch(error => {
-      displayError('Нет соединения с интернетом или сервер не отвечает');
-    })
-    return info;
+  return {
+    message: 'loginMessage',
+    token: 'loginToken',
+    refreshToken: 'loginRefreshToken',
+    userId: 'loginUserId',
+    name: user.email
+  };
 };
 
-export async function authorize (mail: string, password: string) {
+export async function authorize(mail: string, password: string) {
   let info!: LoginResponse;
   try {
-    info = await loginUser({ "email": mail, "password": password });
+    info = await loginUser({ email: mail, password: password });
   } finally {
     if (info) {
       hideLoader();
@@ -107,44 +155,52 @@ export async function authorize (mail: string, password: string) {
   }
 }
 
-export async function registerUser (user: UserInfo) {
-  const errorSpan = document.querySelector('#errorSpan');
-  const info = await fetch(users, {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(user)
-  })
-    .then(response => {
-      if(response.ok) {
-        return response.json();
-      } else if (response.status === 417) {
-        displayError('Адрес эл. почты уже занят');
-      } else {
-        response.text().then(text => {
-          if (text.search(/mail/) !== -1) {
-            displayError('Адрес эл. почты должен быть валидным');
-          } else if (text.search(/name/) !== -1) {
-            displayError('Имя не должно быть пустым');
-          } else if (text.search(/password/) !== -1) {
-            displayError('Пароль не должен быть короче 8 символов');
-          }
-        })
-      }
-    })
-    .catch(error => {
-      displayError('Нет соединения с интернетом или сервер не отвечает');
-    })
-  return info;
+// export async function registerUser(user: UserInfo) {
+//   const errorSpan = document.querySelector('#errorSpan');
+//   const info = await fetch(users, {
+//     method: 'POST',
+//     headers: {
+//       Accept: 'application/json',
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify(user)
+//   })
+//     .then((response) => {
+//       if (response.ok) {
+//         return response.json();
+//       } else if (response.status === 417) {
+//         displayError('Адрес эл. почты уже занят');
+//       } else {
+//         response.text().then((text) => {
+//           if (text.search(/mail/) !== -1) {
+//             displayError('Адрес эл. почты должен быть валидным');
+//           } else if (text.search(/name/) !== -1) {
+//             displayError('Имя не должно быть пустым');
+//           } else if (text.search(/password/) !== -1) {
+//             displayError('Пароль не должен быть короче 8 символов');
+//           }
+//         });
+//       }
+//     })
+//     .catch((error) => {
+//       displayError('Нет соединения с интернетом или сервер не отвечает');
+//     });
+//   return info;
+// }
+
+async function registerUser(user: UserInfo) {
+  return {
+    email: user.email,
+    id: 'registerString',
+    name: user.name || 'registerUserName'
+  };
 }
 
-export async function register (name: string, mail: string, password: string) {
+export async function register(name: string, mail: string, password: string) {
   let info!: RegistrationResponse;
   showLoader();
   try {
-    info = await registerUser ({ "name": name, "email": mail, "password": password });
+    info = await registerUser({ name: name, email: mail, password: password });
   } finally {
     if (info) {
       authorize(mail, password);
@@ -152,16 +208,19 @@ export async function register (name: string, mail: string, password: string) {
   }
 }
 
-const deleteUser = async () => {
-  const rawResponse = await fetch(`https://rs-lang-redblooded.herokuapp.com/users/${storage.userId}`, {
-    method: 'DELETE',
-    headers: {
-      'Authorization': `Bearer ${storage.token}`,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-  });
-};
+// const deleteUser = async () => {
+//   const rawResponse = await fetch(
+//     `https://rs-lang-redblooded.herokuapp.com/users/${storage.userId}`,
+//     {
+//       method: 'DELETE',
+//       headers: {
+//         Authorization: `Bearer ${storage.token}`,
+//         Accept: 'application/json',
+//         'Content-Type': 'application/json'
+//       }
+//     }
+//   );
+// };
 
 export function handleLogin(action: string) {
   const nameInput = document.querySelector('#name') as HTMLInputElement;
@@ -172,141 +231,145 @@ export function handleLogin(action: string) {
   const mail = mailInput.value;
   const password = passwordInput.value;
 
-  if(action === 'login') {
+  if (action === 'login') {
     authorize(mail, password);
   } else {
     register(name, mail, password);
   }
 }
 
-function displayError(info: string) {
-  const errorSpan = document.querySelector('#errorSpan') as HTMLElement;
-  errorSpan!.textContent = info;
-  errorSpan.style.opacity = '1';
-  setTimeout(() => {
-    errorSpan.style.opacity = '0';
-  }, 1000)
-  hideLoader();
-}
+// function displayError(info: string) {
+//   const errorSpan = document.querySelector('#errorSpan') as HTMLElement;
+//   errorSpan!.textContent = info;
+//   errorSpan.style.opacity = '1';
+//   setTimeout(() => {
+//     errorSpan.style.opacity = '0';
+//   }, 1000);
+//   hideLoader();
+// }
 
 export async function getQuotes() {
   const quote = document.querySelector('#quoteSpan') as HTMLElement;
-  const author = document.querySelector('#authorSpan') as HTMLElement;;
+  const author = document.querySelector('#authorSpan') as HTMLElement;
   const changeQ = document.querySelector('#change-quote');
   const quotes = 'https://favqs.com/api/qotd';
   const res = await fetch(quotes);
-  const data = await res.json(); 
-  if(quote && author) {
-    setTimeout(()=> {
+  const data = await res.json();
+  if (quote && author) {
+    setTimeout(() => {
       quote.textContent = data.quote.body;
       author.textContent = data.quote.author;
-    }, 400)
+    }, 400);
   }
-  changeQ?.addEventListener('click', ()=> {
-    getQuotes();
-  }, {
-    once: true
-  })
+  changeQ?.addEventListener(
+    'click',
+    () => {
+      getQuotes();
+    },
+    {
+      once: true
+    }
+  );
   quote.classList.add('sideSlide');
   author.classList.add('sideSlide2');
   author.addEventListener('animationend', () => {
     quote.classList.remove('sideSlide');
     author.classList.remove('sideSlide2');
-  })
+  });
 }
 
 //======================================================================//
 
 export const putUserSettings = async () => {
-  const response = await fetch(`${users}/${storage.userId}/settings`, {
-    method: 'PUT',
-    headers: {
-      'Authorization': `Bearer ${storage.token}`,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      "optional": {
-        "deleted": serverInfoObject.deleted,
-        "difficult": serverInfoObject.difficult,
-        "learnt": serverInfoObject.learnt,
-        "howManyInARow": serverInfoObject.howManyInARow,
-        "howManyRight": serverInfoObject.howManyRight,
-        "howManyWrong": serverInfoObject.howManyWrong
-      }
-    })
-  });
-}
+  // const response = await fetch(`${users}/${storage.userId}/settings`, {
+  //   method: 'PUT',
+  //   headers: {
+  //     Authorization: `Bearer ${storage.token}`,
+  //     Accept: 'application/json',
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({
+  //     optional: {
+  //       deleted: serverInfoObject.deleted,
+  //       difficult: serverInfoObject.difficult,
+  //       learnt: serverInfoObject.learnt,
+  //       howManyInARow: serverInfoObject.howManyInARow,
+  //       howManyRight: serverInfoObject.howManyRight,
+  //       howManyWrong: serverInfoObject.howManyWrong
+  //     }
+  //   })
+  // });
+};
 
 export const getUserSettings = async () => {
-    const response = await fetch(`${users}/${storage.userId}/settings`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${storage.token}`,
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(async (response) => {
-      if(response.ok) {
-        const info = await response.json();
-        if (info.optional) rewriteServerInfo(info.optional);
-      } else if (response.status === 404) {
-        putUserSettings();
-      }
-    })
-}
+  console.log('getUserSettings');
+  // const response = await fetch(`${users}/${storage.userId}/settings`, {
+  //   method: 'GET',
+  //   headers: {
+  //     Authorization: `Bearer ${storage.token}`,
+  //     Accept: 'application/json',
+  //     'Content-Type': 'application/json'
+  //   }
+  // }).then(async (response) => {
+  //   if (response.ok) {
+  //     const info = await response.json();
+  //     if (info.optional) rewriteServerInfo(info.optional);
+  //   } else if (response.status === 404) {
+  //     putUserSettings();
+  //   }
+  // });
+};
 
 //======================================================================//
 
 export const putUserStatistics = async () => {
-  const response = await fetch(`${users}/${storage.userId}/statistics`, {
-    method: 'PUT',
-    headers: {
-      'Authorization': `Bearer ${storage.token}`,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      "optional": wholePackage
-    })
-  });
-}
+  // const response = await fetch(`${users}/${storage.userId}/statistics`, {
+  //   method: 'PUT',
+  //   headers: {
+  //     Authorization: `Bearer ${storage.token}`,
+  //     Accept: 'application/json',
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({
+  //     optional: wholePackage
+  //   })
+  // });
+};
 
-export const putUserStatisticsInit = async () => {
-  const date = getDate();
-  const response = await fetch(`${users}/${storage.userId}/statistics`, {
-    method: 'PUT',
-    headers: {
-      'Authorization': `Bearer ${storage.token}`,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      "optional": {
-        [date]: statistics
-      }
-    })
-  });
-}
+//export const putUserStatisticsInit = async () => {
+// const date = getDate();
+// const response = await fetch(`${users}/${storage.userId}/statistics`, {
+//   method: 'PUT',
+//   headers: {
+//     Authorization: `Bearer ${storage.token}`,
+//     Accept: 'application/json',
+//     'Content-Type': 'application/json'
+//   },
+//   body: JSON.stringify({
+//     optional: {
+//       [date]: statistics
+//     }
+//   })
+// });
+//};
 
 export const getUserStatistics = async () => {
-  let info;
-  const response = await fetch(`${users}/${storage.userId}/statistics`, {
-    method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${storage.token}`,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(async (response) => {
-    if(response.ok) {
-      info = await response.json();
-      if (info.optional) rewriteStatistics(info.optional);
-    } else if (response.status === 404) {
-      putUserStatisticsInit();
-    }
-  })
-  if (info) return info;
-}
+  console.log('getUserStatistics');
+  // let info;
+  // const response = await fetch(`${users}/${storage.userId}/statistics`, {
+  //   method: 'GET',
+  //   headers: {
+  //     Authorization: `Bearer ${storage.token}`,
+  //     Accept: 'application/json',
+  //     'Content-Type': 'application/json'
+  //   }
+  // }).then(async (response) => {
+  //   if (response.ok) {
+  //     info = await response.json();
+  //     if (info.optional) rewriteStatistics(info.optional);
+  //   } else if (response.status === 404) {
+  //     putUserStatisticsInit();
+  //   }
+  // });
+  // if (info) return info;
+};

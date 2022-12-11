@@ -1,9 +1,9 @@
-import { getSingleWord } from "../utils/api";
-import { endGame } from "../utils/endGame";
-import { updateIndicator } from "../utils/indicator";
-import { shuffleStrings } from "../utils/misc";
-import { manageServerInfo, serverInfoObject, storageT } from "../utils/storage";
-import { prepareData } from "./getData";
+import { getSingleWord } from '../utils/api';
+import { endGame } from '../utils/endGame';
+import { updateIndicator } from '../utils/indicator';
+import { shuffleStrings } from '../utils/misc';
+import { manageServerInfo, serverInfoObject, storageT } from '../utils/storage';
+import { prepareData } from './getData';
 
 let counter: number;
 let attempts: number;
@@ -17,7 +17,7 @@ export async function runPuzzle() {
   <div></div>
   <div></div>
   <div></div>
-  `
+  `;
   socketsWrapper.innerHTML = '';
   blocksWrapper.innerHTML = '';
 
@@ -36,29 +36,31 @@ export async function runPuzzle() {
     wordPiece.id = `piece-${word}`;
     wordPiece.classList.add('draggableBox');
     wordPiece.innerHTML = word;
-    wordPiece.addEventListener("dragstart", dragStart);
+    wordPiece.addEventListener('dragstart', dragStart);
     wordPiece.addEventListener('click', () => {
       checkClick(wordPiece.id);
     });
     blocksWrapper.appendChild(wordPiece);
   });
 
-  for (let i=0; i<counter; i++) {
+  for (let i = 0; i < counter; i++) {
     const wordSocket = document.createElement('div');
     wordSocket.id = `socket-${phraseArray[i]}`;
     wordSocket.classList.add('socketBox');
-    wordSocket.addEventListener("dragenter", dragEnter);
-    wordSocket.addEventListener("dragover", dragOver);
-    wordSocket.addEventListener("dragleave", dragLeave);
-    wordSocket.addEventListener("drop", dragDrop);
-    const piece = document.getElementById(`piece-${phraseArray[i]}`) as HTMLElement;
+    wordSocket.addEventListener('dragenter', dragEnter);
+    wordSocket.addEventListener('dragover', dragOver);
+    wordSocket.addEventListener('dragleave', dragLeave);
+    wordSocket.addEventListener('drop', dragDrop);
+    const piece = document.getElementById(
+      `piece-${phraseArray[i]}`
+    ) as HTMLElement;
     const width = piece.offsetWidth;
     wordSocket.style.width = `${width}px`;
     socketsWrapper.appendChild(wordSocket);
   }
   setTimeout(() => {
     wrapper.classList.remove('invisible');
-  }, 300)
+  }, 300);
 }
 
 function dragStart(this: HTMLElement, e: DragEvent) {
@@ -69,9 +71,8 @@ function dragStart(this: HTMLElement, e: DragEvent) {
 
 function dragOver(this: HTMLElement, e: DragEvent) {
   e.preventDefault();
-  console.log('dragover')
   if (e.dataTransfer) {
-    e.dataTransfer.dropEffect = "move"
+    e.dataTransfer.dropEffect = 'move';
   }
 }
 
@@ -110,16 +111,33 @@ function goNext() {
   if (attempts < 3) {
     const inARowData = serverInfoObject.howManyInARow[storageT.rightAnswer.id];
     const inARow = inARowData ? inARowData : 0;
-    manageServerInfo(storageT.rightAnswer.id, 'howManyInARow', 'raise', (inARow + 1).toString());
-    const totalRightAnswersData = serverInfoObject.howManyRight[storageT.rightAnswer.id];
+    manageServerInfo(
+      storageT.rightAnswer.id,
+      'howManyInARow',
+      'raise',
+      (inARow + 1).toString()
+    );
+    const totalRightAnswersData =
+      serverInfoObject.howManyRight[storageT.rightAnswer.id];
     const totalRightAnswers = totalRightAnswersData ? totalRightAnswersData : 0;
-    manageServerInfo(storageT.rightAnswer.id, 'howManyRight', 'raise', (totalRightAnswers + 1).toString());
+    manageServerInfo(
+      storageT.rightAnswer.id,
+      'howManyRight',
+      'raise',
+      (totalRightAnswers + 1).toString()
+    );
     storageT.endGameResults.right.push(storageT.rightAnswer);
   } else {
     manageServerInfo(storageT.rightAnswer.id, 'howManyInARow', 'lower', '0');
-    const totalWrongAnswersData = serverInfoObject.howManyWrong[storageT.rightAnswer.id];
+    const totalWrongAnswersData =
+      serverInfoObject.howManyWrong[storageT.rightAnswer.id];
     const totalWrongAnswers = totalWrongAnswersData ? totalWrongAnswersData : 0;
-    manageServerInfo(storageT.rightAnswer.id, 'howManyWrong', 'raise', (totalWrongAnswers + 1).toString());
+    manageServerInfo(
+      storageT.rightAnswer.id,
+      'howManyWrong',
+      'raise',
+      (totalWrongAnswers + 1).toString()
+    );
     storageT.endGameResults.wrong.push(storageT.rightAnswer);
   }
   const socketsWrapper = document.querySelector('#sockets') as HTMLElement;
@@ -130,21 +148,27 @@ function goNext() {
   button.classList.add('nextButton');
   button.style.cursor = 'pointer';
   button.innerHTML = '→';
-  button.addEventListener('click', ()=> {
-    wrapper.removeChild(button);
-    wrapper.classList.add('invisible');
-    socketsWrapper.classList.remove('gameEnded');
-    setTimeout(() => {
-      storageT.currentGameQueue.length === 0 ? endGame() : runPuzzle();
-    }, 300);
-  }, {
-    once: true
-  })
+  button.addEventListener(
+    'click',
+    () => {
+      wrapper.removeChild(button);
+      wrapper.classList.add('invisible');
+      socketsWrapper.classList.remove('gameEnded');
+      setTimeout(() => {
+        storageT.currentGameQueue.length === 0 ? endGame() : runPuzzle();
+      }, 300);
+    },
+    {
+      once: true
+    }
+  );
   wrapper.appendChild(button);
 }
 
 function checkClick(wordId: string) {
-  const socketBoxes = document.querySelectorAll('.socketBox') as NodeListOf <HTMLElement>;
+  const socketBoxes = document.querySelectorAll(
+    '.socketBox'
+  ) as NodeListOf<HTMLElement>;
   const nextId = goThrough();
 
   function goThrough() {
@@ -152,7 +176,8 @@ function checkClick(wordId: string) {
       if (element.innerHTML === '') {
         if (element.id.split('-')[1] === wordId.split('-')[1]) {
           return element.id;
-        } return false;
+        }
+        return false;
       }
     }
     return false;
@@ -174,7 +199,7 @@ function checkClick(wordId: string) {
 }
 
 function playSound(state: boolean) {
-  const audioBite = new Audio;
+  const audioBite = new Audio();
   if (state) {
     audioBite.src = 'assets/sounds/rightAnswer.mp3';
   } else {
@@ -184,20 +209,23 @@ function playSound(state: boolean) {
 }
 
 function finishEarly() {
-  const wordBoxes = document.querySelectorAll('.draggableBox') as NodeListOf <HTMLElement>;
+  const wordBoxes = document.querySelectorAll(
+    '.draggableBox'
+  ) as NodeListOf<HTMLElement>;
   wordBoxes.forEach((el) => {
-    const socket = document.getElementById(`socket-${el.id.split('-')[1]}`) as HTMLElement;
+    const socket = document.getElementById(
+      `socket-${el.id.split('-')[1]}`
+    ) as HTMLElement;
     socket.appendChild(el);
-  })
+  });
   goNext();
 }
 
 function updateAttemptsIndicator() {
   attempts++;
   const attemptsWrapper = document.querySelector('#attempts')!;
-  const children = attemptsWrapper.children as HTMLCollectionOf <HTMLElement>;
-  console.log(children)
-  for (let i=0; i<attempts; i++) {
+  const children = attemptsWrapper.children as HTMLCollectionOf<HTMLElement>;
+  for (let i = 0; i < attempts; i++) {
     children[i].style.backgroundColor = 'var(--wrong)';
   }
   if (attempts >= 3) {
