@@ -12,4 +12,12 @@ This TypeScript app represents a platform for language learning.
 
 It has a dictionary, personal cabinet, minigames, statistics and more!
 
-Feel free to have a look [here](https://vladimirparmon.github.io/RS-Lang/index.html)
+## Feel free to have a look [here](https://vladimirparmon.github.io/RS-Lang/index.html)
+
+## UPDATE: Project has been updated to work with mock data instead of an actual server
+
+In 2022 the project's server became unavailable: Heroku became paid only and mongoDB stopped working because of sanctions.
+
+Since it was not my backend (it was provided by the people from RSSchool on voluntary basis) and this is only a learning project I just mocked the data inside the app. The purpose of this app is to showcase that I can make cool responsive apps even without frameworks, to show minigames, cool design, etc...
+
+One can still have a decent look, it's just no longer calls an actual API.
