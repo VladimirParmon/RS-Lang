@@ -37,7 +37,7 @@ export const filesUrl =
 // };
 
 export const getSingleWord = async (id: string) => {
-  const response = await fetch('../assets/words.json')
+  const response = await fetch('assets/words.json')
     .then((res) => res.json())
     .then((data) => data.find((el: any) => (el._id.$oid = id)));
   return response;
@@ -302,7 +302,6 @@ export const putUserSettings = async () => {
 };
 
 export const getUserSettings = async () => {
-  console.log('getUserSettings');
   // const response = await fetch(`${users}/${storage.userId}/settings`, {
   //   method: 'GET',
   //   headers: {
@@ -354,7 +353,6 @@ export const putUserStatistics = async () => {
 //};
 
 export const getUserStatistics = async () => {
-  console.log('getUserStatistics');
   // let info;
   // const response = await fetch(`${users}/${storage.userId}/statistics`, {
   //   method: 'GET',
