@@ -107,7 +107,7 @@ h1 {
 }
 
 #page {
-  width: 270px;
+  width: 240px;
   background-color: var(--trio2);
   margin-right: 15px;
   justify-content: space-between;
@@ -163,7 +163,7 @@ h1 {
 
 .pageControls div span {
   font-family: var(--font2);
-  font-size: 20px;
+  font-size: 18px;
 }
 
 #games {
@@ -199,7 +199,7 @@ h1 {
 .gamesList {
   right: 30%;
   height: 170px;
-} 
+}
 
 .gamesList div {
   white-space: nowrap;
@@ -267,7 +267,6 @@ h1 {
   height: 20px;
   pointer-events: none;
 }
-
 
 #authAdditionalOptions label:hover img,
 #authAdditionalOptions div:hover img {
