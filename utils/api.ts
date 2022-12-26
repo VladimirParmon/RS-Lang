@@ -18,6 +18,7 @@ import {
 } from './storage';
 import { adjustLoginButton } from '../master';
 import { adjustStatsButton, getDate } from './misc';
+import * as myJSON from '../assets/words.json';
 
 // In 2022 Heroku became paid only and mongoDB is unavailable because of sanctions.
 // I did not write the back end, and this is only a training project, this is why I just
@@ -36,11 +37,13 @@ export const filesUrl =
 //   return await response.json();
 // };
 
-export const getSingleWord = async (id: string) => {
-  const response = await fetch('assets/words.json')
-    .then((res) => res.json())
-    .then((data) => data.find((el: any) => (el._id.$oid = id)));
-  return response;
+export const getSingleWord = (id: string) => {
+  // const response = await fetch('assets/words.json')
+  //   .then((res) => res.json())
+  //   .then((data) => data.find((el: any) => (el._id.$oid = id)));
+  // return response;
+  const data = myJSON.data.find((el: any) => (el._id.$oid = id));
+  return { ...data, id: data!._id.$oid } as WordInfo;
 };
 
 // export const getWords = async (group: number, page: number) => {
@@ -48,15 +51,21 @@ export const getSingleWord = async (id: string) => {
 //   return await response.json();
 // };
 
-export const getWords = async (group: number, page: number) => {
-  const response = await fetch('../assets/words.json')
-    .then((res) => res.json())
-    .then((data) =>
-      data
-        .map((raw: any) => ({ ...raw, id: raw._id.$oid }))
-        .filter((item: any) => item.group === group && item.page === page)
-    );
-  return response;
+export const getWords = (group: number, page: number) => {
+  // const response = await fetch('../assets/words.json')
+  //   .then((res) => res.json())
+  //   .then((data) =>
+  //     data
+  //       .map((raw: any) => ({ ...raw, id: raw._id.$oid }))
+  //       .filter((item: any) => item.group === group && item.page === page)
+  //   );
+  // return response;
+  const data = myJSON.data
+    .map((raw: any) => ({ ...raw, id: raw._id.$oid }))
+    .filter(
+      (item: any) => item.group === group && item.page === page
+    ) as WordInfo[];
+  return data;
 };
 
 export const getAllWords = async (group: number, single?: string) => {

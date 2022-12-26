@@ -8,22 +8,27 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-    ],
+        exclude: /node_modules/
+      }
+    ]
   },
   devtool: 'inline-source-map', // this has changed
   devServer: {
-    static: './',
+    static: './'
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js']
   },
   output: {
     filename: './main.js',
-    path: path.resolve(__dirname, ''),
+    path: path.resolve(__dirname, '')
   },
   optimization: {
-    emitOnErrors: true,
+    emitOnErrors: true
   },
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+  }
 };
